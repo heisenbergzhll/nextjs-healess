@@ -158,7 +158,6 @@ export default function StoreSwitcher({
                       aria-hidden
                     />
                     <div className="max-h-[20rem] overflow-auto rounded-md bg-white text-base shadow-xl ring-1 ring-black/5">
-
                       <ListboxOptions className="gap-2">
                         <Typography variant='body1' className='px-4 pt-3 py-2 text-center'>Select Country</Typography>
                         {STORE_LIST?.map((store: any) => (

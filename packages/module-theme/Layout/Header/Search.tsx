@@ -7,9 +7,9 @@ import {
   ComboboxOptions,
   Transition,
 } from '@headlessui/react';
+import ArrowForwardIosOutlinedIcon from '@mui/icons-material/ArrowForwardIosOutlined';
 import Search_POP_Query from '@voguish/module-theme/graphql/search.graphql';
 import { Fragment, useEffect, useState } from 'react';
-
 export interface SearchPopResult {
   xsearchPopularSearches: {
     code: string,
@@ -119,15 +119,17 @@ export default function Search() {
             />
             <button
               type="submit"
-              className="flex shrink-0 items-center justify-center rounded-full p-2 ltr:mr-2 rtl:ml-2 transition-opacity hover:opacity-90"
+              className="flex shrink-0 items-center justify-center rounded-full p-2 ltr:mr-1 rtl:ml-2 transition-opacity hover:opacity-90"
               style={{
                 backgroundColor: SEARCH_BUTTON_BORDER,
-                border: `2px solid ${SEARCH_BUTTON_BORDER}`,
+                border: `1px solid ${SEARCH_BUTTON_BORDER}`,
               }}
               aria-label="Search"
             >
-              <svg
-                className="h-4 w-4 text-white"
+
+              <ArrowForwardIosOutlinedIcon className="h-4 w-4 text-white" />
+              {/* <svg
+               
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -139,7 +141,7 @@ export default function Search() {
                   strokeWidth={2}
                   d="M14 5l7 7m0 0l-7 7m7-7H3"
                 />
-              </svg>
+              </svg> */}
             </button>
           </div>
 

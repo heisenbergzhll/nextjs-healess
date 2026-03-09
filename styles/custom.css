@@ -27,7 +27,7 @@ button {
   --color-main: 100 104 122;
   --color-primary: 0 0 0; /* Text, Primary Button */
   /* --color-brand: 17 94 89; accessbility issue*/
-  --color-brand: 15 118 110; /*resolved by this*/
+  --color-brand: 187 116 47; /*resolved by this*/
   --color-blue_magenta: #262441;
   --color-tab: 248 248 248; /* Customer Tab Hover background */
   --color-star: 255 201 48;

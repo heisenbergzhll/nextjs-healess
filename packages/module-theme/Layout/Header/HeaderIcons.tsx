@@ -1,4 +1,3 @@
-import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
 import {
   CART_DATA,
@@ -12,9 +11,7 @@ import CurrencySwitcher from '@voguish/module-store/CurrencySwitcher';
 import {
   IconAccount,
   IconBag,
-  IconSearch,
-  IconSell,
-  IconWhishList,
+  IconWhishList
 } from '@voguish/module-theme/components/elements/Icon';
 import ErrorBoundary from '@voguish/module-theme/components/ErrorBoundary';
 import Link from 'next/link';
@@ -59,7 +56,7 @@ const HeaderIcons = ({ profileUrl, isAccountLoggedIn }: HeaderTypes) => {
   return (
     <ErrorBoundary>
       <div className="flex items-center justify-center gap-x-2 md:gap-x-3 xl:gap-x-4">
-        {storeData && (
+        {/* {storeData && (
           <Link aria-label="Got to marketplace" href="/marketplace">
             <button
               aria-label="Go to marketplace"
@@ -68,9 +65,9 @@ const HeaderIcons = ({ profileUrl, isAccountLoggedIn }: HeaderTypes) => {
               <IconSell hover="stroke-black group-hover:stroke-brand duration-150" />
             </button>
           </Link>
-        )}
+        )} */}
 
-        <Link
+        {/* <Link
           aria-label="Go to wishlist"
           href={token ? '/customer/compare' : '/customer/account/login'}
         >
@@ -80,9 +77,9 @@ const HeaderIcons = ({ profileUrl, isAccountLoggedIn }: HeaderTypes) => {
           >
             <CompareArrowsIcon className="text-3xl text-black duration-150 group-hover:text-brand md:text-4xl" />
           </button>
-        </Link>
+        </Link> */}
 
-        <Link
+        {/* <Link
           prefetch
           aria-label="Go to search"
           href="/catalogsearch"
@@ -94,7 +91,7 @@ const HeaderIcons = ({ profileUrl, isAccountLoggedIn }: HeaderTypes) => {
           >
             <IconSearch hover="fill-black group-hover:fill-brand duration-150" />
           </button>
-        </Link>
+        </Link> */}
         <div className="relative flex items-center justify-center p-0 border-none outline-none cursor-pointer bg-t justify-centerransparent h-7 w-7 hover:text-brand focus:ring-primary/5 md:h-8 md:w-8 -lg:hidden">
           <CurrencySwitcher />
         </div>

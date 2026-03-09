@@ -148,33 +148,32 @@ export const fadeInUp = {
 export const IS_SELLER = 'yes';
 export const PAYPAL_CLIENT_ID = 'ATDZ9_ECFh-fudesZo4kz3fGTSO1pzuWCS4IjZMq4JKdRK7hQR3Rxyafx39H2fP363WtmlQNYXjUiAae';
 
-const WEB_SITE = [
-  {
-    id: 1,
-    siteValue: 'gb',
-    siteName: 'unineed international site',
-    icon: 'gb',
-    link: 'https://www.unineed.com/',
-  },
-  {
-    id: 2,
-    siteValue: 'cn',
-    siteName: 'unineed 中文网站',
-    icon: 'cn',
-    link: 'https://cn.unineed.com/',
-  },
-  {
-    id: 3,
-    siteValue: 'us',
-    siteName: 'unineed us',
-    icon: 'us',
-    link: 'https://us.unineed.com/',
-  },
-  {
-    id: 4,
-    siteValue: 'mex',
-    siteName: 'unineed mexico',
-    icon: 'mex',
-    link: 'https://mx.unineed.com/',
-  },
+export const STORE_LIST = [{
+  store_code: "default",
+  thumbnail: "",
+  locale: "en",
+  store_name: "United Kingdom",
+  link: "https://www.unineed.com/"
+},
+{
+  store_code: "uus_2",
+  thumbnail: "",
+  locale: "us",
+  store_name: "Default Store View",
+  link: "https://us.unineed.com/"
+},
+{
+  store_code: "cn_default",
+  thumbnail: "",
+  locale: "cn",
+  store_name: "China",
+  link: "https://cn.unineed.com/"
+},
+{
+  store_code: "mx_website_store_view",
+  thumbnail: "",
+  locale: "mx",
+  store_name: "Mexico",
+  link: "https://mx.unineed.com/"
+}
 ];

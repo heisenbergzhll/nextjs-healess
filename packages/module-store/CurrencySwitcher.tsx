@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/client';
-import { Listbox, Transition } from '@headlessui/react';
+import { Listbox, ListboxButton, ListboxOption, ListboxOptions, Transition } from '@headlessui/react';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
@@ -110,6 +110,7 @@ function CurrencySwitcher({
         return codeA.localeCompare(codeB);
       }) || [];
 
+  console.log('header', header);
   return currency ? (
     <ErrorBoundary>
       {header ? (
@@ -117,7 +118,6 @@ function CurrencySwitcher({
           {({ open }) => (
             <div className="relative">
               <ErrorBoundary>
-                {' '}
                 <Listbox.Button className="relative flex items-center justify-center text-2xl font-light bg-transparent border-0 cursor-pointer">
                   {loading ? (
                     <div className="rounded-full h-9 w-9 animate-pulse bg-gray-50" />
@@ -171,8 +171,8 @@ function CurrencySwitcher({
                             <ErrorBoundary>
                               <span
                                 className={`block truncate ${selected
-                                    ? 'font-medium text-brand'
-                                    : 'font-normal'
+                                  ? 'font-medium text-brand'
+                                  : 'font-normal'
                                   }`}
                               >
                                 {value?.code}
@@ -193,10 +193,9 @@ function CurrencySwitcher({
           {({ open }) => (
             <div className="relative mt-1">
               <ErrorBoundary>
-                <Listbox.Button className="relative -mx-0.5 -mt-1 flex w-60 cursor-pointer items-center justify-start rounded-md border-2 border-solid border-commonBorder bg-transparent px-3.5 py-2.5 text-base font-medium capitalize leading-5 tracking-wider text-slate-700">
+                <ListboxButton className="relative -mx-0.5 -mt-1 flex w-60 cursor-pointer items-center justify-start rounded-md border-2 border-solid border-commonBorder bg-transparent px-3.5 py-2.5 text-base font-medium capitalize leading-5 tracking-wider text-slate-700">
                   <div className="flex items-center justify-between w-full my-0 truncate">
                     <span className="flex w-11/12 gap-1 truncate rtl:flex-row-reverse">
-                      {' '}
                       <span>{t('Currency')}</span> :{' '}
                       <span>{currency || ''}</span>
                     </span>
@@ -205,10 +204,10 @@ function CurrencySwitcher({
                         }`}
                     />
                   </div>
-                </Listbox.Button>
+                </ListboxButton>
               </ErrorBoundary>
 
-              <Transition.Root
+              <Transition
                 as={Fragment}
                 enterFrom="translate-y-0 opacity-0"
                 enterTo="translate-y-2 opacity-100"
@@ -217,7 +216,7 @@ function CurrencySwitcher({
                 leaveFrom="translate-y-2 opacity-100"
                 leaveTo="translate-y-0 opacity-0"
               >
-                <Listbox.Options className="absolute z-10 mt-0.5 max-h-60 w-60 list-none overflow-auto rounded-md bg-white py-2 pl-0 text-base shadow-xl ring-1 ring-black/5 focus:outline-none sm:text-sm">
+                <ListboxOptions className="absolute z-10 mt-0.5 max-h-60 w-60 list-none overflow-auto rounded-md bg-white py-2 pl-0 text-base shadow-xl ring-1 ring-black/5 focus:outline-none sm:text-sm">
                   {currencyList?.map(
                     (
                       value: {
@@ -226,8 +225,7 @@ function CurrencySwitcher({
                       index: Key | null | undefined
                     ) => (
                       <ErrorBoundary key={index}>
-                        {' '}
-                        <Listbox.Option
+                        <ListboxOption
                           className={({ active }) =>
                             `relative cursor-pointer hover:bg-brand/10 duration-150 mx-2 rounded-md select-none px-4 py-2 ${active ? ' text-brand' : 'text-gray-900'
                             }`
@@ -244,12 +242,12 @@ function CurrencySwitcher({
                               </span>
                             </ErrorBoundary>
                           )}
-                        </Listbox.Option>
+                        </ListboxOption>
                       </ErrorBoundary>
                     )
                   )}
-                </Listbox.Options>
-              </Transition.Root>
+                </ListboxOptions>
+              </Transition>
             </div>
           )}
         </Listbox>

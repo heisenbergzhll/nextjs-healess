@@ -14,7 +14,9 @@ const NextNProgress = dynamic(() => import('nextjs-progressbar'));
 const SideBar = dynamic(() => import('./SideBar'));
 const Search = dynamic(() => import('./Search'));
 
-
+const StoreSwitcher = dynamic(
+  () => import('@voguish/module-store/StoreSwitcher')
+);
 
 const HeaderIcons = dynamic(() => import('./HeaderIcons'), {
   loading: () => (
@@ -59,6 +61,7 @@ const Header = ({ isAccountLoggedIn }: { isAccountLoggedIn: boolean }) => {
   const [open, setOpen] = useState(false);
   const node = useRef<any>();
 
+
   return (
     <ErrorBoundary>
       <NextNProgress
@@ -100,9 +103,8 @@ const Header = ({ isAccountLoggedIn }: { isAccountLoggedIn: boolean }) => {
                   />
                 </Link>
               </div>
-              <div className="sm:hidden">
-                <Search />
-              </div>
+              <StoreSwitcher />
+              <Search />
               {/* Flyout menus */}
               {/* <MegaMenu menuItems={sortedMenu} activeMenus={activeMenus} /> */}
               <div

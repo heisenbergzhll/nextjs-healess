@@ -5,11 +5,11 @@ import {
   getKeyFromStorage,
 } from '@store/local-storage';
 import { setCartOpen } from '@store/store';
+import AccountDropdown from '@voguish/module-customer/Components/AccountDropdown/AccountDropdown';
 import { useToken } from '@voguish/module-customer/hooks/useToken';
 import Cart from '@voguish/module-quote/Components/Cart/Cart';
 import CurrencySwitcher from '@voguish/module-store/CurrencySwitcher';
 import {
-  IconAccount,
   IconBag,
   IconWhishList
 } from '@voguish/module-theme/components/elements/Icon';
@@ -95,14 +95,6 @@ const HeaderIcons = ({ profileUrl, isAccountLoggedIn }: HeaderTypes) => {
         <div className="relative flex items-center justify-center p-0 border-none outline-none cursor-pointer bg-t justify-centerransparent h-7 w-7 hover:text-brand focus:ring-primary/5 md:h-8 md:w-8 -lg:hidden">
           <CurrencySwitcher />
         </div>
-        <Link aria-label="Go to account" href={profileUrl}>
-          <button
-            aria-label="Go to account"
-            className="relative flex items-center justify-center p-0 bg-transparent border-none outline-none cursor-pointer group h-7 w-7 hover:text-brand focus:ring-primary/5 md:h-8 md:w-8"
-          >
-            <IconAccount hover="stroke-black group-hover:stroke-brand duration-150" />
-          </button>
-        </Link>
 
         <Link
           aria-label="Go to wishlist"
@@ -115,8 +107,24 @@ const HeaderIcons = ({ profileUrl, isAccountLoggedIn }: HeaderTypes) => {
             <IconWhishList hover="stroke-black group-hover:stroke-brand duration-150" />
           </button>
         </Link>
+        <div className="relative flex items-center justify-center p-0 border-none outline-none cursor-pointer bg-t justify-centerransparent h-7 w-7 hover:text-brand focus:ring-primary/5 md:h-8 md:w-8 -lg:hidden">
+          <AccountDropdown profileUrl={profileUrl} isLoggedIn={!!token} />
+        </div>
+        <div className="w-0.5 h-6 bg-[#E2E8F0]"></div>
 
         <button
+          type="button"
+          onClick={toggleCart(true)}
+          aria-label={`Cart contains ${itemCount} items open to view them`}
+          className="hidden items-center gap-2 rounded-full border-none bg-slate-900 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand md:inline-flex"
+        >
+          <span className="flex h-5 w-5 items-center justify-center">
+            <IconBag />
+          </span>
+          <span className="whitespace-nowrap">My Bag</span>
+        </button>
+
+        {/* <button
           aria-describedby="cart open"
           aria-label={`Cart contains ${itemCount} items open to view them`}
           onClick={toggleCart(true)}
@@ -133,7 +141,7 @@ const HeaderIcons = ({ profileUrl, isAccountLoggedIn }: HeaderTypes) => {
               {itemCount}
             </span>
           )}
-        </button>
+        </button> */}
         {cartOpen && !isOpen ? (
           ''
         ) : (

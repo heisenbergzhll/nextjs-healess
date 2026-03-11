@@ -152,7 +152,7 @@ export default function MegaMenu({ menuItems, activeMenus }: MegaMenuProps) {
             <Box onMouseLeave={handlePopoverClose}>
               <ClickAwayListener onClickAway={handlePopoverClose}>
                 <Popper
-                  className="w-full mt-[138px] z-[99999]  bg-white shadow-2xl shadow-neutral-500/70"
+                  className="w-full mt-[138px] z-[50]  bg-white shadow-2xl shadow-neutral-500/70"
                   open={open}
                   anchorEl={anchorEl.current}
                   transition

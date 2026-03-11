@@ -47,10 +47,7 @@ export default function StoreSwitcher({
   const storeEvent: any = STORE_LIST.find(
     (store: any) => store.locale === locale && store.locale
   );
-  console.log('storeEvent', storeEvent)
-  console.log('storeCodeItem', storeCodeItem)
   const [code, setCode] = useState(storeEvent);
-  console.log('storeCodeItem', storeCodeItem)
   const manageStore = () => {
     dispatch(setCurrentStore(storeCodeItem));
     if (!isSidebar) {
@@ -58,8 +55,6 @@ export default function StoreSwitcher({
     }
     setCookie(SELECTED_STORE, storeCodeItem);
   };
-
-
   useEffect(() => {
     dispatch(setCurrentStore(storeCodeItem));
     // router.push({ pathname, query }, asPath, {

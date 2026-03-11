@@ -5,6 +5,7 @@
   "sideEffects": false,
   "scripts": {
     "dev": "next dev",
+    "dev:3001": "NODE_OPTIONS='--max-old-space-size=3072' next dev -p 3001",
     "build": "NODE_ENV=production next lint && next build",
     "start": "next start",
     "prepare": "husky install",

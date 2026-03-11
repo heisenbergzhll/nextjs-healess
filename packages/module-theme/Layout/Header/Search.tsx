@@ -37,13 +37,7 @@ export default function Search() {
     useLazyQuery<SearchPopResult>(Search_POP_Query);
   const suggestItems = suggestData?.xsearchPopularSearches?.items ?? [];
 
-
-
-
   const filterItems = query ? searchItems : suggestItems;
-  console.log('filterItems', filterItems)
-  console.log('searchItems', searchItems)
-  console.log('suggestItems', suggestItems)
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (query.trim().length >= 3) {

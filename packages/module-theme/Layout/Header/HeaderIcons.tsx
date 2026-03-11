@@ -108,7 +108,7 @@ const HeaderIcons = ({ profileUrl, isAccountLoggedIn }: HeaderTypes) => {
           </button>
         </Link>
         <div className="relative flex items-center justify-center p-0 border-none outline-none cursor-pointer bg-t justify-centerransparent h-7 w-7 hover:text-brand focus:ring-primary/5 md:h-8 md:w-8 -lg:hidden">
-          <AccountDropdown profileUrl={profileUrl} isLoggedIn={!!token} />
+          <AccountDropdown />
         </div>
         <div className="w-0.5 h-6 bg-[#E2E8F0]"></div>
 

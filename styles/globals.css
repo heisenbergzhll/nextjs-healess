@@ -17,6 +17,7 @@ html {
   overflow:auto !important;       /* 始终显示纵向滚动条位置 */
   scrollbar-gutter: stable; /* 预留滚动条空间，防止布局抖动 */
   padding:0!important;
+  font-family: Lexend, sans-serif;
 }
 * {
   box-sizing: border-box;

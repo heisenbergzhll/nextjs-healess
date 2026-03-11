@@ -46,13 +46,14 @@ export default function Search() {
   console.log('suggestItems', suggestItems)
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // 提交搜索，可接入路由或搜索 API
-    if (query.trim()) {
-      // router.push(`/search?q=${encodeURIComponent(query)}`);
+    if (query.trim().length >= 3) {
+      getPopularSearch({
+        variables: { search: query }
+      });
     }
   };
   const handleSearch = () => {
-    if (query?.length >= 3) {
+    if (query.trim()?.length >= 3) {
       getPopularSearch({
         variables: { search: query }
       });
@@ -63,7 +64,7 @@ export default function Search() {
   }
   useEffect(() => {
     if (query.length < 3) return;
-    handleSearch();// cleanup = Vue clearTimeout
+    handleSearch();
   }, [query]);
 
   useEffect(() => {
@@ -83,7 +84,7 @@ export default function Search() {
         immediate
       >
         <div className="relative w-full">
-          <div className="flex w-full items-center overflow-hidden rounded-3xl border border-[#F1F5F9] bg-[#F1F5F9] focus-within:ring-1 focus-within:ring-[#BB742F]">
+          <div className="flex w-full items-center overflow-hidden rounded-full border border-[#F1F5F9] bg-[#F1F5F9] focus-within:ring-1 focus-within:ring-[#BB742F] hover:border-[#BB742F] hover:bg-brand20">
             <div
               className="flex shrink-0 items-center justify-center rounded-full border-2 p-2 ltr:ml-2 rtl:mr-2"
               style={{ borderColor: SEARCH_BUTTON_BORDER }}
@@ -106,8 +107,8 @@ export default function Search() {
             </div>
 
             <ComboboxInput
-              className="min-w-0 flex-1 border-0 bg-transparent py-2.5 pl-2 pr-2 text-gray-900 placeholder-gray-500 focus:ring-0 focus-visible:outline-none"
-              placeholder="Search..."
+              className="min-w-0 flex-1 border-0 bg-transparent font-Lexend font-medium py-4 pl-2 pr-2 text-gray-900 placeholder-gray-500 focus:ring-0 focus-visible:outline-none"
+              placeholder="Search for 'Arabic Fragrances'..."
               aria-label="Search"
               displayValue={() => query}
               onChange={(e) => setQuery(e.target.value)}
@@ -117,13 +118,14 @@ export default function Search() {
                 }
               }}
             />
+            {/* bg-black/20 */}
             <button
               type="submit"
-              className="flex shrink-0 items-center justify-center rounded-full p-2 ltr:mr-1 rtl:ml-2 transition-opacity hover:opacity-90"
-              style={{
-                backgroundColor: SEARCH_BUTTON_BORDER,
-                border: `1px solid ${SEARCH_BUTTON_BORDER}`,
-              }}
+              className={`flex shrink-0 items-center border-0  justify-center rounded-full p-2 ltr:mr-2 rtl:ml-2 transition-opacity hover:opacity-90 
+                ${query.length >= 3
+                  ? 'bg-brand'
+                  : 'bg-black/20'
+                }`}
               aria-label="Search"
             >
 

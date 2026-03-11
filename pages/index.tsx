@@ -22,8 +22,8 @@ export default Home;
 
 export async function getServerSideProps({ locale }: { locale: string }) {
   const pageProps: PageOptions = {
-    title: 'Home Page - Voguish',
-    description: 'Welcome to Voguish Theme',
+    title: 'Home Page - Unineed',
+    description: 'Welcome to Unineed',
     showBreadcrumb: false,
   };
 

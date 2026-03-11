@@ -1516,8 +1516,15 @@ export function AirwallexCard() {
     />
   </svg>
 }
+export function MenuIcon() {
+  return <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M2 6H10" stroke="white" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M2 3H10" stroke="white" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M2 9H10" stroke="white" stroke-linecap="round" stroke-linejoin="round" />
+  </svg>
+}
 
 export const ALL_ICONS = [IconCart, IconSearch, IconBag, IconWhishList, IconAccount, Sort, Filter, IconSell, EmptyCartIcon, EmptyPageIcon, EditIcon, DeleteIcon, SuccessIcon, WarnIcon, NotFountIcon, ServerErrorIcon, LogoSmall, LogoFull, NoData,
-  Payment, Returns, Security, Delivery, WhishlistDown, TrashIcon, AddCartWhish
+  Payment, Returns, Security, Delivery, WhishlistDown, TrashIcon, AddCartWhish, MenuIcon
 ]
 

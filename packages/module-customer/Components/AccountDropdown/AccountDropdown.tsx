@@ -15,9 +15,6 @@ type AccountDropdownProps = {
 export default function AccountDropdown({
 }: AccountDropdownProps) {
   const { data: session, status } = useSession();
-
-  console.log('session', session)
-  console.log('status', status)
   return (
     <Popover className="relative">
       {({ close }) => (

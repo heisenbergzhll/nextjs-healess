@@ -145,12 +145,10 @@ const Layout = ({
   return (
     <Fragment>
       <Head>
-        {!storeLoading && (
-          <link
-            rel="shortcut icon"
-            href={baseUrl ? `${baseUrl}media/favicon/${favIcon}` : ''}
-          />
-        )}
+        <link
+          rel="shortcut icon"
+          href={'/assets/icons/favicon.ico'}
+        />
         {!storeLoading && (
           <meta
             name="msapplication-TileImage"
@@ -177,15 +175,15 @@ const Layout = ({
           property="og:url"
           content={process?.env?.MAGENTO_ENDPOINT || ''}
         />
-        <meta property="og:site_name" content="Voguish" />
+        <meta property="og:site_name" content="Unineed" />
 
         <title>
-          {t(`${decodeHtml(title || storeConfig?.default_title || 'Voguish')}`)}
+          {t(`${decodeHtml(title || storeConfig?.default_title || 'Unineed')}`)}
         </title>
         <meta
           name="title"
           content={t(
-            decodeHtml(title || storeConfig?.default_title || 'Voguish')
+            decodeHtml(title || storeConfig?.default_title || 'Unineed')
           )}
         />
         <meta
@@ -199,7 +197,7 @@ const Layout = ({
           name="description"
           content={t(
             decodeHtml(
-              description || storeConfig?.default_description || 'Voguish'
+              description || storeConfig?.default_description || 'Unineed'
             )
           )}
         />
@@ -210,7 +208,7 @@ const Layout = ({
       ) : (
         <InfoProvider>
           <main
-            aria-labelledby={t(decodeHtml(title || 'Voguish'))}
+            aria-labelledby={t(decodeHtml(title || 'Unineed'))}
             className="grid content-between mt-[4rem] min-h-screen mx-auto overflow-x-hidden antialiased scroll-mt-5 scroll-smooth"
           >
             <div>

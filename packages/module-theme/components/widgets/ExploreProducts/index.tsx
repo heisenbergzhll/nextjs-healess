@@ -20,6 +20,7 @@ const ExploreProducts = ({
   const { t } = useTranslation('common');
 
   const placeHolders = new Array(5).fill(0);
+  console.log('products?.topRatedProductList', products?.topRatedProductList)
   const item =
     isValidArray(products?.topRatedProductList) &&
     isValidArray(products?.hotDealsProductList) &&

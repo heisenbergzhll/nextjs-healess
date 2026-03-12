@@ -197,13 +197,13 @@ export interface CustomOptions {
   uid?: string;
   title: string;
   __typename:
-    | 'CustomizableRadioOption'
-    | 'CustomizableDropDownOption'
-    | 'CustomizableFileOption'
-    | 'CustomizableMultipleOption'
-    | 'CustomizableCheckboxOption'
-    | 'CustomizableAreaOption'
-    | 'CustomizableFieldOption';
+  | 'CustomizableRadioOption'
+  | 'CustomizableDropDownOption'
+  | 'CustomizableFileOption'
+  | 'CustomizableMultipleOption'
+  | 'CustomizableCheckboxOption'
+  | 'CustomizableAreaOption'
+  | 'CustomizableFieldOption';
   sort_order: number;
   required: boolean;
   file_value: {
@@ -251,17 +251,18 @@ export interface ProductItemInterface {
   uid: string | number;
   id: string | number;
   name: string;
+  brand?: string;
   loading?: boolean;
   sku: string;
   options: CustomOptions[];
   url_key: string;
   __typename:
-    | 'SimpleProduct'
-    | 'ConfigurableProduct'
-    | 'BundleProduct'
-    | 'GroupedProduct'
-    | 'DownloadableProduct'
-    | 'VirtualProduct';
+  | 'SimpleProduct'
+  | 'ConfigurableProduct'
+  | 'BundleProduct'
+  | 'GroupedProduct'
+  | 'DownloadableProduct'
+  | 'VirtualProduct';
   thumbnail?: ProductThumbnail;
   image?: ProductImage;
   configurable_options: ConfigurableProductOption[];
@@ -312,7 +313,7 @@ export interface ConfigurableVariant {
   attributes: ConfigurableAttributeOption[];
 }
 
-export interface ProductPageProps {}
+export interface ProductPageProps { }
 /**
  * Filter Equal Type
  */
@@ -435,9 +436,9 @@ export type FilterRangeTypeInput = {
  */
 export type ProductAttributeFilterInput = {
   [key: string]:
-    | FilterEqualTypeInput
-    | FilterMatchTypeInput
-    | FilterRangeTypeInput;
+  | FilterEqualTypeInput
+  | FilterMatchTypeInput
+  | FilterRangeTypeInput;
 };
 
 /**

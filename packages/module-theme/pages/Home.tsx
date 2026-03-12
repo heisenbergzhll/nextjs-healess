@@ -89,9 +89,7 @@ const HomePage = ({ pageData }: { pageData: HomePageData }) => {
   const SECTION_COMPONENTS: Record<string, (item: any) => ReactNode> = {
     mainBanner: (item) => (
       <Suspense key={item.sortOrder} fallback={<MainBannerPlaceHolder />}>
-        {isValidObject(items?.mainBanner?.[0]) && (
-          <MainBanner bannerData={items.mainBanner[0]} />
-        )}
+        <MainBanner />
       </Suspense>
     ),
 
@@ -129,8 +127,8 @@ const HomePage = ({ pageData }: { pageData: HomePageData }) => {
 
     exploreProductCarousel: (item) =>
       isValidArray(items?.exploreProductCarousel?.topRatedProductList) &&
-      isValidArray(items?.exploreProductCarousel?.hotDealsProductList) &&
-      isValidArray(items?.exploreProductCarousel?.topSellingProductList) ? (
+        isValidArray(items?.exploreProductCarousel?.hotDealsProductList) &&
+        isValidArray(items?.exploreProductCarousel?.topSellingProductList) ? (
         <Suspense key={item.sortOrder} fallback={<ExploreFall />}>
           <ExploreProducts
             products={items.exploreProductCarousel}

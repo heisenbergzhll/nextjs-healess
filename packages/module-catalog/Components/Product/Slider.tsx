@@ -48,9 +48,8 @@ const Slider = ({
   return (
     <ErrorBoundary>
       <div
-        className={`md:pl-0 -mb-5 max-w-[98vw] mx-auto 2xl:max-w-[91rem] product_card related_products ${
-          isValidArray(product) && product.length > 3 && extraClass
-        }`}
+        className={`md:pl-0 -mb-5 max-w-[98vw] mx-auto 2xl:max-w-[91rem] product_card related_products ${isValidArray(product) && product.length > 3 && extraClass
+          }`}
       >
         {loading ? (
           <Containers>
@@ -211,8 +210,7 @@ const Slider = ({
                   <BannerRight />
                 </button>
               )}
-            </div>
-          )
+            </div>)
         )}
       </div>
     </ErrorBoundary>

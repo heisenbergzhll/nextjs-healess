@@ -209,7 +209,7 @@ const Layout = ({
         <InfoProvider>
           <main
             aria-labelledby={t(decodeHtml(title || 'Unineed'))}
-            className="grid content-between mt-[4rem] min-h-screen mx-auto overflow-x-hidden antialiased scroll-mt-5 scroll-smooth"
+            className="grid content-between mt-[8.8rem] min-h-screen mx-auto overflow-x-hidden antialiased scroll-mt-5 scroll-smooth"
           >
             <div>
               <Header isAccountLoggedIn={isAccountLoggedIn} />

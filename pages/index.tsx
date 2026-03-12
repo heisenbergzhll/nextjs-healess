@@ -9,6 +9,7 @@ import { HomePageData } from '@voguish/module-theme/types/home-page';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 const homePageCache = new LRUCache<any>(50, 5);
+// const homePageCache = new LRUCache<any>(5, 1);
 
 const Home = ({ pageData }: { pageData: HomePageData }) => {
   return (
@@ -30,6 +31,7 @@ export async function getServerSideProps({ locale }: { locale: string }) {
   try {
     const cacheKey = `homepage_${locale}`;
     const cachedData = homePageCache.get(cacheKey);
+    console.log('cachedData', cachedData)
 
     if (cachedData) {
       return {
@@ -46,6 +48,7 @@ export async function getServerSideProps({ locale }: { locale: string }) {
       fetchPolicy: 'network-only',
       nextFetchPolicy: 'cache-first',
     });
+    console.log('fetch storeListResponse---', storeListResponse)
     const stores = storeListResponse?.availableStores || [];
     const selectedStore = getLocalStore(stores, locale);
     if (!selectedStore) {
@@ -66,6 +69,7 @@ export async function getServerSideProps({ locale }: { locale: string }) {
         nextFetchPolicy: 'cache-first',
       },
     });
+    console.log('fetch homePageResponse ---', homePageResponse)
 
     const pageData = homePageResponse;
 

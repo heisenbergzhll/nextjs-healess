@@ -82,13 +82,13 @@ const BestSellerSlider = ({
                     return `<span class="${className}"></span>`;
                   },
                 }}
-                className="best_seller_slider px-0 mx-0  w-[356px] h-[234px] round-[10px]"
+                className="best_seller_slider px-0 mx-0  w-[356px] h-[234px] rounded-[10px]"
               >
                 {product
                   ?.slice(0, 10)
                   ?.map((item: ProductItemInterface, index: number) => (
-                    <SwiperSlide className="!z-0 w-full h-full bg-gray-100 round-[10px]" key={item?.id || 0 + index}>
-                      <div className="w-full flex   p-4 gap-4 relative">
+                    <SwiperSlide className="!z-0 w-full h-full bg-gray-100 rounded-[10px]" key={item?.id || 0 + index}>
+                      <div className="flex p-4 gap-4 relative">
                         <Link
                           href={`/catalog/product/${item?.url_key}`}
                           className="!w-[80px] !h-[80px] block bg-white"
@@ -104,10 +104,10 @@ const BestSellerSlider = ({
                             className="!w-[80px] !h-[80px] object-contain border border-solid border-[#D2D2D2] object-center transition duration-500 cursor-pointer aspect-square md:object-scale-down rounded-sm"
                           />
                         </Link>
-                        <div>
+                        <div className="flex-1">
                           <div className="font-Lexend">
                             <p className="font-medium text-sm">{item.brand}</p>
-                            <p className=" text-black text-sm my-0 font-normal leading-[1.25rem] max-w-[95%] max-h-fit line-clamp-2">
+                            <p className=" text-black text-sm my-0 font-normal leading-[1.25rem] max-h-fit line-clamp-2">
                               {item?.name}
                             </p>
                           </div>
@@ -132,7 +132,7 @@ const BestSellerSlider = ({
                                 </p>
                               </div>
                             </ErrorBoundary>
-                            <div className="flex items-center mt-0.5 gap-1 pr-4">
+                            <div className="flex items-center mt-0.5 gap-1">
                               <ErrorBoundary>
                                 <Rating
                                   size="medium"

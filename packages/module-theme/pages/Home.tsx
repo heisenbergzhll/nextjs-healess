@@ -61,7 +61,10 @@ const HomeOfferSection = dynamic(
   () => import('../Layout/HomeItems/HomeOfferSection'),
   { ssr: false }
 );
-
+const Recommended = dynamic(
+  () => import('../components/widgets/Recommended'),
+  { ssr: false }
+);
 const HomePage = ({ pageData }: { pageData: HomePageData }) => {
   console.log('pageData', pageData);
   const loading = false;
@@ -295,10 +298,13 @@ const HomePage = ({ pageData }: { pageData: HomePageData }) => {
     }
   });
 
-
   return (
     <div className="grid mx-auto bg-white gap-y-10 lg:gap-y-16 max-w-[125rem]">
       {renderedSections}
+      <Recommended
+        products={items?.recentlyViewedProduct}
+        homeLoading={loading}
+      />
     </div>
   );
 };

@@ -18,7 +18,7 @@ const CategoryCard = ({ items }: { items: Benefit[] | any }) => {
           {items?.map((item: Benefit, index: number) => (
             <div
               key={item?.id || 0 + index}
-              className="flex  flex-col justify-center items-center cursor-pointer box-border gap-2 lg:gap-4  py-4 lg:py-8 md:px-5 xl:px-3 2xl:px-5  rounded-2xl border !border-solid border-gray-100 hover:border-brand hover:bg-[#FFF4EA]"
+              className="flex  flex-col justify-center items-center cursor-pointer box-border shadow-md gap-2 lg:gap-4  py-4 lg:py-8 md:px-5 xl:px-3 2xl:px-5  rounded-2xl border !border-solid border-gray-100 hover:border-brand hover:bg-[#FFF4EA]"
             >
               <div className="flex items-center justify-center text-center relative w-12  h-12 rounded-full bg-gray-50">
                 <Thumbnail

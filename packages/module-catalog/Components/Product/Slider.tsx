@@ -41,7 +41,6 @@ const Slider = ({
   loading?: any;
   rightClass?: string;
 }) => {
-  console.log('product', product)
   const swiperRef = useRef<any>();
   return (
     <ErrorBoundary>

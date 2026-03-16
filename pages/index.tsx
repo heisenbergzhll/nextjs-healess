@@ -9,7 +9,7 @@ import { HomePageData } from '@voguish/module-theme/types/home-page';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 const homePageCache = new LRUCache<any>(50, 5);
-// const homePageCache = new LRUCache<any>(5, 1);
+
 
 const Home = ({ pageData }: { pageData: HomePageData }) => {
   return (
@@ -55,7 +55,6 @@ export async function getServerSideProps({ locale }: { locale: string }) {
       console.warn(`No store found for locale: ${locale}`);
       return { notFound: true };
     }
-    console.log('selectedStore', selectedStore)
 
     const homePageResponse = await graphqlRequest({
       query: HOME_PAGE_QUERY,
@@ -70,7 +69,6 @@ export async function getServerSideProps({ locale }: { locale: string }) {
         nextFetchPolicy: 'cache-first',
       },
     });
-    console.log('fetch homePageResponse ---', homePageResponse)
 
     const pageData = homePageResponse;
 
@@ -79,8 +77,7 @@ export async function getServerSideProps({ locale }: { locale: string }) {
     });
 
     if (!isValidObject(pageData)) {
-      console.log('pageData')
-      // return { notFound: true };
+      return { notFound: true };
     }
 
     return {

@@ -10,7 +10,7 @@ export async function graphqlRequest({ query, variables, options = {} }: any) {
       variables,
       ...options,
     });
-
+    console.log('errors', errors)
     if (errors && Array.isArray(errors)) {
       const isAuthError = errors.some(
         (err) =>
@@ -34,7 +34,7 @@ export async function graphqlRequest({ query, variables, options = {} }: any) {
 
     return loading;
   } catch (error: any) {
-    console.warn(`${error?.message || JSON.stringify(error)}`);
+    console.warn(` feth-   ${error?.message || JSON.stringify(error)}`);
 
     if (
       error?.graphQLErrors?.some(

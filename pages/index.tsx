@@ -55,6 +55,7 @@ export async function getServerSideProps({ locale }: { locale: string }) {
       console.warn(`No store found for locale: ${locale}`);
       return { notFound: true };
     }
+    console.log('selectedStore', selectedStore)
 
     const homePageResponse = await graphqlRequest({
       query: HOME_PAGE_QUERY,
@@ -62,7 +63,7 @@ export async function getServerSideProps({ locale }: { locale: string }) {
       options: {
         context: {
           headers: {
-            store: selectedStore,
+            Store: selectedStore,
           },
         },
         fetchPolicy: 'network-only',
@@ -78,7 +79,8 @@ export async function getServerSideProps({ locale }: { locale: string }) {
     });
 
     if (!isValidObject(pageData)) {
-      return { notFound: true };
+      console.log('pageData')
+      // return { notFound: true };
     }
 
     return {

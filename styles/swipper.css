@@ -14,7 +14,7 @@
 }
 
 .product_card .mySwiper .swiper-wrapper {
-  @apply mx-auto gap-7 flex justify-start xl:max-w-fit !important;
+  @apply mx-auto flex justify-start xl:max-w-fit !important;
 }
 .product_card .mySwiper .swiper-slide {
   @apply max-w-fit mr-0.5 !important;

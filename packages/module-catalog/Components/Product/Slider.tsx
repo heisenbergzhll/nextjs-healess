@@ -5,11 +5,8 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 // Import Swiper styles
 import { decode } from 'base-64';
 
-import BannerLeft from '@packages/module-theme/components/elements/BannerLeft';
-import BannerRight from '@packages/module-theme/components/elements/BannerRight';
 import { FEEDS_FRACTION } from '@utils/Constants';
 import ErrorBoundary from '@voguish/module-theme/components/ErrorBoundary';
-import { HTMLRenderer } from '@voguish/module-theme/components/HTMLRenderer';
 import Containers from '@voguish/module-theme/components/ui/Container';
 import { InfoTextPlaceHolder } from '@voguish/module-theme/components/widgets/placeholders/InfoTextPlaceHolder';
 import dynamic from 'next/dynamic';
@@ -44,6 +41,7 @@ const Slider = ({
   loading?: any;
   rightClass?: string;
 }) => {
+  console.log('product', product)
   const swiperRef = useRef<any>();
   return (
     <ErrorBoundary>
@@ -70,7 +68,7 @@ const Slider = ({
         ) : (
           isValidArray(product) && (
             <div className="relative flex items-center h-full py-0 pl-6 mx-0 overflow-hidden cursor-pointer sm:pl-0 -3xs:px-6 sm:px-6 md:px-0 md:mx-auto">
-              {product.length > 3 && (
+              {/* {product.length > 3 && (
                 <button
                   aria-label="slide left"
                   aria-describedby="left arrow"
@@ -79,12 +77,10 @@ const Slider = ({
                 >
                   <BannerLeft />
                 </button>
-              )}
+              )} */}
 
               <Swiper
-                observeParents={true}
-                observer={true}
-                rewind={true}
+                spaceBetween={10}
                 navigation={false}
                 modules={[Navigation]}
                 slidesPerView={1}
@@ -107,24 +103,22 @@ const Slider = ({
                   },
                   // when window width is >= 1060px
                   1060: {
-                    slidesPerView: 4,
+                    slidesPerView: 5,
                   },
                 }}
-                className="px-0 mx-0 mySwiper"
+                className="px-0 mx-0"
               >
-                {product
-                  ?.slice(0, 10)
-                  ?.map((item: ProductItemInterface, index: number) => (
-                    <SwiperSlide className="!z-0" key={item?.id || 0 + index}>
-                      <article
-                        className="grid cursor-pointer  max-w-[98%] -mx-px group hover:shadow-[0px_4px_24px_0px_rgba(0,_0,_0,_0.11)] duration-300 -z-10 border-solid grid-rows-[min-content,43px,1fr] text-left bg-[#fff] rounded-md border gap-4 w-80 min-h-full
-                   border-[#D2D2D2]"
-                      >
-                        <div className="w-full !overflow-hidden !z-0 border-b border-solid border-0 max-w-full border-[#D2D2D2] relative h-[19.8rem] aspect-square truncate rounded-t-md">
-                          <Link
-                            className="!overflow-hidden "
-                            href={`/catalog/product/${item?.url_key}`}
-                          >
+                {product?.map((item: ProductItemInterface, index: number) => (
+                  <SwiperSlide className="!z-0" key={item?.id || 0 + index}>
+                    <article
+                      className="cursor-pointer  max-w-[98%] -mx-px group relative h-[25rem]  duration-300 -z-10  text-left bg-[#fff]  w-80 min-h-full"
+                    >
+                      <div className="w-full !overflow-hidden !z-0  max-w-full   aspect-square truncate rounded-t-md">
+                        <Link
+                          className="w-full block !overflow-hidden"
+                          href={`/catalog/product/${item?.url_key}`}
+                        >
+                          <div className="w-full block !overflow-hidden box-border border border-solid border-[#D2D2D2] rounded-2xl">
                             <Thumbnail
                               alt={item?.name}
                               thumbnail={
@@ -132,75 +126,75 @@ const Slider = ({
                                   item?.thumbnail?.url) as string
                               }
                               fill
-                              className="object-contain !overflow-hidden object-center transition duration-500 cursor-pointer max-h-fit aspect-square md:object-scale-down group-hover:scale-110 rounded-t-md"
+                              className="object-contain !static  hover:shadow-[0px_4px_24px_0px_rgba(0,_0,_0,_0.11)]   object-center  transition duration-500 cursor-pointer max-h-fit aspect-square md:object-scale-down group-hover:scale-110"
                             />
-                          </Link>
-                          <div>
-                            <ErrorBoundary>
-                              {item?.id && (
-                                <AddToCompare
-                                  slider={
-                                    item?.thumbnail?.thumbnail_url as string
-                                  }
-                                  productId={
-                                    item?.id ? decode(`${item?.id}`) : 0
-                                  }
-                                  productSku={item?.sku}
-                                  detailsPage={false}
-                                />
-                              )}
-                            </ErrorBoundary>
-                            <ErrorBoundary>
-                              <AddToWishlist productSku={item?.sku} />
-                            </ErrorBoundary>
                           </div>
-                        </div>
-                        <div className="flex items-center px-4">
-                          <p className=" text-black text-lg my-0 font-normal leading-[1.56rem] max-w-[80%] max-h-fit line-clamp-2">
-                            <HTMLRenderer
-                              className="my-0"
-                              htmlText={item?.name}
-                            />
-                          </p>
-                        </div>
-                        <footer className="flex items-start justify-between px-4 pb-4">
+
+                        </Link>
+                        <div>
                           <ErrorBoundary>
-                            <p className="text-black my-0 text-[1.375rem] font-semibold leading-[1.97rem]">
-                              {getFormattedPrice(
-                                item?.price_range?.maximum_price?.final_price
-                                  ?.value,
-                                item?.price_range?.maximum_price?.final_price
-                                  ?.currency
-                              )}
-                            </p>
-                          </ErrorBoundary>
-                          <div className="flex items-center mt-0.5 gap-1">
-                            <ErrorBoundary>
-                              <Rating
-                                size="medium"
-                                className="text-brand"
-                                max={1}
-                                defaultValue={
-                                  item?.rating_summary
-                                    ? item?.rating_summary / 100
-                                    : 0
+                            {item?.id && (
+                              <AddToCompare
+                                slider={
+                                  item?.thumbnail?.thumbnail_url as string
                                 }
-                                precision={0.1}
-                                readOnly
+                                productId={
+                                  item?.id ? decode(`${item?.id}`) : 0
+                                }
+                                productSku={item?.sku}
+                                detailsPage={false}
                               />
-                            </ErrorBoundary>
-                            <p className="mt-0.5 text-neutral-900 text-[1.25rem] my-0 font-normal leading-[1.58rem] tracking-[0.0425rem]">
-                              {(
-                                (item?.rating_summary || 0) / FEEDS_FRACTION
-                              ).toFixed(1)}
-                            </p>
-                          </div>
-                        </footer>
-                      </article>
-                    </SwiperSlide>
-                  ))}
+                            )}
+                          </ErrorBoundary>
+                          <ErrorBoundary>
+                            {/* <AddToWishlist productSku={item?.sku} /> */}
+                          </ErrorBoundary>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-1 mt-3">
+                        <ErrorBoundary>
+                          <Rating
+                            size="medium"
+                            className="text-brand"
+                            max={1}
+                            defaultValue={
+                              item?.rating_summary
+                                ? item?.rating_summary / 100
+                                : 0
+                            }
+                            precision={0.1}
+                            readOnly
+                          />
+                        </ErrorBoundary>
+                        <p className="text-neutral-900 text-sm my-0 font-semibold leading-[1.58rem] tracking-[0.0425rem]">
+                          {(
+                            (item?.rating_summary || 0) / FEEDS_FRACTION
+                          ).toFixed(1)}
+                        </p>
+                      </div>
+                      <div className="flex items-center my-2">
+                        <p className=" text-black text-sm my-0 font-normal leading-[1.56rem] max-w-[100%] max-h-fit line-clamp-2">
+                          {item?.name}
+                        </p>
+                      </div>
+                      <footer className="flex items-start justify-between">
+                        <ErrorBoundary>
+                          <p className="text-black my-0 text-base font-semibold leading-6">
+                            {getFormattedPrice(
+                              item?.price_range?.maximum_price?.final_price
+                                ?.value,
+                              item?.price_range?.maximum_price?.final_price
+                                ?.currency
+                            )}
+                          </p>
+                        </ErrorBoundary>
+
+                      </footer>
+                    </article>
+                  </SwiperSlide>
+                ))}
               </Swiper>
-              {product.length > 3 && (
+              {/* {product.length > 3 && (
                 <button
                   aria-label="slide right"
                   aria-describedby="right arrow"
@@ -209,7 +203,7 @@ const Slider = ({
                 >
                   <BannerRight />
                 </button>
-              )}
+              )} */}
             </div>)
         )}
       </div>

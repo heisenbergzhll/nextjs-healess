@@ -103,11 +103,11 @@ const ExploreProducts = ({
           </ErrorBoundary>
         </ErrorBoundary>
       ) : (
-        <div>
+        <div className="2xl:max-w-[90rem] mx-auto w-full lg:px-[6.625rem]">
           {item && (
             <ErrorBoundary>
               <Info
-                className="px-4 -mb-4 text-center"
+                className="-mb-4 text-left"
                 heading={products?.title}
               >
                 <span

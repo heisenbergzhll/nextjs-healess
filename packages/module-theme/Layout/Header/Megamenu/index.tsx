@@ -2,7 +2,6 @@ import Box from '@mui/material/Box';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
 import Popper from '@mui/material/Popper';
 import { isValidArray, isValidObject } from '@utils/Helper';
-import { MenuIcon } from '@voguish/module-theme/components/elements/Icon';
 import ErrorBoundary from '@voguish/module-theme/components/ErrorBoundary';
 import Containers from '@voguish/module-theme/components/ui/Container';
 import Link from 'next/link';
@@ -74,11 +73,11 @@ export default function MegaMenu({ menuItems, activeMenus }: MegaMenuProps) {
           aria-label="menu-panel"
           className="flex  items-center justify-between h-full gap-x-3 xl:gap-x-8 group"
         >
-          <button className="flex w-36 items-center gap-1 border-0 font-Lexend rounded-3xl px-4 py-2 bg-black text-white  font-semibold">
+          {/* <button className="flex w-36 items-center gap-1 border-0 font-Lexend rounded-3xl px-4 py-2 bg-black text-white  font-semibold">
             <MenuIcon />
             <span className="whitespace-nowrap">All Categories</span>
           </button>
-          <div className="w-0.5 h-5 bg-[#E2E8F0]"></div>
+          <div className="w-0.5 h-5 bg-[#E2E8F0]"></div> */}
           <div className="flex gap-x-4 items-center text-[#45556C] font-medium ">
             <span
               className="whitespace-nowrap hover:text-black line-clamp-1"

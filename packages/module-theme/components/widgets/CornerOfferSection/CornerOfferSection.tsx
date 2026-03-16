@@ -1,4 +1,4 @@
-import Grid from '@mui/material/Grid';
+import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 import Typography from '@mui/material/Typography';
 import { FC } from 'react';
 import ErrorBoundary from '../../ErrorBoundary';
@@ -19,50 +19,42 @@ const CornerOfferSection: FC<Props> = ({
 }) => {
   return (
     <ErrorBoundary>
-      {' '}
-      <Grid
-        item
-        xs={4}
-        md={3}
-        sx={{
-          transition: 'transform 0.3s, border 0.3s',
-          '&:hover': {
-            boxShadow: '0px 4px 24px rgba(0, 0, 0, 0.11)',
-            transform: 'scale(0.95)',
-          },
-        }}
-        lg={2}
-        paddingY={2}
-        paddingX={1}
-        textAlign="center"
+      <div
         style={style}
-        className={`cursor-pointer flex flex-col items-center justify-center ${className}`}
+        className={`cursor-pointer rounded-2xl flex flex-col  items-start gap-y-4 pl-8 py-6  text-center ${className}`}
       >
-        {title && (
-          <Typography
-            component="h2"
-            className="leading-normal "
-            variant="subtitle1"
-          >
-            {title}
-          </Typography>
-        )}
-        {content1 && (
-          <Typography
-            component="h3"
-            variant="subtitle2"
-            className="italic leading-normal"
-            sx={{ fontWeight: 300 }}
-          >
-            {content1}
-          </Typography>
-        )}
         {content2 && (
-          <Typography component="p" variant="h2" className="leading-normal">
+          <Typography component="p" className="uppercase leading-normal text-xs font-bold">
             {content2}
           </Typography>
         )}
-      </Grid>
+        <div className="text-left">
+          {title && (
+            <Typography
+              component="h2"
+              className="text-4xl font-Lexend font-bold text-white"
+            >
+              {title}
+            </Typography>
+          )}
+          {content1 && (
+            <Typography
+              component="h2"
+              className="text-4xl font-Lexend font-bold text-white"
+            >
+              {content1}
+            </Typography>
+          )}
+        </div>
+        <footer>
+          <button className="flex items-center gap-1 text-white px-1  border-0 border-b border-solid border-white bg-transparent  transition">
+            <span className="font-bold text-base">Shop</span>
+            <ArrowOutwardIcon fontSize="small" />
+          </button>
+        </footer>
+
+
+      </div>
     </ErrorBoundary>
   );
 };

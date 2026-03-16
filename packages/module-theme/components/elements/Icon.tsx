@@ -1558,8 +1558,8 @@ export function LogoutIcon(props: SVGProps<SVGSVGElement>) {
     <path d="M12 12.75L15.75 9L12 5.25" stroke="#FB2C36" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     <path d="M15.75 9H6.75" stroke="#FB2C36" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
-
 }
+
 
 export const ALL_ICONS = [IconCart, IconSearch, IconBag, IconWhishList, IconAccount, Sort, Filter, IconSell, EmptyCartIcon, EmptyPageIcon, EditIcon, DeleteIcon, SuccessIcon, WarnIcon, NotFountIcon, ServerErrorIcon, LogoSmall, LogoFull, NoData,
   Payment, Returns, Security, Delivery, WhishlistDown, TrashIcon, AddCartWhish, MenuIcon, AccountIcon, OrderIcon, AddressIcon, WishIcon, LogoutIcon

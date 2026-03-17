@@ -7,5 +7,8 @@
   },
   "kiroAgent.configureMCP": "Disabled",
   "typescript.tsdk": "node_modules/typescript/lib",
-  "workbench.settings.editor": "json"
+  "workbench.settings.editor": "json",
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
 }

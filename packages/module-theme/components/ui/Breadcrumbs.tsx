@@ -4,16 +4,16 @@ import { isValidArray } from '@utils/Helper';
 import { HTMLRenderer } from '@voguish/module-theme/components/HTMLRenderer';
 import { PageOptions } from '@voguish/module-theme/page';
 import { useTranslation } from 'next-i18next';
+import Link from 'next/link';
 import ErrorBoundary from '../ErrorBoundary';
 import Containers from './Container';
-import Link from 'next/link';
 const Breadcrumb = ({ title, breadCrumbs }: PageOptions) => {
   const { t } = useTranslation('common');
 
   return (
     <ErrorBoundary>
       {' '}
-      <Containers className="w-full  lg:mt-3 md:mt-3 mt-4">
+      <Containers className="max-w-[90rem]  px-[6.625rem] lg:mt-3 md:mt-3 mt-4">
         <Breadcrumbs
           className="w-full text-left whitespace-nowrap overflow-ellipsis"
           separator="›"

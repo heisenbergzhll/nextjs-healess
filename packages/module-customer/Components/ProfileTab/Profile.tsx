@@ -9,14 +9,19 @@ const EditForm = dynamic(() => import('./EditForm'));
 const ProfileInfo = dynamic(() => import('./ProfileInfo'));
 function Profile() {
   const [profileView, setProfile] = useState(false);
-  const { data, loading /*, error */ } = useCustomerQuery(GET_CUSTOMER);
+  const { data, loading /*, error */, refetch } =
+    useCustomerQuery(GET_CUSTOMER);
   return (
     <Sidebar>
       {loading ? (
         <ProfilePlaceholder />
       ) : !profileView ? (
         <ErrorBoundary>
-          <ProfileInfo userinfoData={data} handleClick={setProfile} />
+          <ProfileInfo
+            userinfoData={data}
+            handleClick={setProfile}
+            handleRefetch={refetch}
+          />
         </ErrorBoundary>
       ) : (
         <ErrorBoundary>

@@ -186,7 +186,7 @@ const Footer = () => {
               </Containers>
               <Containers className="-md:!mx-0 md:hidden -md:!px-0 px-0 pt-12 pb-3">
                 <Accordion
-                  className=" shadow-[unset] my-0"
+                  className=" shadow-[unset] my-0 bg-black"
                   elevation={0}
                   defaultExpanded
                 >
@@ -196,11 +196,11 @@ const Footer = () => {
                     aria-controls="panel1a-content"
                     id="panel1a-header"
                   >
-                    <Typography variant="body1" className="font-semibold">
+                    <Typography variant="body1" className="font-semibold text-white/90">
                       Explore More
                     </Typography>
                   </AccordionSummary>
-                  <AccordionDetails className="p-0">
+                  <AccordionDetails className="p-0 bg-black">
                     <div className="px-5 pb-4">
                       {isValidArray(data?.footerLinks) && (
                         <Grid container className="grid items-start justify-between grid-cols-2 gap-4">
@@ -214,7 +214,7 @@ const Footer = () => {
                                 <Typography
                                   variant="body1"
                                   component="p"
-                                  className="font-semibold uppercase"
+                                  className="font-semibold uppercase text-white/90"
                                 >
                                   {footerLink.title}
                                 </Typography>
@@ -224,7 +224,7 @@ const Footer = () => {
                                       <Typography
                                         key={option.uid}
                                         variant="body1"
-                                        className="text-sm duration-200 text-slate-500 cta hover:text-brand max-w-fit"
+                                        className="text-sm duration-200 text-white cta hover:text-brand max-w-fit"
                                       >
                                         <Link
                                           className=""

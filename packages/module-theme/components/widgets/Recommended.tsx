@@ -130,7 +130,7 @@ function Recommended({
 
   console.log('hasMore', hasMore)
   return (
-    <div className="pb-4">
+    <div className="pb-4 mt-4">
       {isInitialLoading ? (
         <Containers>
           <InfoTextPlaceHolder extraClasses="mx-auto" />
@@ -149,10 +149,10 @@ function Recommended({
         </Containers>
       ) : (
         <ErrorBoundary>
-          <div className="2xl:max-w-[90rem] lg:px-[6.625rem] mx-auto">
+          <div className="2xl:max-w-[90rem] px-4  max-w-[100vw] lg:px-[6.625rem] lg:mx-auto">
             <div>
               {isValidArray(products) && (
-                <Info className="!mx-2.5" heading="Recommended For You">
+                <Info heading="Recommended For You">
                   <span>
                     Discover curated skincare picks tailored for you.
                   </span>
@@ -165,7 +165,7 @@ function Recommended({
                   {products.map((item) => (
                     <article
                       key={item?.id}
-                      className="relative w-full  min-h-full max-w-full h-[24rem] mx-auto duration-300 bg-white cursor-pointer group"
+                      className="relative w-full  min-h-full max-w-full mx-auto duration-300 bg-white cursor-pointer group"
                     >
                       <div className="w-full !overflow-hidden max-w-full">
                         <Link

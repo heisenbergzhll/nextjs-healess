@@ -83,10 +83,10 @@ export default function SideBar({
             <Image
               decoding="auto"
               priority={true}
-              src={baseUrl ? `${baseUrl}media/logo/${logoUrl}` : ''}
-              alt={storeData?.logo_alt || 'voguish'}
-              height={28}
-              width={88}
+              src="/assets/img/logo.svg"
+              alt={storeData?.logo_alt || 'unineed'}
+              height={21}
+              width={186}
             />
           </Link>
           <IconButton
@@ -233,8 +233,8 @@ function LinkItem({ setOpenSidebar, page }: MenuItem) {
       href={`/catalog/category/${page.url_key}`}
       onClick={() => setOpenSidebar(false)}
       className={`block w-full py-1 font-medium ${router.asPath === `/catalog/category/${page.url_key}`
-          ? 'text-brand'
-          : 'text-gray-900'
+        ? 'text-brand'
+        : 'text-gray-900'
         }`}
     >
       <Typography variant="body2" className="capitalize font-medium">

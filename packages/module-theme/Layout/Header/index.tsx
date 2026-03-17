@@ -61,7 +61,6 @@ const Header = ({ isAccountLoggedIn }: { isAccountLoggedIn: boolean }) => {
   const [open, setOpen] = useState(false);
   const node = useRef<any>();
 
-
   return (
     <ErrorBoundary>
       <NextNProgress
@@ -78,11 +77,11 @@ const Header = ({ isAccountLoggedIn }: { isAccountLoggedIn: boolean }) => {
           <div className="w-full bg-white border-solid border-0 border-b border-slate-200">
             <nav
               aria-label="Top"
-              className="px-[6.625rem] mx-auto  max-w-[90rem]"
+              className="px-4 lg:px-[6.625rem] mx-auto  max-w-[90rem]"
             >
               <div className="flex items-center justify-between w-full h-20 gap-4 mx-auto -3xs:gap-1.5">
                 <span className="sr-only lg:hidden">open sidebar</span>
-                <div ref={node} className="lg:hidden">
+                <div ref={node} className="lg:hidden mr-2">
                   <div className="relative flex items-center cursor-pointer max-w-fit max-h-fit">
                     <Burger open={open} setOpen={setOpen} />
                   </div>
@@ -104,8 +103,12 @@ const Header = ({ isAccountLoggedIn }: { isAccountLoggedIn: boolean }) => {
                     />
                   </Link>
                 </div>
-                <StoreSwitcher />
-                <Search />
+                <div className="-lg:hidden">
+                  <StoreSwitcher />
+                </div>
+                <div className="-lg:hidden">
+                  <Search />
+                </div>
                 <div
                   aria-label="header-icons"
                   className="flex items-center rtl:mr-auto ltr:ml-auto"
@@ -116,9 +119,12 @@ const Header = ({ isAccountLoggedIn }: { isAccountLoggedIn: boolean }) => {
                   />
                 </div>
               </div>
+              <div className="lg:hidden pb-4">
+                <Search />
+              </div>
             </nav>
           </div>
-          <div className="w-full bg-white border-solid border-0 border-b border-slate-200">
+          <div className="w-full hidden lg:block bg-white border-solid border-0 border-b border-slate-200">
             <nav className="px-[6.625rem] mx-auto sm:px-6 max-w-[90rem] lg:px-[6.625rem]  border-solid border-0 border-b border-slate-200">
               <MegaMenu menuItems={sortedMenu} activeMenus={activeMenus} />
             </nav>

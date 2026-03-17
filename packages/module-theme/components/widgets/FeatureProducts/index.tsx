@@ -10,7 +10,7 @@ const FeatureProducts = ({ data, loading }: { data: any; loading: any }) => {
   return (
     <div className="pb-4">
       <ErrorBoundary>
-        <div className="2xl:max-w-[90rem] mx-auto w-full lg:px-[6.625rem]">
+        <div className="2xl:max-w-[90rem] mx-auto w-full px-4 lg:px-[6.625rem]">
           {loading ? (
             <InfoTextPlaceHolder extraClasses="mx-auto" />
           ) : (

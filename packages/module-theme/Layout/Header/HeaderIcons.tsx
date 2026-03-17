@@ -102,7 +102,7 @@ const HeaderIcons = ({ profileUrl, isAccountLoggedIn }: HeaderTypes) => {
         >
           <button
             aria-label="open wishlist"
-            className="relative flex items-center justify-center p-0 bg-transparent border-none outline-none cursor-pointer group h-7 w-7 hover:text-brand focus:ring-primary/5 md:h-8 md:w-8 -lg:hidden"
+            className="relative flex items-center justify-center p-0 bg-transparent border-none outline-none cursor-pointer group h-8 w-8 hover:text-brand focus:ring-primary/5 md:h-8 md:w-8"
           >
             <IconWhishList hover="stroke-black group-hover:stroke-brand duration-150" />
           </button>
@@ -110,18 +110,18 @@ const HeaderIcons = ({ profileUrl, isAccountLoggedIn }: HeaderTypes) => {
         <div className="relative flex items-center justify-center p-0 border-none outline-none cursor-pointer bg-t justify-centerransparent h-7 w-7 hover:text-brand focus:ring-primary/5 md:h-8 md:w-8 -lg:hidden">
           <AccountDropdown />
         </div>
-        <div className="w-0.5 h-6 bg-[#E2E8F0]"></div>
+        <div className="w-0.5 h-6 bg-[#E2E8F0] -lg:hidden"></div>
 
         <button
           type="button"
           onClick={toggleCart(true)}
           aria-label={`Cart contains ${itemCount} items open to view them`}
-          className="hidden items-center gap-2 rounded-full border-none bg-slate-900 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand md:inline-flex"
+          className="items-center gap-2 rounded-full border-none bg-slate-900 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand"
         >
           <span className="flex h-5 w-5 items-center justify-center">
             <IconBag />
           </span>
-          <span className="whitespace-nowrap">My Bag</span>
+          <span className="hidden md:inline-flex whitespace-nowrap">My Bag</span>
         </button>
 
         {/* <button

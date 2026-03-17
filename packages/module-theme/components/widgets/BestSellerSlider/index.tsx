@@ -46,7 +46,7 @@ const BestSellerSlider = ({
   return (
     <ErrorBoundary>
       <div
-        className={`md:pl-0  w-[356px] h-[234px]`}
+        className={`md:pl-0  w-full h-[234px]`}
       >
         {loading ? (
           <Containers>
@@ -66,9 +66,7 @@ const BestSellerSlider = ({
           </Containers>
         ) : (
           isValidArray(product) && (
-            <div className="relative flex items-center w-[356px] h-[234px] cursor-pointer">
-
-
+            <div className="relative flex items-center w-full h-[234px] cursor-pointer">
               <Swiper
                 navigation={false}
                 modules={[Navigation, Pagination]}
@@ -82,7 +80,7 @@ const BestSellerSlider = ({
                     return `<span class="${className}"></span>`;
                   },
                 }}
-                className="best_seller_slider px-0 mx-0  w-[356px] h-[234px] rounded-[10px]"
+                className="best_seller_slider px-0 mx-0  w-full h-[234px] rounded-[10px]"
               >
                 {product
                   ?.slice(0, 10)
@@ -172,7 +170,7 @@ const BestSellerSlider = ({
                 <button
                   aria-label="slide left"
                   aria-describedby="left arrow"
-                  className="absolute bottom-[16px] z-10 items-center justify-center hidden bg-white rounded-full  border border-solid border-gray-600 cursor-pointer aspect-square min-w-12 h-11 max-w-min rtl:rotate-180 rtl:-left-10 ltr:left-10 md:flex max-h-fit"
+                  className="absolute bottom-[16px] z-10 items-center justify-center  bg-white rounded-full  border border-solid border-gray-600 cursor-pointer aspect-square min-w-12 h-11 max-w-min rtl:rotate-180 rtl:-left-10 ltr:left-10 flex max-h-fit"
                   onClick={() => swiperRef.current.slidePrev()}
                 >
                   <BannerLeft />
@@ -183,7 +181,7 @@ const BestSellerSlider = ({
                 <button
                   aria-label="slide right"
                   aria-describedby="right arrow"
-                  className="absolute bottom-[16px] z-10 items-center justify-center hidden mx-0 bg-white rounded-full border border-solid border-gray-600 cursor-pointer rtl:rotate-180 min-w-12 aspect-square rtl:-right-10 ltr:right-10 md:flex h-11 "
+                  className="absolute bottom-[16px] z-10 items-center justify-center  mx-0 bg-white rounded-full border border-solid border-gray-600 cursor-pointer rtl:rotate-180 min-w-12 aspect-square rtl:-right-10 ltr:right-10 flex h-11 "
                   onClick={() => swiperRef.current?.slideNext()}
                 >
                   <BannerRight />

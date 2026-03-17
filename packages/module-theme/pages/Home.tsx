@@ -63,8 +63,9 @@ const HomeOfferSection = dynamic(
 );
 const Recommended = dynamic(
   () => import('../components/widgets/Recommended'),
-  { ssr: false }
-);
+  { ssr: false });
+
+
 const HomePage = ({ pageData }: { pageData: HomePageData }) => {
   console.log('pageData', pageData);
   const loading = false;
@@ -96,31 +97,37 @@ const HomePage = ({ pageData }: { pageData: HomePageData }) => {
       name: 'Skincare',
       count: 1156,
       icon: '/assets/icons/category/skincare.svg',
+      bgcolor: "#FFEFFD"
     },
     {
       name: 'Makeup',
       count: 842,
       icon: '/assets/icons/category/makeup.svg',
+      bgcolor: "#F3F0FF"
     },
     {
       name: 'Fragrance',
       count: 523,
       icon: '/assets/icons/category/fragrance.svg',
+      bgcolor: "#E7F6FF"
     },
     {
       name: 'Haircare',
       count: 376,
       icon: '/assets/icons/category/haircare.svg',
+      bgcolor: "#F3F0FF"
     },
     {
       name: 'Accessories',
       count: 211,
       icon: '/assets/icons/category/accessories.svg',
+      bgcolor: "#E7F5FF"
     },
     {
       name: 'iPad',
       count: 64,
       icon: '/assets/icons/category/ipad.svg',
+      bgcolor: "#FFEFFD"
     },
   ];
 
@@ -209,7 +216,7 @@ const HomePage = ({ pageData }: { pageData: HomePageData }) => {
       isValidArray(items?.cornerOffers?.items) && (
         <div ref={cornerRef} key={item.sortOrder}>
           {cornerInView && (
-            <div className="2xl:max-w-[90rem] px-4 lg:px-[6.625rem]  mx-auto">
+            <div className="2xl:max-w-[90rem] max-w-[100vw] px-4 lg:px-[6.625rem]  lg:mx-auto">
               <div>
                 <CornerOffer items={items.cornerOffers} />
               </div>
@@ -298,8 +305,9 @@ const HomePage = ({ pageData }: { pageData: HomePageData }) => {
     }
   });
 
+
   return (
-    <div className="grid mx-auto bg-white gap-y-10 lg:gap-y-16 max-w-[125rem]">
+    <div className="grid mx-auto bg-white gap-y-6 lg:gap-y-16 max-w-[125rem]">
       {renderedSections}
       <Recommended
         products={items?.recentlyViewedProduct}

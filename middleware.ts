@@ -1,4 +1,4 @@
-import { isMarketplaceEnable, parseCookies } from '@utils/Helper';
+import { isMarketplaceEnable, parseCookies } from '@utils/middlewareHelper';
 import { withAuth } from 'next-auth/middleware';
 import { NextResponse } from 'next/server';
 export const config = {

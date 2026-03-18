@@ -4,18 +4,28 @@ import CloseIcon from '@mui/icons-material/Close';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import UPDATE_CUSTOMER from '@voguish/module-customer/graphql/mutation/UpdateCustomer.graphql';
-import { AccountNameIcon } from '@voguish/module-theme/components/elements/Icon';
+import {
+  AccountNameIcon,
+  DateIcon,
+  PhoneIcon,
+} from '@voguish/module-theme/components/elements/Icon';
 import ErrorBoundary from '@voguish/module-theme/components/ErrorBoundary';
+import Switch from '@voguish/module-theme/components/ui/Form/Elements/Switch';
 import { useTranslation } from 'next-i18next';
-import dynamic from 'next/dynamic';
 import { useState } from 'react';
 import { EmailOutlined } from '~node_modules/@mui/icons-material';
 import { Avatar } from '~node_modules/@mui/material';
 import { useCustomerMutation } from '~packages/module-customer/hooks/useCustomerMutation';
 import { useToast } from '~packages/module-theme/components/toast/hooks';
 import { stringAvatar } from '~utils/Helper';
-const EditIcon = dynamic(() => import('@mui/icons-material/Edit'));
-
+export function formatDate(dateString: string) {
+  const date = new Date(dateString);
+  return date.toLocaleDateString('en-GB', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  });
+}
 const commonStyles = {
   bgcolor: 'background.paper',
   // border: 1,
@@ -30,6 +40,7 @@ type userinfoDataType = {
       email: string;
       phone_number: string;
       date_of_birth: string;
+      is_subscribed: boolean;
     };
   };
   handleClick: Function;
@@ -54,6 +65,19 @@ const ProfileInfo = ({
     | null
   >(null);
   const [editValue, setEditValue] = useState('');
+
+  // Switch 状态 - 每个开关独立控制
+  const [emailNotifications, setEmailNotifications] = useState(
+    userinfoData?.customer?.is_subscribed ?? false
+  );
+  const [smsNotifications, setSmsNotifications] = useState(false);
+  const [marketingEmails, setMarketingEmails] = useState(false);
+
+  // 处理 Email Notifications 变化
+  const handleEmailNotificationsChange = (checked: boolean) => {
+    setEmailNotifications(checked);
+    handleSwitchChange('is_subscribed', checked);
+  };
 
   const handleEditClick = (
     field:
@@ -132,6 +156,29 @@ const ProfileInfo = ({
 
     setEditingField(null);
     setEditValue('');
+  };
+
+  // 处理 Switch 变化 - 调用接口更新订阅状态
+  const handleSwitchChange = (field: string, checked: boolean) => {
+    const input = {
+      [field]: checked,
+    };
+
+    updateCustomer({
+      variables: {
+        input,
+      },
+    })
+      .then(() => {
+        showToast({
+          type: 'success',
+          message: t('Preferences updated successfully'),
+        });
+        handleRefetch();
+      })
+      .catch((err) => {
+        showToast({ message: err.message, type: 'error' });
+      });
   };
   return (
     <ErrorBoundary>
@@ -226,13 +273,13 @@ const ProfileInfo = ({
                   <>
                     <Button
                       onClick={handleSave}
-                      className="w-[32px] h-[32px] bg-[#101828] rounded-[8px] flex items-center justify-center hover:opacity-80 transition-opacity border-none ml-2"
+                      className="w-[32px] h-[32px] bg-[#101828] rounded-[8px] flex items-center justify-center hover:opacity-80 transition-opacity border-none ml-2 border-none cursor-pointer"
                     >
                       <CheckIcon className="text-white w-[14px] h-[14px]" />
                     </Button>
                     <Button
                       onClick={handleCancel}
-                      className="w-[32px] h-[32px] bg-[#F1F5F9] rounded-[8px] flex items-center justify-center hover:opacity-80 transition-opacity ml-2 border-none"
+                      className="w-[32px] h-[32px] bg-[#F1F5F9] rounded-[8px] flex items-center justify-center hover:opacity-80 transition-opacity ml-2 border-none cursor-pointer"
                     >
                       <CloseIcon className="text-[#62748E] w-[14px] h-[14px]" />
                     </Button>
@@ -282,13 +329,13 @@ const ProfileInfo = ({
                   <>
                     <Button
                       onClick={handleSave}
-                      className="w-[32px] h-[32px] bg-[#101828] rounded-[8px] flex items-center justify-center hover:opacity-80 transition-opacity border-none ml-2"
+                      className="w-[32px] h-[32px] bg-[#101828] rounded-[8px] flex items-center justify-center hover:opacity-80 transition-opacity border-none ml-2 cursor-pointer"
                     >
                       <CheckIcon className="text-white w-[14px] h-[14px]" />
                     </Button>
                     <Button
                       onClick={handleCancel}
-                      className="w-[32px] h-[32px] bg-[#F1F5F9] rounded-[8px] flex items-center justify-center hover:opacity-80 transition-opacity ml-2 border-none"
+                      className="w-[32px] h-[32px] bg-[#F1F5F9] rounded-[8px] flex items-center justify-center hover:opacity-80 transition-opacity ml-2 border-none cursor-pointer"
                     >
                       <CloseIcon className="text-[#62748E] w-[14px] h-[14px]" />
                     </Button>
@@ -338,13 +385,13 @@ const ProfileInfo = ({
                   <>
                     <Button
                       onClick={handleSave}
-                      className="w-[32px] h-[32px] bg-[#101828] rounded-[8px] flex items-center justify-center hover:opacity-80 transition-opacity border-none ml-2"
+                      className="w-[32px] h-[32px] bg-[#101828] rounded-[8px] flex items-center justify-center hover:opacity-80 transition-opacity border-none ml-2 cursor-pointer"
                     >
                       <CheckIcon className="text-white w-[14px] h-[14px]" />
                     </Button>
                     <Button
                       onClick={handleCancel}
-                      className="w-[32px] h-[32px] bg-[#F1F5F9] rounded-[8px] flex items-center justify-center hover:opacity-80 transition-opacity ml-2 border-none"
+                      className="w-[32px] h-[32px] bg-[#F1F5F9] rounded-[8px] flex items-center justify-center hover:opacity-80 transition-opacity ml-2 border-none cursor-pointer"
                     >
                       <CloseIcon className="text-[#62748E] w-[14px] h-[14px]" />
                     </Button>
@@ -366,7 +413,7 @@ const ProfileInfo = ({
             </div>
             <div className="flex  px-6 py-3  border-solid border-0 border-b border-[#F1F5F9]">
               <div className="group flex-1 flex items-center py-2 no-underline gap-3">
-                <EmailOutlined className="text-[#90A1B9] text-base" />
+                <PhoneIcon className="text-[#90A1B9] text-base" />
                 <span className="text-sm tracking-widest text-[#62748E] duration-150 transition-colors">
                   {t('Phone Number')}
                 </span>
@@ -394,13 +441,13 @@ const ProfileInfo = ({
                   <>
                     <Button
                       onClick={handleSave}
-                      className="w-[32px] h-[32px] bg-[#101828] rounded-[8px] flex items-center justify-center hover:opacity-80 transition-opacity border-none ml-2"
+                      className="w-[32px] h-[32px] bg-[#101828] rounded-[8px] flex items-center justify-center hover:opacity-80 transition-opacity border-none ml-2 cursor-pointer"
                     >
                       <CheckIcon className="text-white w-[14px] h-[14px]" />
                     </Button>
                     <Button
                       onClick={handleCancel}
-                      className="w-[32px] h-[32px] bg-[#F1F5F9] rounded-[8px] flex items-center justify-center hover:opacity-80 transition-opacity ml-2 border-none"
+                      className="w-[32px] h-[32px] bg-[#F1F5F9] rounded-[8px] flex items-center justify-center hover:opacity-80 transition-opacity ml-2 border-none cursor-pointer"
                     >
                       <CloseIcon className="text-[#62748E] w-[14px] h-[14px]" />
                     </Button>
@@ -422,7 +469,7 @@ const ProfileInfo = ({
             </div>
             <div className="flex  px-6 py-3  border-solid border-0 border-b border-[#F1F5F9]">
               <div className="group flex-1 flex items-center py-2 no-underline gap-3">
-                <EmailOutlined className="text-[#90A1B9] text-base" />
+                <DateIcon className="text-[#90A1B9] text-base" />
                 <span className="text-sm tracking-widest text-[#62748E] duration-150 transition-colors">
                   {t('Date of Birth')}
                 </span>
@@ -441,7 +488,7 @@ const ProfileInfo = ({
                   />
                 ) : (
                   <span className="text-sm tracking-widest text-[#101828] duration-150 transition-colors">
-                    {userinfoData?.customer?.date_of_birth || ''}
+                    {formatDate(userinfoData?.customer?.date_of_birth || '')}
                   </span>
                 )}
               </div>
@@ -450,13 +497,13 @@ const ProfileInfo = ({
                   <>
                     <Button
                       onClick={handleSave}
-                      className="w-[32px] h-[32px] bg-[#101828] rounded-[8px] flex items-center justify-center hover:opacity-80 transition-opacity border-none ml-2"
+                      className="w-[32px] h-[32px] bg-[#101828] rounded-[8px] flex items-center justify-center hover:opacity-80 transition-opacity border-none ml-2 cursor-pointer"
                     >
                       <CheckIcon className="text-white w-[14px] h-[14px]" />
                     </Button>
                     <Button
                       onClick={handleCancel}
-                      className="w-[32px] h-[32px] bg-[#F1F5F9] rounded-[8px] flex items-center justify-center hover:opacity-80 transition-opacity ml-2 border-none"
+                      className="w-[32px] h-[32px] bg-[#F1F5F9] rounded-[8px] flex items-center justify-center hover:opacity-80 transition-opacity ml-2 border-none cursor-pointer"
                     >
                       <CloseIcon className="text-[#62748E] w-[14px] h-[14px]" />
                     </Button>
@@ -479,8 +526,79 @@ const ProfileInfo = ({
           </div>
         </Grid>
       </Grid>
+      <Grid
+        container
+        sx={{ ...commonStyles }}
+        className="box-border border border-solid border-[#E2E8F0] rounded-2xl mb-6"
+      >
+        <Grid
+          className="relative flex items-center justify-between "
+          item
+          sx={{ flexGrow: 1 }}
+        >
+          <div className="flex w-full flex-col gap-1">
+            <div className="flex  px-6 py-3 gap-3 border-solid border-0 border-b border-[#F1F5F9]">
+              <span className=" font-medium	 text-2xl tracking-widest text-[#101828]">
+                Preferences
+              </span>
+            </div>
 
-      <Grid container sx={{ ...commonStyles }}>
+            <div className="flex justify-between items-center px-6 py-3 border-solid border-0 border-b border-[#F1F5F9]">
+              <div className="group  py-2 no-underline gap-3">
+                <div className="font-normal text-sm">
+                  {t('Email Notifications')}
+                </div>
+                <span className="text-xs tracking-widest text-[#62748E] duration-150 transition-colors font-light">
+                  {t('Receive updates about your orders')}
+                </span>
+              </div>
+
+              <div className="group no-underline gap-1">
+                <Switch
+                  checked={emailNotifications}
+                  onChange={handleEmailNotificationsChange}
+                />
+              </div>
+            </div>
+
+            {/* Marketing Emails */}
+            <div className="flex justify-between items-center px-6 py-3 border-solid border-0 border-b border-[#F1F5F9]">
+              <div className="group py-2 no-underline gap-3">
+                <div className="font-normal text-sm">
+                  {t('Marketing Emails')}
+                </div>
+                <span className="text-xs tracking-widest text-[#62748E] duration-150 transition-colors font-light">
+                  {t('Get notified about deals and promotions')}
+                </span>
+              </div>
+              <div className="group no-underline gap-1">
+                <Switch
+                  checked={marketingEmails}
+                  onChange={setMarketingEmails}
+                />
+              </div>
+            </div>
+
+            {/* SMS Notifications */}
+            <div className="flex justify-between items-center px-6 py-3 border-solid border-0 border-b border-[#F1F5F9]">
+              <div className="group py-2 no-underline gap-3">
+                <div className="font-normal text-sm">{t('SMS Alerts')}</div>
+                <span className="text-xs tracking-widest text-[#62748E] duration-150 transition-colors font-light">
+                  {t('Receive order updates via text message')}
+                </span>
+              </div>
+              <div className="group no-underline gap-1">
+                <Switch
+                  checked={smsNotifications}
+                  onChange={setSmsNotifications}
+                />
+              </div>
+            </div>
+          </div>
+        </Grid>
+      </Grid>
+
+      {/* <Grid container sx={{ ...commonStyles }}>
         <Grid
           className="relative flex items-center justify-between px-4 py-2"
           item
@@ -533,7 +651,7 @@ const ProfileInfo = ({
             <Typography variant="body1"> ************</Typography>
           </Grid>
         </Grid>
-      </Grid>
+      </Grid> */}
     </ErrorBoundary>
   );
 };

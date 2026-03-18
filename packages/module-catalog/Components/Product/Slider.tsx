@@ -66,7 +66,7 @@ const Slider = ({
           </Containers>
         ) : (
           isValidArray(product) && (
-            <div className="relative flex items-center h-full py-0 pl-6 mx-0 overflow-hidden cursor-pointer sm:pl-0 -3xs:px-6 sm:px-6 md:px-0 md:mx-auto">
+            <div className="relative flex items-center h-full py-0  mx-0 overflow-hidden cursor-pointer sm:pl-0 -3xs:px-6 sm:px-6 md:px-0 md:mx-auto">
               {/* {product.length > 3 && (
                 <button
                   aria-label="slide left"
@@ -91,14 +91,14 @@ const Slider = ({
                     slidesPerView: 1,
                   },
                   375: {
-                    slidesPerView: 1.5,
+                    slidesPerView: 2.5,
                   },
                   640: {
-                    slidesPerView: 2,
+                    slidesPerView: 3,
                   },
                   // when window width is >= 768px
                   768: {
-                    slidesPerView: 3,
+                    slidesPerView: 3.5,
                   },
                   // when window width is >= 1060px
                   1060: {
@@ -110,7 +110,7 @@ const Slider = ({
                 {product?.map((item: ProductItemInterface, index: number) => (
                   <SwiperSlide className="!z-0" key={item?.id || 0 + index}>
                     <article
-                      className="cursor-pointer  max-w-[98%] -mx-px group relative h-[25rem]  duration-300 -z-10  text-left bg-[#fff]  w-80 min-h-full"
+                      className="cursor-pointer  max-w-[98%] -mx-px group relative  duration-300 -z-10  text-left bg-[#fff]  w-80 min-h-full"
                     >
                       <div className="w-full !overflow-hidden !z-0  max-w-full   aspect-square truncate rounded-t-md">
                         <Link

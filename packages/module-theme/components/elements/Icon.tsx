@@ -1843,6 +1843,7 @@ export function DateIcon(props: SVGProps<SVGSVGElement>) {
     </svg>
   );
 }
+
 export const ALL_ICONS = [
   IconCart,
   IconSearch,

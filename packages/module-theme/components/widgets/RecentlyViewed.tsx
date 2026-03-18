@@ -35,7 +35,7 @@ function RecentlyViewed({
         </Containers>
       ) : (
         <ErrorBoundary>
-          <div className="2xl:max-w-[90rem]  lg:px-[6.625rem] mx-auto">
+          <div className="2xl:max-w-[90rem]   max-w-[100vw]  lg:px-[6.625rem] mx-auto">
             <div className="">
               {isValidArray(products?.productList) && (
                 <Info className="!mx-2.5" heading={products?.title}>

@@ -11,7 +11,7 @@ interface Benefit {
 const SiteInfo = ({ items }: { items: Benefit[] | any }) => {
   return (
     <ErrorBoundary>
-      <div className="2xl:max-w-[90rem] px-4 lg:px-[6.625rem] sm:px-4 lg:mx-auto">
+      <div className="2xl:max-w-[90rem] px-4  max-w-[100vw] lg:px-[6.625rem] sm:px-4 lg:mx-auto">
         <div className="py-6  gap-y-2.5  lg:gap-y-6 ltr:lg:divide-x rtl:lg:even:divide-x justify-start lg:justify-center  text-black grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 lg:gap-6">
           {items?.map((item: Benefit, index: number) => (
             <div

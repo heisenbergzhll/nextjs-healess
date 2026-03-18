@@ -13,7 +13,7 @@ const homePageCache = new LRUCache<any>(50, 5);
 
 const Home = ({ pageData }: { pageData: HomePageData }) => {
   return (
-    <div className="mx-auto w-full 4xl:max-w-[160.5rem]">
+    <div className="mx-auto w-full">
       <HomePage pageData={pageData} />
     </div>
   );

@@ -174,7 +174,150 @@ const STATIC_PRODUCT: any[] = [
 const MainBanner = () => {
   return (
     <ErrorBoundary>
-      <div className="flex gap-4 w-full max-w-[90rem] px-[6.625rem] mx-auto py-[50px]">
+      {/* Mobile layout */}
+      {/* <div className="2xl:max-w-[90rem]  lg:px-[6.625rem] px-4  mx-auto">
+
+      </div> */}
+      <div className="flex flex-col  gap-4 w-full  max-w-[100vw] px-4 py-6 lg:hidden">
+
+        {/* Row 1: 主轮播 Banner */}
+        <div className="relative w-full h-[240px] cursor-pointer rounded-[10px] overflow-hidden">
+          <Swiper
+            className="main_banner h-full"
+            modules={[Pagination, Autoplay]}
+            slidesPerView={1}
+            loop
+            speed={800}
+            autoplay={{ delay: 5000, disableOnInteraction: false, pauseOnMouseEnter: true }}
+            pagination={{ clickable: true }}
+          >
+            {STATIC_BANNERS.map((banner) => (
+              <SwiperSlide key={banner.id} className="w-full h-full ">
+                <div className="relative w-full h-full rounded-[10px]">
+                  <Image
+                    src={banner.imageSrc}
+                    alt={banner.title}
+                    fill
+                    priority={banner.id === STATIC_BANNERS[0]?.id}
+                    className="object-cover rounded-xl"
+                  />
+
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/35 to-transparent rounded-[10px]" />
+                  <div className="absolute inset-x-0 bottom-0 px-8 pb-8">
+                    <h2 className="m-0 font-Lexend text-white text-2xl leading-tight font-medium">
+                      {banner.title}
+                    </h2>
+                    <p className="mt-3 mb-0 text-white/90 text-base leading-relaxed max-w-[28rem]">
+                      {banner.description}
+                    </p>
+                    <div className="mt-4 flex items-center justify-between">
+                      <button
+                        type="button"
+                        className="inline-flex items-center cursor-pointer border-none gap-2 rounded-full bg-black px-7 py-3 text-white font-semibold backdrop-blur-sm transition hover:bg-black/65"
+                        aria-label={banner.buttonText}
+                      >
+                        <span>{banner.buttonText}</span>
+                        <ArrowOutwardIcon fontSize="small" />
+                      </button>
+                      <div className="flex items-center gap-1 text-white/90">
+                        <span className="text-sm font-light">{banner.itemsText}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
+
+        {/* Row 2: 两列 Banner（移动端堆叠） */}
+        <div className="flex gap-3 w-full h-[180px]">
+          <div className="flex-1  overflow-hidden">
+            <Swiper
+              className="main_banner h-full"
+              modules={[Pagination, Autoplay]}
+              slidesPerView={1}
+              loop={true}
+              speed={800}
+              spaceBetween={2}
+              autoplay={{
+                delay: 5000,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true,
+              }}
+              pagination={{
+                clickable: true,
+              }}
+            >
+              {STATIC_BANNERS_2.map((banner) => (
+                <SwiperSlide key={banner.id} className="w-full h-full ">
+                  <div className="relative w-full h-full rounded-[10px]">
+                    <Image
+                      src={banner.imageSrc}
+                      alt={banner.title}
+                      fill
+                      priority={banner.id === STATIC_BANNERS[0]?.id}
+                      className="object-cover rounded-xl"
+                    />
+
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/35 to-transparent rounded-[10px]" />
+                    <div className="absolute inset-x-0 bottom-0 pl-2 pb-2">
+                      <h2 className="m-0 mt-3  w-full font-Lexend text-white text-sm leading-tight font-medium whitespace-nowrap">
+                        {banner.title}
+                      </h2>
+                      <p className="inline-block rounded-xl text-white/70   text-sm leading-relaxed">
+                        {banner.description}
+                      </p>
+
+                      <div className="mt-2 flex items-center justify-between">
+                        <button
+                          type="button"
+                          className="inline-flex items-center cursor-pointer border-none gap-2 rounded-full bg-black px-7 py-3 text-white whitespace-nowrap  font-semibold backdrop-blur-sm transition hover:bg-black/65"
+                          aria-label={banner.buttonText}
+                        >
+                          <span>{banner.buttonText}</span>
+                          <ArrowOutwardIcon fontSize="small" />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
+
+          {/* Women’s Day 单独 Banner */}
+          <div className="flex-1  relative w-full h-[180px] rounded-[10px] cursor-pointer overflow-hidden">
+            <Image
+              src="assets/img/products/test/women.png"
+              alt="Women’s Day"
+              fill
+              className="object-cover rounded-[10px]"
+            />
+            <div className="absolute inset-0 bg-black/70 z-10 rounded-[10px]" />
+            <div className="absolute inset-0 z-20 p-4 flex flex-col justify-end">
+              <div className="text-white font-Lexend">
+                <h4 className="text-sm font-medium m-0">Women’s Day Sale</h4>
+                <p className="text-xs font-normal mt-1">20% off on all women’s products</p>
+              </div>
+              <div>
+                <button className="mt-2 border-none flex items-center gap-1 px-3 py-1 text-[10px] uppercase font-medium bg-brand text-white rounded-lg">
+                  WOMENSDAY20 <ContentCopyIcon fontSize="small" />
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Row 3: 热销产品 */}
+        <div className="relative w-full h-[234px] rounded-[10px] shadow-md overflow-hidden">
+          <ErrorBoundary>
+            <BestSellerSlider extraClass="bestseller-product" product={STATIC_PRODUCT} />
+          </ErrorBoundary>
+        </div>
+      </div>
+      {/* Desktop layout (unchanged) */}
+      <div className="hidden lg:flex gap-4 w-full max-w-[90rem] px-4 lg:px-[6.625rem] mx-auto py-6 lg:py-[50px]">
         <div className="relative w-[484px] h-[484px] cursor-pointer">
           <Swiper
             className="main_banner h-full"
@@ -319,7 +462,6 @@ const MainBanner = () => {
                 extraClass="bestseller-product"
                 product={STATIC_PRODUCT}
               />
-
             </ErrorBoundary>
           </div>
         </div>

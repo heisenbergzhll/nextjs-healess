@@ -13,6 +13,7 @@ const StyledBurger = styled.button`
   cursor: pointer;
   padding: 0;
   z-index: 10;
+  margin-bottom:10px;
 
   &:focus {
     outline: none;
@@ -22,7 +23,7 @@ const StyledBurger = styled.button`
     width: 1.5rem;
     height: 0.15rem;
     background: ${({ open }: { open: boolean }) =>
-      open ? '#0D0C1D' : '#0D0C1D'};
+    open ? '#0D0C1D' : '#0D0C1D'};
     border-radius: 10px;
     transition: all 0.3s linear;
     position: relative;
@@ -30,18 +31,18 @@ const StyledBurger = styled.button`
 
     :first-of-type {
       transform: ${({ open }: { open: boolean }) =>
-        open ? 'rotate(45deg)' : 'rotate(0)'};
+    open ? 'rotate(45deg)' : 'rotate(0)'};
     }
 
     :nth-of-type(2) {
       opacity: ${({ open }: { open: boolean }) => (open ? '0' : '1')};
       transform: ${({ open }: { open: boolean }) =>
-        open ? 'translateX(20px)' : 'translateX(0)'};
+    open ? 'translateX(20px)' : 'translateX(0)'};
     }
 
     :nth-of-type(3) {
       transform: ${({ open }: { open: boolean }) =>
-        open ? 'rotate(-45deg)' : 'rotate(0)'};
+    open ? 'rotate(-45deg)' : 'rotate(0)'};
     }
   }
 `;

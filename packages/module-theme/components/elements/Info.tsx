@@ -9,7 +9,7 @@ const Info: FC<props> = ({ heading, children, className }) => {
   return (
     <ErrorBoundary>
       <div
-        className={`flex flex-col w-full gap-[0.62rem] pb-5 mx-auto ${className}`}
+        className={`flex flex-col w-full lg:gap-[0.62rem] pb-5 mx-auto ${className}`}
       >
         <h2 className="leading-normal my-0 text-xl md:text-[1.375rem] font-bold lg:leading-[1.65rem]">
           {heading}

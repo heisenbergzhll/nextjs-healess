@@ -3,8 +3,8 @@ export const BASE_URL = 'http://localhost:3000';
 export const MAGENTO_URL = process.env.MAGENTO_ENDPOINT;
 export const MAGENTO_REST_API_URL = MAGENTO_URL + 'rest/V1/';
 
-export const PLACEHOLDER_IMG = '/assets/img/products/placeholder.jpg';
-export const BANNERPLACEHOLDER_IMG = '/assets/img/products/placeholder.jpg';
+export const PLACEHOLDER_IMG = '/assets/img/products/product-placeholder.svg';
+export const BANNERPLACEHOLDER_IMG = '/assets/img/products/product-placeholder.svg';
 export const Pattern = '/assets/img/bgpattern.jpg';
 export const CONTACT_US = '/assets/img/contact.webp';
 export const top_selling = 1;

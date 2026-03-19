@@ -106,7 +106,7 @@ const Header = ({ isAccountLoggedIn }: { isAccountLoggedIn: boolean }) => {
                 <div className="-lg:hidden">
                   <StoreSwitcher />
                 </div>
-                <div className="-lg:hidden">
+                <div className="-lg:hidden flex-1 min-w-0">
                   <Search />
                 </div>
                 <div

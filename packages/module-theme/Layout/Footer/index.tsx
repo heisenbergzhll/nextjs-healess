@@ -204,6 +204,61 @@ const Footer = () => {
                     <div className="px-5 pb-4">
                       {isValidArray(data?.footerLinks) && (
                         <Grid container className="grid items-start justify-between grid-cols-2 gap-4">
+                          <Grid
+                            size={{
+                              xs: 6,
+                              lg: 3
+                            }}
+                          >
+                            <Stack spacing={2}>
+                              <Typography
+                                variant="body1"
+                                component="p"
+                                className="font-semibold uppercase text-white"
+                              >
+                                Contact us
+                              </Typography>
+                              <Typography
+                                variant="body1"
+                                component="p"
+                                className="text-sm duration-200 text-white cta hover:text-brand max-w-fit"
+                              >
+                                +44(0) 141 673 0063
+                              </Typography>
+                              <Typography
+                                variant="body1"
+                                component="p"
+                                className="font-semibold uppercase text-white"
+                              >
+                                Head Office:
+                              </Typography>
+                              <Typography
+                                variant="body1"
+                                component="p"
+                                className="text-sm duration-200 text-white cta hover:text-brand max-w-fit"
+                              >
+                                33 Lynedoch Street Glasgow G3 6AA
+                              </Typography>
+                              <Typography
+                                variant="body1"
+                                component="p"
+                                className="font-semibold uppercase text-white"
+                              >
+                                Warehouse:
+                              </Typography>
+                              <Typography
+                                variant="body1"
+                                component="p"
+                                className="text-sm duration-200 text-white cta hover:text-brand max-w-fit"
+                              >
+
+                                240 Seaward Street
+                                Glasgow G41 1NG
+                              </Typography>
+
+
+                            </Stack>
+                          </Grid>
                           {data?.footerLinks.map((footerLink) => (
                             <Grid key={footerLink.uid}
                               size={{

@@ -14,6 +14,7 @@ import { FooterPlaceHolder } from '@voguish/module-theme/components/widgets/plac
 import Footer_Query from '@voguish/module-theme/graphql/footer.graphql';
 import { useTranslation } from 'next-i18next';
 import dynamic from 'next/dynamic';
+import Image from 'next/image';
 import Link from 'next/link';
 import { FooterLinksResult, SubLinks } from './type';
 
@@ -63,7 +64,7 @@ const Footer = () => {
               <Containers className="justify-between lg:px-[6.625rem] hidden w-full px-0 pt-12 pb-16 md:flex">
                 <Grid>
                   <Stack spacing={2}>
-                    {/* <div aria-label="unineed">
+                    <div aria-label="unineed">
                       <Link href="/" aria-label="Go to search" passHref>
                         <Image
                           decoding="auto"
@@ -74,15 +75,15 @@ const Footer = () => {
                           width={186}
                         />
                       </Link>
-                    </div> */}
-                    {/* <Typography
+                    </div>
+                    <Typography
                       variant="body1"
                       component="p"
                       className="text-sm duration-200 text-white cta hover:text-brand max-w-fit"
                     >
                       Follow US
                     </Typography>
-                    <FooterIcon /> */}
+                    <FooterIcon />
                     <Typography
                       variant="body1"
                       component="p"
@@ -127,11 +128,8 @@ const Footer = () => {
                       240 Seaward Street
                       Glasgow G41 1NG
                     </Typography>
-
-
                   </Stack>
                 </Grid>
-
                 {data?.footerLinks.map((footerLink) => (
                   <Grid key={footerLink.uid}>
                     <Stack spacing={2}>
@@ -182,7 +180,6 @@ const Footer = () => {
                     </Stack>
                   </Grid>
                 ))}
-
               </Containers>
               <Containers className="-md:!mx-0 md:hidden -md:!px-0 px-0 pt-12 pb-3">
                 <Accordion

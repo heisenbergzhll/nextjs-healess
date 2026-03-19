@@ -37,9 +37,10 @@ export const authorizationErr = 'The current customer is not authorized.';
 export const RECAPTCHA = 'RECAPTCHA';
 export const REGISTER_IN_PROGRESS = 'IN_PROGRESS';
 
-export const BRAND_HEX_CODE = '#155e59';
+export const BRAND_HEX_CODE = '#BB742F';
 export const WHITE_HEX_CODE = '#fff';
 export const SEARCH_FIELD = 'searchField';
+
 export const PAYMENT_METHODS_CONST = {
   CHECK_MO: 'checkmo',
   STRIPE: 'stripe_payments',

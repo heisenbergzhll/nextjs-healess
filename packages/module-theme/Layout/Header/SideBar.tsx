@@ -4,14 +4,15 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ChevronLeft from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import CloseIcon from '@mui/icons-material/Close';
-import { Box, Button, Drawer, IconButton, Typography } from '@mui/material';
+import { Box, Button, Drawer, IconButton, Stack, Typography } from '@mui/material';
+import Avatar from '@mui/material/Avatar';
+import { stringAvatar } from '@utils/Helper';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { getLocalStorage, STORE_CONFIG } from '@store/local-storage';
 import { isValidArray, isValidObject } from '@utils/Helper';
 import { useToken } from '@voguish/module-customer/hooks/useToken';
@@ -44,6 +45,7 @@ export default function SideBar({
   const token = useToken();
   const router = useRouter();
   const userName = useSelector((state: RootState) => state?.user?.name);
+  const userEmail = useSelector((state: RootState) => state?.user?.email);
 
   const categories: Category[] = isValidObject(sortedMenu)
     ? Object.values(Object.values(sortedMenu)?.[0]?.children)
@@ -98,6 +100,10 @@ export default function SideBar({
           </IconButton>
         </Box>
 
+        <Box className="mt-2 px-4  border-0 border-b border-solid border-gray-200">
+          <StoreSwitcher isSidebar={true} />
+          <CurrencySwitcher />
+        </Box>
         {/* Back Button */}
         {selectedIndex !== -1 && (
           <Box className="flex items-center px-4 py-3 pb-1 border-b">
@@ -114,34 +120,38 @@ export default function SideBar({
 
         {/* Category List */}
         {selectedIndex === -1 && (
-          <Box className="px-4 py-2 max-h-[65vh]">
-            {isValidArray(categories) &&
-              sortByNameAsc(categories)?.map(
-                (category: any, idx) =>
-                  isValidObject(category?.children) && (
-                    <Box
-                      key={category.title}
-                      className="flex justify-between items-center py-2 cursor-pointer border-b"
-                    >
-                      <Typography>
-                        <LinkItem
-                          setOpenSidebar={setOpenSidebar}
-                          page={category}
-                        />
-                      </Typography>
-                      {isValidArray(
-                        Object.values(
-                          Object.values(categories[idx]?.children || {})
-                        )
-                      ) && (
-                          <ChevronRightIcon
-                            onClick={() => setSelectedIndex(idx)}
+          <Box className="px-4">
+            <Typography variant="subtitle1" className="text-[#90A1B9] uppercase pt-4 pb-1">Categories</Typography>
+            <Box className="py-2 max-h-[65vh]">
+              {isValidArray(categories) &&
+                categories?.map(
+                  (category: any, idx) =>
+                    isValidObject(category?.children) && (
+                      <Box
+                        key={category.title}
+                        className="flex justify-between items-center py-2 cursor-pointer border-b"
+                      >
+                        <Typography>
+                          <LinkItem
+                            setOpenSidebar={setOpenSidebar}
+                            page={category}
                           />
-                        )}
-                    </Box>
-                  )
-              )}
+                        </Typography>
+                        {isValidArray(
+                          Object.values(
+                            Object.values(categories[idx]?.children || {})
+                          )
+                        ) && (
+                            <ChevronRightIcon
+                              onClick={() => setSelectedIndex(idx)}
+                            />
+                          )}
+                      </Box>
+                    )
+                )}
+            </Box>
           </Box>
+
         )}
 
         {/* Subcategory Panel */}
@@ -176,7 +186,7 @@ export default function SideBar({
 
         {/* Bottom Section */}
         {selectedIndex === -1 && (
-          <Box className="mt-8 py-3 border-t absolute left-0 right-0 bottom-0 px-4 pt-6 space-y-4">
+          <Box className="mt-8 py-4 border-t absolute left-0 right-0 bottom-0 px-4  space-y-4 border-0 border-b border-solid border-gray-200">
             {!token ? (
               <Box className="block gap-2">
                 <Link href="/customer/account/login" className="w-full">
@@ -192,28 +202,22 @@ export default function SideBar({
                 </Link>
               </Box>
             ) : (
-              <Link
-                href="/customer/account"
-                className="flex justify-between items-center"
-              >
-                <div>
-                  <Typography variant="body1">{t('Welcome')}</Typography>
-                  <Typography variant="h6">{userName}</Typography>
-                </div>
-                <ArrowForwardIosIcon />
-              </Link>
+              <Box>
+                <Link
+                  href="/customer/account"
+                  className="flex justify-between items-center"
+                >
+                  <Stack direction={"row"} alignItems={"center"} spacing={1}>
+                    <Avatar
+                      {...stringAvatar(userName ?? 'U')}
+                      className="w-[44px] h-[44px] bg-brand uppercase text-xl font-medium"
+                    />
+                    <Typography variant="body1" className="mt-2 text-normal">{userName}</Typography>
+                  </Stack>
+                  <ArrowForwardIosIcon fontSize="small" />
+                </Link>
+              </Box>
             )}
-
-            <Box className="flex mt-2  justify-between items-center">
-              <StoreSwitcher isSidebar={true} />
-              <CurrencySwitcher />
-              <Link
-                href={token ? '/wishlist' : '/customer/account/login'}
-                aria-label="Wishlist"
-              >
-                <FavoriteBorderIcon />
-              </Link>
-            </Box>
           </Box>
         )}
       </ErrorBoundary>

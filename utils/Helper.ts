@@ -404,7 +404,7 @@ export function classNames(...classes: any) {
 export const getInitials = (name: string) => {
   const initials = name
     .split(' ')
-    .map((word) => word[0].toUpperCase())
+    .map((word) => word[0]?.toUpperCase())
     .join('');
 
   return initials;

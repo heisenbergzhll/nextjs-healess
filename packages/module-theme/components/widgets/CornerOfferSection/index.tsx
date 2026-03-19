@@ -1,4 +1,3 @@
-import Grid from '@mui/material/Grid';
 import dynamic from 'next/dynamic';
 import ErrorBoundary from '../../ErrorBoundary';
 const CornerOfferSection = dynamic(() => import('./CornerOfferSection'));
@@ -6,7 +5,7 @@ const CornerOfferSection = dynamic(() => import('./CornerOfferSection'));
 const CornerOffer = ({ items }: any) => {
   return (
     <ErrorBoundary>
-      <Grid container className="py-0 my-0 md:px-2.5 lg:px-0">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {items?.items.map((data: any) => (
           <CornerOfferSection
             key={data?.id}
@@ -19,7 +18,7 @@ const CornerOffer = ({ items }: any) => {
             }}
           />
         ))}
-      </Grid>
+      </div>
     </ErrorBoundary>
   );
 };

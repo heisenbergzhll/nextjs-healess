@@ -13,7 +13,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'cn.haitaoweb.com',
+        hostname: 'www.haitaoweb.com',
         port: '',
         pathname: '/**',
       }

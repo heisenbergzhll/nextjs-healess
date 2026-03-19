@@ -1,5 +1,6 @@
 import ReturnPoilcy from '@assets/icons/no-return-policy.svg';
 import Image from 'next/image';
+import type { SVGProps } from 'react';
 
 export default function XIcon() {
   return (
@@ -107,62 +108,71 @@ export function IconSearch({ hover }: { hover?: string }) {
 
 export function IconBag() {
   return (
-    <svg
-      width="30"
-      height="30"
-      viewBox="0 0 30 30"
-      fill="none"
-      className="group"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <mask
-        id="mask0_189_8399"
-        style={{ maskType: 'luminance' }}
-        maskUnits="userSpaceOnUse"
-        x="0"
-        y="0"
-        width="30"
-        height="30"
-      >
-        <rect width="30" height="30" fill="#C4C4C4" />
-      </mask>
-      <g mask="url(#mask0_189_8399)">
-        <path
-          d="M1 2H3.63941C4.57694 2 5.38864 2.65124 5.59186 3.56648L8.01006 14.4573C8.21327 15.3725 9.02498 16.0238 9.9625 16.0238H18.4433C19.318 16.0238 20.0913 15.4553 20.3522 14.6203L22.3314 8.28702C22.7339 6.99916 21.7717 5.69047 20.4224 5.69047H8.38094"
-          className="duration-150 stroke-2 stroke-black group-hover:stroke-brand"
-          strokeLinecap="round"
-        />
-        <circle
-          cx="11.5"
-          cy="20.5"
-          r="1.5"
-          className="duration-150 stroke-2 stroke-black group-hover:stroke-brand"
-        />
-        <circle
-          cx="17.5"
-          cy="20.5"
-          r="1.5"
-          className="duration-150 stroke-2 stroke-black group-hover:stroke-brand"
-        />
-      </g>
+    // <svg
+    //   width="30"
+    //   height="30"
+    //   viewBox="0 0 30 30"
+    //   fill="none"
+    //   className="group"
+    //   xmlns="http://www.w3.org/2000/svg"
+    // >
+    //   <mask
+    //     id="mask0_189_8399"
+    //     style={{ maskType: 'luminance' }}
+    //     maskUnits="userSpaceOnUse"
+    //     x="0"
+    //     y="0"
+    //     width="30"
+    //     height="30"
+    //   >
+    //     <rect width="30" height="30" fill="#C4C4C4" />
+    //   </mask>
+    //   <g mask="url(#mask0_189_8399)">
+    //     <path
+    //       d="M1 2H3.63941C4.57694 2 5.38864 2.65124 5.59186 3.56648L8.01006 14.4573C8.21327 15.3725 9.02498 16.0238 9.9625 16.0238H18.4433C19.318 16.0238 20.0913 15.4553 20.3522 14.6203L22.3314 8.28702C22.7339 6.99916 21.7717 5.69047 20.4224 5.69047H8.38094"
+    //       className="duration-150 stroke-2 stroke-black group-hover:stroke-brand"
+    //       strokeLinecap="round"
+    //     />
+    //     <circle
+    //       cx="11.5"
+    //       cy="20.5"
+    //       r="1.5"
+    //       className="duration-150 stroke-2 stroke-black group-hover:stroke-brand"
+    //     />
+    //     <circle
+    //       cx="17.5"
+    //       cy="20.5"
+    //       r="1.5"
+    //       className="duration-150 stroke-2 stroke-black group-hover:stroke-brand"
+    //     />
+    //   </g>
+    // </svg>
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M4.5 1.5L2.25 4.5V15C2.25 15.3978 2.40804 15.7794 2.68934 16.0607C2.97064 16.342 3.35218 16.5 3.75 16.5H14.25C14.6478 16.5 15.0294 16.342 15.3107 16.0607C15.592 15.7794 15.75 15.3978 15.75 15V4.5L13.5 1.5H4.5Z" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M2.25 4.5H15.75" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M12 7.5C12 8.29565 11.6839 9.05871 11.1213 9.62132C10.5587 10.1839 9.79565 10.5 9 10.5C8.20435 10.5 7.44129 10.1839 6.87868 9.62132C6.31607 9.05871 6 8.29565 6 7.5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }
 export function IconWhishList({ hover }: { hover?: string }) {
   return (
-    <svg
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M12.5 21L11.1174 19.711C9.54147 18.2379 8.39671 17.1483 7.6831 16.4425C6.96948 15.7366 6.16667 14.8619 5.27465 13.8184C4.41236 12.7749 3.81768 11.8389 3.49061 11.0102C3.16354 10.1509 3 9.27621 3 8.38619C3 6.88235 3.49061 5.6087 4.47183 4.56522C5.48279 3.52174 6.73161 3 8.21831 3C9.94288 3 11.3701 3.69054 12.5 5.07161C13.6299 3.69054 15.0571 3 16.7817 3C18.2684 3 19.5023 3.52174 20.4836 4.56522C21.4945 5.6087 22 6.88235 22 8.38619C22 9.58312 21.6135 10.8261 20.8404 12.1151C20.0673 13.4041 19.2199 14.5243 18.2981 15.4757C17.4061 16.4271 15.9343 17.8542 13.8826 19.757L12.5 21Z"
-        className={hover}
-        strokeWidth="2"
-      />
+    // <svg
+    //   width="24"
+    //   height="24"
+    //   viewBox="0 0 24 24"
+    //   fill="none"
+    //   xmlns="http://www.w3.org/2000/svg"
+    // >
+    //   <path
+    //     d="M12.5 21L11.1174 19.711C9.54147 18.2379 8.39671 17.1483 7.6831 16.4425C6.96948 15.7366 6.16667 14.8619 5.27465 13.8184C4.41236 12.7749 3.81768 11.8389 3.49061 11.0102C3.16354 10.1509 3 9.27621 3 8.38619C3 6.88235 3.49061 5.6087 4.47183 4.56522C5.48279 3.52174 6.73161 3 8.21831 3C9.94288 3 11.3701 3.69054 12.5 5.07161C13.6299 3.69054 15.0571 3 16.7817 3C18.2684 3 19.5023 3.52174 20.4836 4.56522C21.4945 5.6087 22 6.88235 22 8.38619C22 9.58312 21.6135 10.8261 20.8404 12.1151C20.0673 13.4041 19.2199 14.5243 18.2981 15.4757C17.4061 16.4271 15.9343 17.8542 13.8826 19.757L12.5 21Z"
+    //     className={hover}
+    //     strokeWidth="2"
+    //   />
+    // </svg>
+    <svg width="18" height="15" viewBox="0 0 18 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12.7148 0.199806C13.9599 0.199811 15.2073 0.643478 16.1631 1.53672C18.079 3.32737 18.079 6.23052 16.1631 8.0211L15.4404 8.6959H15.4395L15.4385 8.69492L15.4375 8.6959L15.4385 8.69688L9.49023 14.2545C9.40488 14.3342 9.31646 14.4122 9.22559 14.4859C9.03846 14.6379 8.76333 14.6379 8.57617 14.4859L8.5752 14.485L8.50195 14.4254V14.4205C8.43722 14.3656 8.37267 14.3116 8.31152 14.2545V14.2535L2.41895 8.74961H2.41797L2.36035 8.6959L1.6377 8.0211C-0.278224 6.23045 -0.278232 3.3273 1.6377 1.53672C2.53376 0.700047 3.68598 0.25772 4.85254 0.205666L5.08594 0.199806L5.31934 0.205666C6.48665 0.257639 7.6416 0.699092 8.53711 1.53672L8.90039 1.87656L9.26367 1.53672C10.2189 0.643262 11.4691 0.199806 12.7148 0.199806ZM15.46 2.23008C13.9355 0.805939 11.4923 0.805957 9.96777 2.23008L9.25293 2.89805C9.17374 2.97199 9.07251 3.01694 8.96484 3.02988C8.93809 3.0333 8.91144 3.03258 8.88477 3.03184V3.2125L8.54883 2.89805L7.83398 2.23106C7.07283 1.5196 6.08075 1.1627 5.08594 1.1627H5.04883C4.06742 1.17153 3.09059 1.52818 2.33887 2.23008C0.822111 3.64708 0.822109 5.90974 2.33887 7.32676L3.0625 8.00156V8.00254L3.06445 8.00352L8.89941 13.4576L14.7354 8.00352L14.7363 8.00254H14.7373L15.46 7.32676C16.9767 5.90976 16.9767 3.6471 15.46 2.23008Z" fill="#314158" stroke="#314158" strokeWidth="0.4" />
     </svg>
+
   );
 }
 export function SpinnerIcon() {
@@ -204,24 +214,31 @@ export function SpinnerIcon() {
 }
 export function IconAccount({ hover }: { hover?: string }) {
   return (
-    <svg
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M2 19.8536C2 16.5399 4.68629 13.8536 8 13.8536H16C19.3137 13.8536 22 16.5399 22 19.8536V20.9999H2V19.8536Z"
-        className={hover}
-        strokeWidth="2"
-      />
-      <path
-        d="M15.1393 8.97312C14.355 9.76914 13.4138 10.1672 12.3158 10.1672C11.2178 10.1672 10.2766 9.76914 9.49227 8.97312C8.70795 8.1771 8.3158 7.22188 8.3158 6.10746C8.3158 4.99303 8.70795 4.03781 9.49227 3.24179C10.2766 2.41393 11.2178 2 12.3158 2C13.4138 2 14.355 2.41393 15.1393 3.24179C15.9236 4.03781 16.3158 4.99303 16.3158 6.10746C16.3158 7.22188 15.9236 8.1771 15.1393 8.97312Z"
-        className={hover}
-        strokeWidth="2"
-      />
+    // <svg
+    //   width="24"
+    //   height="24"
+    //   viewBox="0 0 24 24"
+    //   fill="none"
+    //   xmlns="http://www.w3.org/2000/svg"
+    // >
+    //   <path
+    //     d="M2 19.8536C2 16.5399 4.68629 13.8536 8 13.8536H16C19.3137 13.8536 22 16.5399 22 19.8536V20.9999H2V19.8536Z"
+    //     className={hover}
+    //     strokeWidth="2"
+    //   />
+    //   <path
+    //     d="M15.1393 8.97312C14.355 9.76914 13.4138 10.1672 12.3158 10.1672C11.2178 10.1672 10.2766 9.76914 9.49227 8.97312C8.70795 8.1771 8.3158 7.22188 8.3158 6.10746C8.3158 4.99303 8.70795 4.03781 9.49227 3.24179C10.2766 2.41393 11.2178 2 12.3158 2C13.4138 2 14.355 2.41393 15.1393 3.24179C15.9236 4.03781 16.3158 4.99303 16.3158 6.10746C16.3158 7.22188 15.9236 8.1771 15.1393 8.97312Z"
+    //     className={hover}
+    //     strokeWidth="2"
+    //   />
+    // </svg>
+
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M15.8327 17.5V15.8333C15.8327 14.9493 15.4815 14.1014 14.8564 13.4763C14.2312 12.8512 13.3834 12.5 12.4993 12.5H7.49935C6.61529 12.5 5.76745 12.8512 5.14233 13.4763C4.5172 14.1014 4.16602 14.9493 4.16602 15.8333V17.5" stroke="#314158" strokeWidth="1.66667" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M9.99935 9.16667C11.8403 9.16667 13.3327 7.67428 13.3327 5.83333C13.3327 3.99238 11.8403 2.5 9.99935 2.5C8.1584 2.5 6.66602 3.99238 6.66602 5.83333C6.66602 7.67428 8.1584 9.16667 9.99935 9.16667Z" stroke="#314158" strokeWidth="1.66667" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
+
+
   );
 }
 
@@ -1500,8 +1517,49 @@ export function AirwallexCard() {
     />
   </svg>
 }
+export function MenuIcon() {
+  return <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M2 6H10" stroke="white" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M2 3H10" stroke="white" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M2 9H10" stroke="white" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+}
 
+export function AccountIcon(props: SVGProps<SVGSVGElement>) {
+  return <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <path d="M14.25 15.75V14.25C14.25 13.4544 13.9339 12.6913 13.3713 12.1287C12.8087 11.5661 12.0456 11.25 11.25 11.25H6.75C5.95435 11.25 5.19129 11.5661 4.62868 12.1287C4.06607 12.6913 3.75 13.4544 3.75 14.25V15.75" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M9 8.25C10.6569 8.25 12 6.90685 12 5.25C12 3.59315 10.6569 2.25 9 2.25C7.34315 2.25 6 3.59315 6 5.25C6 6.90685 7.34315 8.25 9 8.25Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+
+}
+export function OrderIcon(props: SVGProps<SVGSVGElement>) {
+  return <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <path d="M8.25 16.2975C8.47803 16.4291 8.7367 16.4985 9 16.4985C9.2633 16.4985 9.52197 16.4291 9.75 16.2975L15 13.2975C15.2278 13.166 15.417 12.9769 15.5487 12.7491C15.6803 12.5214 15.7497 12.263 15.75 12V5.99999C15.7497 5.73694 15.6803 5.4786 15.5487 5.25086C15.417 5.02312 15.2278 4.83401 15 4.70249L9.75 1.70249C9.52197 1.57084 9.2633 1.50153 9 1.50153C8.7367 1.50153 8.47803 1.57084 8.25 1.70249L3 4.70249C2.7722 4.83401 2.58299 5.02312 2.45135 5.25086C2.31971 5.4786 2.25027 5.73694 2.25 5.99999V12C2.25027 12.263 2.31971 12.5214 2.45135 12.7491C2.58299 12.9769 2.7722 13.166 3 13.2975L8.25 16.2975Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M9 16.5V9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M2.4668 5.25L8.9993 9L15.5318 5.25" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M5.625 3.20251L12.375 7.06501" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+}
+export function AddressIcon(props: SVGProps<SVGSVGElement>) {
+  return <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <path d="M15 7.5C15 11.2448 10.8457 15.1447 9.45075 16.3492C9.32079 16.447 9.1626 16.4998 9 16.4998C8.8374 16.4998 8.67921 16.447 8.54925 16.3492C7.15425 15.1447 3 11.2448 3 7.5C3 5.9087 3.63214 4.38258 4.75736 3.25736C5.88258 2.13214 7.4087 1.5 9 1.5C10.5913 1.5 12.1174 2.13214 13.2426 3.25736C14.3679 4.38258 15 5.9087 15 7.5Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M9 9.75C10.2426 9.75 11.25 8.74264 11.25 7.5C11.25 6.25736 10.2426 5.25 9 5.25C7.75736 5.25 6.75 6.25736 6.75 7.5C6.75 8.74264 7.75736 9.75 9 9.75Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+}
+
+export function WishIcon(props: SVGProps<SVGSVGElement>) {
+  return <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <path d="M14.25 10.5C15.3675 9.405 16.5 8.0925 16.5 6.375C16.5 5.28098 16.0654 4.23177 15.2918 3.45818C14.5182 2.6846 13.469 2.25 12.375 2.25C11.055 2.25 10.125 2.625 9 3.75C7.875 2.625 6.945 2.25 5.625 2.25C4.53098 2.25 3.48177 2.6846 2.70818 3.45818C1.9346 4.23177 1.5 5.28098 1.5 6.375C1.5 8.1 2.625 9.4125 3.75 10.5L9 15.75L14.25 10.5Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+}
+export function LogoutIcon(props: SVGProps<SVGSVGElement>) {
+  return <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"  {...props}>
+    <path d="M6.75 15.75H3.75C3.35218 15.75 2.97064 15.592 2.68934 15.3107C2.40804 15.0294 2.25 14.6478 2.25 14.25V3.75C2.25 3.35218 2.40804 2.97064 2.68934 2.68934C2.97064 2.40804 3.35218 2.25 3.75 2.25H6.75" stroke="#FB2C36" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M12 12.75L15.75 9L12 5.25" stroke="#FB2C36" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M15.75 9H6.75" stroke="#FB2C36" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+}
 export const ALL_ICONS = [IconCart, IconSearch, IconBag, IconWhishList, IconAccount, Sort, Filter, IconSell, EmptyCartIcon, EmptyPageIcon, EditIcon, DeleteIcon, SuccessIcon, WarnIcon, NotFountIcon, ServerErrorIcon, LogoSmall, LogoFull, NoData,
-  Payment, Returns, Security, Delivery, WhishlistDown, TrashIcon, AddCartWhish
+  Payment, Returns, Security, Delivery, WhishlistDown, TrashIcon, AddCartWhish, MenuIcon, AccountIcon, OrderIcon, AddressIcon, WishIcon, LogoutIcon
 ]
 

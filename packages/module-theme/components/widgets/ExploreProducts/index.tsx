@@ -20,6 +20,7 @@ const ExploreProducts = ({
   const { t } = useTranslation('common');
 
   const placeHolders = new Array(5).fill(0);
+  console.log('products?.topRatedProductList', products?.topRatedProductList)
   const item =
     isValidArray(products?.topRatedProductList) &&
     isValidArray(products?.hotDealsProductList) &&
@@ -32,7 +33,7 @@ const ExploreProducts = ({
         return (
           <ErrorBoundary>
             {' '}
-            <div className="py-4 ltr:-ml-5">
+            <div className="py-4">
               {isValidObject(products) && (
                 <Slider
                   extraClass="explore-product"
@@ -50,7 +51,7 @@ const ExploreProducts = ({
       render: () => {
         return (
           <ErrorBoundary>
-            <div className="py-4 ltr:-ml-5">
+            <div className="py-4">
               {' '}
               {isValidObject(products) && (
                 <Slider
@@ -69,7 +70,7 @@ const ExploreProducts = ({
       render: () => {
         return (
           <ErrorBoundary>
-            <div className="py-4 ltr:-ml-5">
+            <div className="py-4">
               {isValidObject(products) && (
                 <Slider
                   extraClass="explore-product"
@@ -102,11 +103,11 @@ const ExploreProducts = ({
           </ErrorBoundary>
         </ErrorBoundary>
       ) : (
-        <div>
+        <div className="2xl:max-w-[90rem] mx-auto w-full px-4 lg:px-[6.625rem]">
           {item && (
             <ErrorBoundary>
               <Info
-                className="px-4 -mb-4 text-center"
+                className="-mb-4 text-left"
                 heading={products?.title}
               >
                 <span
@@ -117,7 +118,7 @@ const ExploreProducts = ({
               </Info>
             </ErrorBoundary>
           )}
-          <Tab className="!border-none" right={false} items={items} />
+          <Tab className="!border-none pl-4" right={false} items={items} />
         </div>
       )}
     </div>

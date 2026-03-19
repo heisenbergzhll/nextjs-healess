@@ -1,7 +1,7 @@
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import Button from '@mui/material/Button';
 import { CircularProgress } from '@mui/material';
+import Button from '@mui/material/Button';
 import { AUTHORIZED, BRAND_HEX_CODE } from '@utils/Constants';
 import useDeleteWishlistProduct, {
   useAddToWishlist,
@@ -12,10 +12,10 @@ import ErrorBoundary from '@voguish/module-theme/components/ErrorBoundary';
 import { ButtonMui } from '@voguish/module-theme/components/ui/ButtonMui';
 import { useInfo } from '@voguish/module-theme/Layout/Header/Provider/InfoProvider';
 import { decode } from 'base-64';
-import { useTranslation } from 'next-i18next';
-import { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 type Props = {
   productSku: string;
   card?: boolean;
@@ -23,6 +23,7 @@ type Props = {
   detailsPage?: boolean;
   cartItemId?: string;
   view?: string | any;
+  className?: string;
 };
 
 export default function AddToWishlist({
@@ -32,6 +33,7 @@ export default function AddToWishlist({
   type,
   detailsPage = false,
   card = false,
+  className
 }: Props) {
   const router = useRouter();
   const token = useToken();
@@ -101,12 +103,11 @@ export default function AddToWishlist({
           <Button
             aria-label="add to whishlist"
             onClick={onAdd}
-            className={`z-[9] min-w-0  rounded-full flex items-center justify-center cursor-pointer px-0 w-9 h-9 absolute bg-white hover:!bg-white text-sm shadow-md
-           hover:shadow-lg ${
-             view === 'list'
-               ? '-md:top-3 -md:right-3  md:bottom-4 md:ltr:right-28 -md:rtl:left-3 md:rtl:left-28'
-               : 'top-3 rtl:left-3 ltr:right-3'
-           }  group`}
+            className={`min-w-0 border border-solid border-gray-600  rounded-2xl flex items-center justify-center cursor-pointer px-0 w-[34px] h-[26px]  bg-white hover:!bg-white text-sm 
+                hover:shadow-lg ${className} ${view === 'list'
+                ? '-md:top-3 -md:right-3  md:bottom-4 md:ltr:right-28 -md:rtl:left-3 md:rtl:left-28'
+                : ''
+              }  group`}
           >
             {' '}
             {isLoadingAddWish || isInProcess ? (
@@ -117,9 +118,9 @@ export default function AddToWishlist({
             ) : (
               <ErrorBoundary>
                 {!add ? (
-                  <FavoriteBorderIcon className="text-xl font-medium text-slate-400" />
+                  <FavoriteIcon className="text-base font-medium text-gray-600" />
                 ) : (
-                  token && <FavoriteIcon className="text-xl" />
+                  token && <FavoriteIcon className="text-base font-medium  text-brand" />
                 )}
               </ErrorBoundary>
             )}

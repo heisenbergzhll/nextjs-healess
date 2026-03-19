@@ -1,0 +1,11 @@
+query SearchPopularSearches($search: String) {
+  xsearchPopularSearches(search: $search) {
+    code
+    items {
+      name
+      num_results
+      url
+    }
+    total_count
+  }
+}

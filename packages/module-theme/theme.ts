@@ -145,7 +145,7 @@ let theme = createTheme({
     },
   },
   typography: {
-    fontFamily: 'Poppins',
+    fontFamily: 'Lexend',
     h6: {
       fontSize: '2rem',
     },

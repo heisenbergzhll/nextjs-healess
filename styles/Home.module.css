@@ -55,3 +55,22 @@
 .logo {
   @apply h-[1em] ml-2;
 }
+
+/* 默认小圆点 */
+.main-banner-bullet {
+  width: 4px;
+  height: 4px;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  margin: 0 4px;
+  transition: all 0.3s ease; /* 平滑动画 */
+  display: inline-block;
+}
+
+/* 激活状态小圆点 */
+.main-banner-bullet-active {
+  width: 8px; /* 扩大宽度 */
+  height: 4px; /* 高度保持不变 */
+  border-radius: 4px; /* 变成长条形 */
+  background-color: #fff;
+}

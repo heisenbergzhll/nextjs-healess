@@ -1,8 +1,8 @@
+import { AuthPlaceholder } from '@packages/placeholder/ProductDetail';
+import Containers from '@voguish/module-theme/components/ui/Container';
 import { PageOptions } from '@voguish/module-theme/page';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import dynamic from 'next/dynamic';
-import Containers from '@voguish/module-theme/components/ui/Container';
-import { AuthPlaceholder } from '@packages/placeholder/ProductDetail';
 import { Suspense } from 'react';
 
 const Login = dynamic(
@@ -35,7 +35,7 @@ export default LoginAccount;
 export const getServerSideProps = async ({ locale }: { locale: string }) => {
   const pageProps: PageOptions = {
     title: 'Customer Login',
-    description: 'Welcome to Voguish Theme',
+    description: 'Welcome to Unineed',
   };
   return {
     props: {

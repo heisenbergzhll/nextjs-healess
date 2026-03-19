@@ -10,9 +10,10 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 const homePageCache = new LRUCache<any>(50, 5);
 
+
 const Home = ({ pageData }: { pageData: HomePageData }) => {
   return (
-    <div className="mx-auto w-full 4xl:max-w-[160.5rem]">
+    <div className="mx-auto w-full">
       <HomePage pageData={pageData} />
     </div>
   );
@@ -22,14 +23,15 @@ export default Home;
 
 export async function getServerSideProps({ locale }: { locale: string }) {
   const pageProps: PageOptions = {
-    title: 'Home Page - Voguish',
-    description: 'Welcome to Voguish Theme',
+    title: 'Home Page - Unineed',
+    description: 'Welcome to Unineed',
     showBreadcrumb: false,
   };
 
   try {
     const cacheKey = `homepage_${locale}`;
     const cachedData = homePageCache.get(cacheKey);
+    console.log('cachedData', cachedData)
 
     if (cachedData) {
       return {
@@ -46,6 +48,7 @@ export async function getServerSideProps({ locale }: { locale: string }) {
       fetchPolicy: 'network-only',
       nextFetchPolicy: 'cache-first',
     });
+    console.log('fetch storeListResponse---', storeListResponse)
     const stores = storeListResponse?.availableStores || [];
     const selectedStore = getLocalStore(stores, locale);
     if (!selectedStore) {
@@ -59,7 +62,7 @@ export async function getServerSideProps({ locale }: { locale: string }) {
       options: {
         context: {
           headers: {
-            store: selectedStore,
+            Store: selectedStore,
           },
         },
         fetchPolicy: 'network-only',

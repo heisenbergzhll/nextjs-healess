@@ -1,8 +1,7 @@
-import { useQuery } from '@apollo/client';
-import { Listbox, Transition } from '@headlessui/react';
-import { client, httpLink, setStoreCode } from '@lib/apollo-client';
+import { Listbox, ListboxButton, ListboxOption, ListboxOptions, Transition } from '@headlessui/react';
 import CheckIcon from '@mui/icons-material/Check';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import Typography from '@mui/material/Typography';
 import { useAppDispatch } from '@store/hooks';
 import {
   SELECTED_STORE,
@@ -12,6 +11,7 @@ import {
   getLocalStorage,
 } from '@store/local-storage';
 import { setCurrentStore } from '@store/store';
+import { STORE_LIST } from '@utils/Constants';
 import { isValidArray } from '@utils/Helper';
 import Thumbnail from '@voguish/module-catalog/Components/Product/Item/Thumbnail';
 import ErrorBoundary from '@voguish/module-theme/components/ErrorBoundary';
@@ -20,8 +20,6 @@ import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 import { Fragment, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import AVAILABLE_STORES from './graphql/AvailableStore.graphql';
-import { StoreConfigQueryResult } from './types';
 
 export default function StoreSwitcher({
   isSidebar = false,
@@ -29,92 +27,80 @@ export default function StoreSwitcher({
   isSidebar?: boolean;
 }) {
   const data = useSelector((state) => state);
-  const { data: stores, loading } =
-    useQuery<StoreConfigQueryResult>(AVAILABLE_STORES);
+  // const { data: stores, loading } =
+  //   useQuery<StoreConfigQueryResult>(AVAILABLE_STORES);
+
+  // console.log('stores --- stores', stores)
   const dispatch = useAppDispatch();
-  const defaultStore = getKeyFromStorage(STORE_CONFIG, 'locale');
-  const currentStoreCode =
-    getLocalStorage(STORE_CODE) ??
-    getKeyFromStorage(STORE_CONFIG, 'store_code');
+
+  const defaultStore = getKeyFromStorage(STORE_CONFIG, 'store_code');
+
+  const currentStoreCode = getLocalStorage(STORE_CODE) ?? getKeyFromStorage(STORE_CONFIG, 'store_code');
+
   const storeCodeItem = currentStoreCode
     ? currentStoreCode
-    : defaultStore?.split('_')[0] || '';
+    : defaultStore || 'default';
+
   const router = useRouter();
   const { pathname, asPath, query, locale } = router;
-  const storeEvent = stores?.availableStores?.find(
-    (store: any) => store?.locale.split('_')[0] === locale && store.locale
-  );
 
+  const storeEvent: any = STORE_LIST.find(
+    (store: any) => store.locale === locale && store.locale
+  );
   const [code, setCode] = useState(storeEvent);
   const manageStore = () => {
-    if (!loading) {
-      dispatch(setCurrentStore(storeCodeItem));
-      if (!isSidebar) {
-        storeCodeItem !== 'undefined' && router.reload();
-      }
-      setCookie(SELECTED_STORE, storeCodeItem);
+    dispatch(setCurrentStore(storeCodeItem));
+    if (!isSidebar) {
+      storeCodeItem !== 'undefined' && router.reload();
     }
+    setCookie(SELECTED_STORE, storeCodeItem);
   };
-
   useEffect(() => {
     dispatch(setCurrentStore(storeCodeItem));
-    router.push({ pathname, query }, asPath, {
-      locale:
-        storeCodeItem !== 'default'
-          ? storeCodeItem?.split('_')[0]
-          : process.env.DEFAULT_LOCALE,
-    });
-    manageStore();
+    // router.push({ pathname, query }, asPath, {
+    //   locale:
+    //     storeCodeItem !== 'default'
+    //       ? storeCodeItem?.split('_')[0]
+    //       : process.env.DEFAULT_LOCALE,
+    // });
+    // manageStore();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [code, storeCodeItem]);
 
   const handleChangeList = (event: string) => {
-    console.log(event, 'event changer write now ', event.split('_')[0]);
-    if (!loading) {
-      client.setLink(setStoreCode(event.split('_')[0] || '').concat(httpLink));
-      dispatch(setCurrentStore(event.split('_')[0]));
-      setCode(event);
-    }
+    console.log('envent', event);
+    return;
   };
 
   return (
     <ErrorBoundary>
-      {loading ? (
-        <div className="rounded-full size-10 animate-pulse bg-slate-500" />
-      ) : (
-        isValidArray(stores?.availableStores) && (
+      {
+        isValidArray(STORE_LIST) && (
           <Listbox value={code} onChange={handleChangeList}>
             {({ open }) => (
               <div className="relative mt-1">
                 <ErrorBoundary>
-                  <Listbox.Button className="relative -mx-0.5 -mt-1 flex cursor-pointer items-center justify-center border-0 bg-transparent px-0 text-[27px] font-light">
+                  <ListboxButton className=" relative -mx-0.5 -mt-1 flex cursor-pointer items-center justify-center border-0 bg-transparent px-0 text-[27px] font-light">
                     <div className="block truncate cursor-pointer">
-                      {stores?.availableStores
-                        ?.filter(
-                          (store: any) => store?.locale.split('_')[0] === locale
-                        )
+                      {STORE_LIST
+                        ?.filter((store: any) => store?.locale === locale)
                         .map((store: any, index: number) => (
                           <div
                             className="flex items-center justify-between"
                             key={store?.store_code + index}
                           >
                             <span className="flex items-center px-1.5 text-xl duration-300 hover:border-brand">
-                              <span className="relative w-10 h-6 py-0 text-2xl truncate border-2 border-solid rounded-md lg:border-transparent">
+                              <span className="relative w-10 h-6 py-0 text-2xl truncate border-2 border-solid  lg:border-transparent">
                                 <Thumbnail
                                   decoding="auto"
                                   fill
                                   className="object-cover scale-110 rounded-md"
-                                  thumbnail={`https://flagcdn.com/32x24/${store?.locale?.split('_')[0] !== 'en'
-                                    ? store?.locale?.split('_')[0]
-                                    : 'us'
-                                    }.png`}
+                                  thumbnail={`/assets/icons/${store?.locale}.svg`}
                                   alt={store?.locale}
                                 />
                               </span>
-                              <span className="px-2 text-sm font-normal text-white -lg:hidden">
-                                {store?.locale?.split('_')[0] === 'en'
-                                  ? 'English (USA)'
-                                  : store?.store_name}
+                              <span className="px-2 text-sm font-normal text-black -lg:hidden">
+                                {`${store?.store_name}`}
                               </span>
                             </span>
                             <motion.div
@@ -126,73 +112,92 @@ export default function StoreSwitcher({
                               }}
                               transition={{ duration: 0.4 }}
                             >
-                              <KeyboardArrowDownIcon className="py-0 lg:text-white" />
+                              <KeyboardArrowDownIcon className="py-0 lg:text-black" />
                             </motion.div>
                           </div>
                         ))}
                     </div>
-                  </Listbox.Button>
+                  </ListboxButton>
                 </ErrorBoundary>
 
                 <Transition
                   as={Fragment}
-                  enter="transition ease-in duration-200"
                   enterFrom="opacity-0"
                   enterTo="opacity-100"
-                  leave="transition ease-in duration-200"
+                  enter="transition ease-in duration-300"
+                  leave="transition ease-in duration-300"
                   leaveFrom="opacity-100"
                   leaveTo="opacity-0"
                 >
-                  <Listbox.Options className="absolute bottom-full mb-2 mt-1 flex max-h-[12.3rem] translate-x-1.5 list-none flex-col gap-2 overflow-auto rounded-md bg-white p-4 text-base shadow-xl ring-1 ring-black/5 focus:outline-none sm:text-sm lg:w-[13rem]">
-                    {stores?.availableStores?.map((store: any) => (
-                      <Listbox.Option
-                        key={store?.store_code}
-                        value={store?.locale}
-                        className={({ active }) =>
-                          `relative cursor-pointer py-0 select-none ${active ? 'text-white' : 'text-gray-900'
-                          }`
-                        }
-                      >
-                        <ErrorBoundary>
-                          <span
-                            className={`text-sm cursor-pointer flex items-center gap-2 truncate ${storeCodeItem === store?.store_code
-                              ? 'text-brand'
-                              : 'font-normal'
-                              }`}
+                  <div className="absolute z-50 mb-2 mt-1 translate-x-1.5 list-none flex flex-col focus:outline-none sm:text-sm">
+                    <div
+                      className="absolute -top-1.5 left-1/2 -translate-x-1/2 z-20"
+                      style={{
+                        width: 0,
+                        height: 0,
+                        borderLeft: '8px solid transparent',
+                        borderRight: '8px solid transparent',
+                        borderBottom: '8px solid #fff',
+                      }}
+                      aria-hidden
+                    />
+                    <div
+                      className="absolute -top-2 left-1/2 -translate-x-1/2 z-10"
+                      style={{
+                        width: 0,
+                        height: 0,
+                        borderLeft: '8px solid transparent',
+                        borderRight: '8px solid transparent',
+                        borderBottom: '8px solid rgb(16 24 40 / 0.05)',
+                      }}
+                      aria-hidden
+                    />
+                    <div className="max-h-[20rem] overflow-auto rounded-md bg-white text-base shadow-xl ring-1 ring-black/5">
+                      <ListboxOptions className="gap-2">
+                        <Typography variant='body1' className='px-4 pt-3 py-2 text-center'>Select Country</Typography>
+                        {STORE_LIST?.map((store: any) => (
+                          <ListboxOption
+                            key={store?.store_code}
+                            value={store?.store_code}
+                            className={({ active }) =>
+                              `relative cursor-pointer py-3 px-6 select-none text-black hover:bg-[#d9d9d9]/10 ${storeCodeItem === store?.store_code ? 'bg-[#d9d9d9]/20' : 'bg-white'}`
+                            }
                           >
-                            <span className="relative hover:text-black w-12 h-6 py-0 text-2xl truncate border border-white border-solid rounded-md">
-                              <Thumbnail
-                                decoding="auto"
-                                fill
-                                className="object-cover scale-110 rounded-md"
-                                thumbnail={`https://flagcdn.com/32x24/${store?.locale?.split('_')[0] !== 'en'
-                                  ? store?.locale?.split('_')[0]
-                                  : 'us'
-                                  }.png`}
-                                alt={store?.locale}
-                              />
-                            </span>
-                            <span className="flex items-center hover:text-black w-full">
-                              <span className="-lg:hidden">
-                                {store?.locale?.split('_')[0] === 'en'
-                                  ? 'English (USA)'
-                                  : store?.store_name}
+                            <ErrorBoundary>
+                              <span
+                                className={`text-sm cursor-pointer flex items-center gap-2 truncate`}
+                              >
+                                <span className="relative hover:text-black w-12 h-6 py-0 text-2xl truncate border border-white border-solid">
+                                  <Thumbnail
+                                    decoding="auto"
+                                    fill
+                                    className="object-cover scale-110 rounded-md"
+                                    thumbnail={`/assets/icons/${store?.locale}.svg`}
+                                    alt={store?.locale}
+                                  />
+                                </span>
+                                <span className={`flex font-light items-center hover:font-normal w-full min-w-[215px]}`}>
+                                  <span className={`-lg:hidden ${storeCodeItem === store?.store_code ? 'font-normal' : 'font-light'}`}>
+                                    {`${store?.store_name} (${store?.locale.toUpperCase()})`}
+                                  </span>
+                                  {storeCodeItem === store?.store_code && (
+                                    <CheckIcon className="-mt-2 text-black ltr:ml-6 rtl:mr-6" />
+                                  )}
+                                </span>
                               </span>
-                              {storeCodeItem === store?.store_code && (
-                                <CheckIcon className="-mt-2 text-white ltr:ml-6 rtl:mr-6" />
-                              )}
-                            </span>
-                          </span>
-                        </ErrorBoundary>
-                      </Listbox.Option>
-                    ))}
-                  </Listbox.Options>
+                            </ErrorBoundary>
+                          </ListboxOption>
+                        ))}
+                      </ListboxOptions>
+                    </div>
+                  </div>
+
                 </Transition>
               </div>
             )}
           </Listbox>
         )
-      )}
+      }
     </ErrorBoundary>
   );
 }

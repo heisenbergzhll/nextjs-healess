@@ -1,10 +1,10 @@
 import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
+import { removeUrlHash, useHash } from '@packages/module-common/useHash';
 import { TabsProp } from '@voguish/module-catalog/types';
-import { ReactNode, SyntheticEvent, useEffect, useState } from 'react';
-import { useHash, removeUrlHash } from '@packages/module-common/useHash';
 import { useRouter } from 'next/router';
+import { ReactNode, SyntheticEvent, useEffect, useState } from 'react';
 
 interface TabPanelProps {
   children?: ReactNode;
@@ -75,13 +75,11 @@ export default function TabLayout({
     }
   }, [hashValue]);
 
-  console.log(items, '');
   return (
     <Box sx={{ width: '100%' }} className={`${right ? '' : 'py-0 my-0'}`}>
       <Box
-        className={` mx-2 ${
-          right ? '' : 'flex justify-center mx-auto max-w-[90rem] px-0 sm:px-6'
-        }`}
+        className={` mx-2 ${right ? '' : 'flex justify-center mx-auto max-w-[90rem] px-0 sm:px-6'
+          }`}
       >
         <Tabs
           value={value}
@@ -91,9 +89,8 @@ export default function TabLayout({
         >
           {items.map((item) => (
             <Tab
-              className={`my-0 ${
-                value === item.id - 1 ? 'font-semibold' : 'font-normal'
-              }`}
+              className={`my-0 ${value === item.id - 1 ? 'font-semibold' : 'font-normal'
+                }`}
               aria-label={item.name}
               key={item.id}
               label={item.name}

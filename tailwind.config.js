@@ -24,7 +24,7 @@ module.exports = {
 
   theme: {
     fontFamily: {
-      Poppins: ['Poppins'],
+      Lexend: ['Lexend', 'sans-serif'],
     },
     extend: {
       colors: {
@@ -62,7 +62,7 @@ module.exports = {
         textShopping: '#191919',
         hoverButton: '#27775c',
         checkoutBorder: '#DCDCDC',
-        black: '#000',
+        black: '#101828',
         inputBorder: '#D7DFE2',
       },
       screens: {

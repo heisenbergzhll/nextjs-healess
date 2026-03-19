@@ -27,7 +27,7 @@ button {
   --color-main: 100 104 122;
   --color-primary: 0 0 0; /* Text, Primary Button */
   /* --color-brand: 17 94 89; accessbility issue*/
-  --color-brand: 15 118 110; /*resolved by this*/
+  --color-brand: 187 116 47; /*resolved by this*/
   --color-blue_magenta: #262441;
   --color-tab: 248 248 248; /* Customer Tab Hover background */
   --color-star: 255 201 48;
@@ -45,111 +45,74 @@ button {
   --width-heading: 4rem;
 }
 
+/* Lexend Thin */
 @font-face {
-  font-family: 'Poppins';
-  src: url('~/public/assets/fonts/Poppins/Poppins-Black.ttf') format('truetype');
-  font-weight: 900;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'Poppins';
-  src: url('~/public/assets/fonts/Poppins/Poppins-BlackItalic.ttf')
-    format('truetype');
-  font-weight: 900;
-  font-style: italic;
-}
-@font-face {
-  font-family: 'Poppins';
-  src: url('~/public/assets/fonts/Poppins/Poppins-Bold.ttf') format('truetype');
-  font-weight: 700;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'Poppins';
-  src: url('~/public/assets/fonts/Poppins/Poppins-BoldItalic.ttf')
-    format('truetype');
-  font-weight: 700;
-  font-style: italic;
-}
-@font-face {
-  font-family: 'Poppins';
-  src: url('~/public/assets/fonts/Poppins/Poppins-Italic.ttf')
-    format('truetype');
-  font-weight: 400;
-  font-style: italic;
-}
-@font-face {
-  font-family: 'Poppins';
-  src: url('~/public/assets/fonts/Poppins/Poppins-Light.ttf') format('truetype');
-  font-weight: 300;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'Poppins';
-  src: url('~/public/assets/fonts/Poppins/Poppins-LightItalic.ttf')
-    format('truetype');
-  font-weight: 300;
-  font-style: italic;
-}
-@font-face {
-  font-family: 'Poppins';
-  src: url('~/public/assets/fonts/Poppins/Poppins-Medium.ttf')
-    format('truetype');
-  font-weight: 500;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'Poppins';
-  src: url('~/public/assets/fonts/Poppins/Poppins-MediumItalic.ttf')
-    format('truetype');
-  font-weight: 500;
-  font-style: italic;
-}
-@font-face {
-  font-family: 'Poppins';
-  src: url('~/public/assets/fonts/Poppins/Poppins-Regular.ttf')
-    format('truetype');
-  font-weight: 400;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'Poppins';
-  src: url('~/public/assets/fonts/Poppins/Poppins-ExtraBold.ttf')
-    format('truetype');
-  font-weight: 800;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'Poppins';
-  src: url('~/public/assets/fonts/Poppins/Poppins-ExtraBoldItalic.ttf')
-    format('truetype');
-  font-weight: 800;
-  font-style: Italic;
-}
-@font-face {
-  font-family: 'Poppins';
-  src: url('~/public/assets/fonts/Poppins/Poppins-SemiBoldItalic.ttf')
-    format('truetype');
-  font-weight: 600;
-  font-style: italic;
-}
-@font-face {
-  font-family: 'Poppins';
-  src: url('~/public/assets/fonts/Poppins/Poppins-SemiBold.ttf')
-    format('truetype');
-  font-weight: 600;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'Poppins';
-  src: url('~/public/assets/fonts/Poppins/Poppins-Thin.ttf') format('truetype');
+  font-family: 'Lexend';
+  src: url('~/public/assets/fonts/Lexend/Lexend-Thin.ttf') format('truetype');
   font-weight: 100;
   font-style: normal;
 }
+
+/* Lexend ExtraLight */
 @font-face {
-  font-family: 'Poppins';
-  src: url('~/public/assets/fonts/Poppins/Poppins-ThinItalic.ttf')
-    format('truetype');
-  font-weight: 100;
-  font-style: Italic;
+  font-family: 'Lexend';
+  src: url('~/public/assets/fonts/Lexend/Lexend-ExtraLight.ttf') format('truetype');
+  font-weight: 200;
+  font-style: normal;
+}
+
+/* Lexend Light */
+@font-face {
+  font-family: 'Lexend';
+  src: url('~/public/assets/fonts/Lexend/Lexend-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+/* Lexend Regular */
+@font-face {
+  font-family: 'Lexend';
+  src: url('~/public/assets/fonts/Lexend/Lexend-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* Lexend Medium */
+@font-face {
+  font-family: 'Lexend';
+  src: url('~/public/assets/fonts/Lexend/Lexend-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+/* Lexend SemiBold */
+@font-face {
+  font-family: 'Lexend';
+  src: url('~/public/assets/fonts/Lexend/Lexend-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+}
+
+/* Lexend Bold */
+@font-face {
+  font-family: 'Lexend';
+  src: url('~/public/assets/fonts/Lexend/Lexend-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+/* Lexend ExtraBold */
+@font-face {
+  font-family: 'Lexend';
+  src: url('~/public/assets/fonts/Lexend/Lexend-ExtraBold.ttf') format('truetype');
+  font-weight: 800;
+  font-style: normal;
+}
+
+/* Lexend Black */
+@font-face {
+  font-family: 'Lexend';
+  src: url('~/public/assets/fonts/Lexend/Lexend-Black.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
 }

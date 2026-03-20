@@ -1,9 +1,9 @@
-import toast from 'react-hot-toast';
-import { motion, AnimatePresence } from 'framer-motion';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import ClearIcon from '@mui/icons-material/Clear';
 import InfoIcon from '@mui/icons-material/Info';
 import WarningIcon from '@mui/icons-material/Warning';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import { AnimatePresence, motion } from 'framer-motion';
+import toast from 'react-hot-toast';
 
 export type Toast = {
   message: string;

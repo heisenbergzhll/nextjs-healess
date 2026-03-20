@@ -2102,6 +2102,96 @@ export function AddIcon(props: SVGProps<SVGSVGElement>) {
     </svg>
   );
 }
+
+export function OfficeIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M11.9974 1.33331H3.9974C3.26102 1.33331 2.66406 1.93027 2.66406 2.66665V13.3333C2.66406 14.0697 3.26102 14.6666 3.9974 14.6666H11.9974C12.7338 14.6666 13.3307 14.0697 13.3307 13.3333V2.66665C13.3307 1.93027 12.7338 1.33331 11.9974 1.33331Z"
+        stroke="#2563EB"
+        stroke-width="1.33333"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M6 14.6667V12H10V14.6667"
+        stroke="#2563EB"
+        stroke-width="1.33333"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M5.33594 4H5.3426"
+        stroke="#2563EB"
+        stroke-width="1.33333"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M10.6641 4H10.6707"
+        stroke="#2563EB"
+        stroke-width="1.33333"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M8 4H8.00667"
+        stroke="#2563EB"
+        stroke-width="1.33333"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M8 6.66669H8.00667"
+        stroke="#2563EB"
+        stroke-width="1.33333"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M8 9.33331H8.00667"
+        stroke="#2563EB"
+        stroke-width="1.33333"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M10.6641 6.66669H10.6707"
+        stroke="#2563EB"
+        stroke-width="1.33333"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M10.6641 9.33331H10.6707"
+        stroke="#2563EB"
+        stroke-width="1.33333"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M5.33594 6.66669H5.3426"
+        stroke="#2563EB"
+        stroke-width="1.33333"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M5.33594 9.33331H5.3426"
+        stroke="#2563EB"
+        stroke-width="1.33333"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+  );
+}
 export const ALL_ICONS = [
   IconCart,
   IconSearch,
@@ -2145,4 +2235,5 @@ export const ALL_ICONS = [
   HomeIcon,
   OneStarIcon,
   AddIcon,
+  OfficeIcon,
 ];

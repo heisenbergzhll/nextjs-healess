@@ -212,11 +212,11 @@ export const EditaddressModel = ({
               label={t('Company')}
               className="Customized placeholder:text-CheckoutPlaceHolder"
               type="text"
-              error={!!errors?.company?.message}
-              helperText={errors?.company?.message || ''}
-              // {...register('company', {
-              //   required: t('* Enter Company Name'),
-              // })}
+              // error={!!errors?.company?.message}
+              // helperText={errors?.company?.message || ''}
+              {...register('company', {
+                // required: t('* Enter Company Name'),
+              })}
             />
           </Grid>
           <Grid item xs={12}>

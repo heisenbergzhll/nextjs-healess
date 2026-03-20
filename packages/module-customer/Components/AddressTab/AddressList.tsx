@@ -21,12 +21,15 @@ import {
   AddIcon,
   DeleteIcon,
   HomeIcon,
+  OfficeIcon,
   OneStarIcon,
 } from '@voguish/module-theme/components/elements/Icon';
 import ErrorBoundary from '@voguish/module-theme/components/ErrorBoundary';
 import { useTranslation } from 'next-i18next';
 import { useState } from 'react';
+import { FieldValues } from 'react-hook-form';
 import { Button, Chip } from '~node_modules/@mui/material';
+import { useToast } from '~packages/module-theme/components/toast/hooks';
 import Sidebar from '../Layout/Sidebar';
 const commonStyles = {
   bgcolor: 'background.paper',
@@ -60,6 +63,13 @@ interface AddressDataType {
 interface CustomerAddressRegion {
   region: string;
 }
+/**
+ * Show Error Datatype with showtoast
+ */
+interface ErrorType {
+  message: string;
+}
+
 const AddressList = () => {
   /**
    * Get customer Addresses
@@ -89,6 +99,7 @@ const AddressList = () => {
    * Code for delete Customer Address
    */
   const [mountDeleteModal, setMountDeleteModal] = useState(0);
+  const { showToast } = useToast();
   const handleDelete = (addressId: number) => {
     setMountDeleteModal(addressId);
   };
@@ -117,8 +128,27 @@ const AddressList = () => {
 
   const [mountEditModal, setMountEditModal] = useState({});
   const handleEdit = (addressData: object) => {
-    debugger;
     setMountEditModal(addressData);
+  };
+
+  const handleSetDefault = (addressData: FieldValues) => {
+    updateCustomerAddress({
+      variables: {
+        id: addressData?.id,
+        input: {
+          default_shipping: true,
+        },
+      },
+    })
+      .then(() => {
+        showToast({
+          type: 'success',
+          message: t('Set as default address successfully'),
+        });
+      })
+      .catch((err: ErrorType) => {
+        showToast({ message: err.message, type: 'error' });
+      });
   };
   const handleClose = () => {
     setAddmodal(false);
@@ -133,14 +163,18 @@ const AddressList = () => {
         >
           <div className="flex justify-between px-2 py-1 border-0 border-b border-[#F1F5F9] border-solid px-[24px]">
             <div className="flex items-center px-1 font-medium gap-2">
-              <HomeIcon className="text-brand" />
+              {!props?.default_shipping ? (
+                <OfficeIcon />
+              ) : (
+                <HomeIcon className="text-brand" />
+              )}
               <Typography
                 variant="caption"
                 className={`${
-                  props?.default_shipping ? 'text-black' : '  '
+                  props?.default_shipping ? 'text-black' : 'text-black'
                 } uppercase bg-transparent pl-0 font-semibold text-sm`}
               >
-                Home
+                <span>{props?.company ? t('Office') : t('Home')}</span>
               </Typography>
 
               {props?.default_shipping && (
@@ -268,11 +302,11 @@ const AddressList = () => {
             </Typography>
           </div>
           <div
-            className={`${props?.default_shipping ? '' : 'border-t border-[#F1F5F9] border-solid'} flex justify-between px-2 py-1 border-0  px-[24px] min-h-[40px] lg:min-h-[50px]`}
+            className={`${props?.default_shipping ? 'border-white' : ' border-[#F1F5F9] '} border-t  border-solid flex justify-between px-2 py-1 border-0  px-[24px] min-h-[50px] `}
           >
             <div className="flex justify-end">
               <IconButton
-                onClick={() => handleEdit(props)}
+                onClick={() => handleSetDefault(props)}
                 disableRipple
                 disableTouchRipple
                 className="text-brand text-sm font-medium px-0"

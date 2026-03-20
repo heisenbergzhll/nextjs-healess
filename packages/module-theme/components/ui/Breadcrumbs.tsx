@@ -13,7 +13,7 @@ const Breadcrumb = ({ title, breadCrumbs }: PageOptions) => {
   return (
     <ErrorBoundary>
       {' '}
-      <Containers className="max-w-[90rem]  px-[6.625rem] lg:mt-3 md:mt-3 mt-4">
+      <Containers className="max-w-[90rem] lg:px-[6.625rem] lg:mt-3 md:mt-3 mt-4">
         <Breadcrumbs
           className="w-full text-left whitespace-nowrap overflow-ellipsis"
           separator="›"

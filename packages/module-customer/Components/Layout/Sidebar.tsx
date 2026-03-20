@@ -63,17 +63,17 @@ const Sidebar = ({ children }: { children: ReactNode }) => {
 
   return (
     <ErrorBoundary>
-      <Containers className="max-w-[90rem]  px-[6.625rem] -mt-2 ">
+      <Containers className="max-w-[90rem]  lg:px-[6.625rem] -mt-2 ">
         <div className="grid gap-y-4 md:grid-cols-12 ">
           <Grid
             item
-            className="md:col-span-4 md:rtl:order-2 lg:col-span-3 box-border border border-solid border-[#E2E8F0] rounded-2xl w-[17.375rem] h-[24.3125rem]"
+            className="w-full md:w-[17.375rem] md:col-span-4 md:rtl:order-2 lg:col-span-3 box-border border border-solid border-[#E2E8F0] rounded-2xl lg:h-[24.3125rem]"
             // sx={{ pr: { md: 2 } }}
           >
             <Grid container sx={{ mb: 1 }}>
               <Grid item sx={{ flexGrow: 1 }}>
                 {/* <Typography variant="h2">{t('User Profile')}</Typography> */}
-                <div className="flex border-solid border-0 border-b border-[#E2E8F0] gap-3 p-6">
+                <div className="flex border-solid border-0 border-b border-[#E2E8F0] gap-3  p-3 lg:p-6">
                   <Avatar
                     {...stringAvatar(session?.user?.firstname ?? 'U')}
                     className="w-[48px] h-[48px] bg-brand uppercase font-medium"
@@ -90,12 +90,13 @@ const Sidebar = ({ children }: { children: ReactNode }) => {
               </Grid>
             </Grid>
             <Grid container>
-              {tabs.map((items) => (
+              {tabs.map((items, index) => (
                 <Grid
                   key={items.id}
                   component={Link}
                   href={items.route}
                   xs={12}
+                  className={index === 3 ? 'py-4' : ''}
                   sx={{
                     maxWidth: '100% !important',
                     borderRight: '3px solid #fff',

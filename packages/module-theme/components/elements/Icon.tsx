@@ -1843,7 +1843,139 @@ export function DateIcon(props: SVGProps<SVGSVGElement>) {
     </svg>
   );
 }
+export function DeliveredIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 14 14"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g clip-path="url(#clip0_1237_8522)">
+        <path
+          d="M12.7211 5.83333C12.9875 7.14075 12.7976 8.49999 12.1832 9.68437C11.5687 10.8688 10.5668 11.8067 9.34447 12.3418C8.12217 12.8768 6.75337 12.9767 5.46635 12.6247C4.17933 12.2727 3.05187 11.4901 2.272 10.4075C1.49214 9.32484 1.107 8.00755 1.18081 6.6753C1.25463 5.34306 1.78294 4.07638 2.67764 3.08651C3.57234 2.09664 4.77935 1.44341 6.09738 1.23576C7.41541 1.0281 8.7648 1.27858 9.92051 1.94541"
+          stroke="#16A34A"
+          stroke-width="1.16667"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <path
+          d="M5.25 6.41665L7 8.16665L12.8333 2.33331"
+          stroke="#16A34A"
+          stroke-width="1.16667"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </g>
+      <defs>
+        <clipPath id="clip0_1237_8522">
+          <rect width="14" height="14" fill="white" />
+        </clipPath>
+      </defs>
+    </svg>
+  );
+}
 
+export function TransitIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 14 14"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M8.16406 10.5V3.49999C8.16406 3.19058 8.04115 2.89383 7.82235 2.67504C7.60356 2.45624 7.30681 2.33333 6.9974 2.33333H2.33073C2.02131 2.33333 1.72456 2.45624 1.50577 2.67504C1.28698 2.89383 1.16406 3.19058 1.16406 3.49999V9.91666C1.16406 10.0714 1.22552 10.2197 1.33492 10.3291C1.44431 10.4385 1.59269 10.5 1.7474 10.5H2.91406"
+        stroke="#D97706"
+        stroke-width="1.16667"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M8.75 10.5H5.25"
+        stroke="#D97706"
+        stroke-width="1.16667"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M11.0807 10.5H12.2474C12.4021 10.5 12.5505 10.4385 12.6599 10.3292C12.7693 10.2198 12.8307 10.0714 12.8307 9.91667V7.78751C12.8305 7.65512 12.7852 7.52676 12.7024 7.4235L10.6724 4.88601C10.6178 4.81769 10.5486 4.7625 10.4699 4.72454C10.3911 4.68657 10.3048 4.6668 10.2174 4.66667H8.16406"
+        stroke="#D97706"
+        stroke-width="1.16667"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M9.91667 11.6667C10.561 11.6667 11.0833 11.1443 11.0833 10.5C11.0833 9.85566 10.561 9.33333 9.91667 9.33333C9.27233 9.33333 8.75 9.85566 8.75 10.5C8.75 11.1443 9.27233 11.6667 9.91667 11.6667Z"
+        stroke="#D97706"
+        stroke-width="1.16667"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M4.08073 11.6667C4.72506 11.6667 5.2474 11.1443 5.2474 10.5C5.2474 9.85566 4.72506 9.33333 4.08073 9.33333C3.4364 9.33333 2.91406 9.85566 2.91406 10.5C2.91406 11.1443 3.4364 11.6667 4.08073 11.6667Z"
+        stroke="#D97706"
+        stroke-width="1.16667"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+  );
+}
+export function ProcessingIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 14 14"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g clip-path="url(#clip0_1237_8614)">
+        <path
+          d="M6.9974 12.8333C10.2191 12.8333 12.8307 10.2217 12.8307 7C12.8307 3.77834 10.2191 1.16667 6.9974 1.16667C3.77573 1.16667 1.16406 3.77834 1.16406 7C1.16406 10.2217 3.77573 12.8333 6.9974 12.8333Z"
+          stroke="#2563EB"
+          stroke-width="1.16667"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <path
+          d="M7 3.5V7L9.33333 8.16667"
+          stroke="#2563EB"
+          stroke-width="1.16667"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </g>
+      <defs>
+        <clipPath id="clip0_1237_8614">
+          <rect width="14" height="14" fill="white" />
+        </clipPath>
+      </defs>
+    </svg>
+  );
+}
+export function OrderRightIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 14 14"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M5.25 10.5L8.75 7L5.25 3.5"
+        stroke="#BB742F"
+        stroke-width="1.16667"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+  );
+}
 export const ALL_ICONS = [
   IconCart,
   IconSearch,
@@ -1877,4 +2009,11 @@ export const ALL_ICONS = [
   AddressIcon,
   WishIcon,
   LogoutIcon,
+  DateIcon,
+  PhoneIcon,
+  AccountNameIcon,
+  DeliveredIcon,
+  TransitIcon,
+  ProcessingIcon,
+  OrderRightIcon,
 ];

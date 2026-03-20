@@ -208,7 +208,7 @@ const ProfileInfo = ({
           item
           sx={{ flexGrow: 1 }}
         >
-          <div className="flex items-center justify-center  gap-6 p-6">
+          <div className="flex items-center justify-center  gap-6 p-3 lg:p-6">
             <Avatar
               {...stringAvatar(userinfoData?.customer?.firstname ?? 'U')}
               className="w-[80px] h-[80px] bg-brand uppercase font-medium text-[2rem]"
@@ -238,7 +238,7 @@ const ProfileInfo = ({
         >
           <div className="flex w-full flex-col gap-1">
             <div className="flex  px-6 py-3 gap-3 border-solid border-0 border-b border-[#F1F5F9]">
-              <span className=" font-medium	 text-2xl tracking-widest text-[#101828]">
+              <span className=" font-medium	 text-2xl tracking-widest text-black">
                 Personal Information
               </span>
             </div>
@@ -259,11 +259,11 @@ const ProfileInfo = ({
                     type="text"
                     value={editValue}
                     onChange={(e) => setEditValue(e.target.value)}
-                    className="w-full text-sm tracking-widest text-[#101828] bg-[#FFF8F1] border border-[#BB742F] rounded px-2 py-2 outline-none"
+                    className="w-full text-sm tracking-widest text-black bg-[#FFF8F1] border border-[#BB742F] rounded px-2 py-2 outline-none"
                     autoFocus
                   />
                 ) : (
-                  <span className="text-sm tracking-widest text-[#101828] duration-150 transition-colors">
+                  <span className="text-sm tracking-widest text-black duration-150 transition-colors">
                     {userinfoData?.customer?.firstname || ''}
                   </span>
                 )}
@@ -273,7 +273,7 @@ const ProfileInfo = ({
                   <>
                     <Button
                       onClick={handleSave}
-                      className="w-[32px] h-[32px] bg-[#101828] rounded-[8px] flex items-center justify-center hover:opacity-80 transition-opacity border-none ml-2 border-none cursor-pointer"
+                      className="w-[32px] h-[32px] bg-black rounded-[8px] flex items-center justify-center hover:opacity-80 transition-opacity border-none ml-2 border-none cursor-pointer"
                     >
                       <CheckIcon className="text-white w-[14px] h-[14px]" />
                     </Button>
@@ -315,11 +315,11 @@ const ProfileInfo = ({
                     type="text"
                     value={editValue}
                     onChange={(e) => setEditValue(e.target.value)}
-                    className="w-full text-sm tracking-widest text-[#101828] bg-[#FFF8F1] border border-[#BB742F] rounded px-2 py-2 outline-none"
+                    className="w-full text-sm tracking-widest text-black bg-[#FFF8F1] border border-[#BB742F] rounded px-2 py-2 outline-none"
                     autoFocus
                   />
                 ) : (
-                  <span className="text-sm tracking-widest text-[#101828] duration-150 transition-colors">
+                  <span className="text-sm tracking-widest text-black duration-150 transition-colors">
                     {userinfoData?.customer?.lastname || ''}
                   </span>
                 )}
@@ -329,7 +329,7 @@ const ProfileInfo = ({
                   <>
                     <Button
                       onClick={handleSave}
-                      className="w-[32px] h-[32px] bg-[#101828] rounded-[8px] flex items-center justify-center hover:opacity-80 transition-opacity border-none ml-2 cursor-pointer"
+                      className="w-[32px] h-[32px] bg-black rounded-[8px] flex items-center justify-center hover:opacity-80 transition-opacity border-none ml-2 cursor-pointer"
                     >
                       <CheckIcon className="text-white w-[14px] h-[14px]" />
                     </Button>
@@ -371,11 +371,11 @@ const ProfileInfo = ({
                     type="text"
                     value={editValue}
                     onChange={(e) => setEditValue(e.target.value)}
-                    className="w-full text-sm tracking-widest text-[#101828] bg-[#FFF8F1] border border-[#BB742F] rounded px-2 py-2 outline-none"
+                    className="w-full text-sm tracking-widest text-black bg-[#FFF8F1] border border-[#BB742F] rounded px-2 py-2 outline-none"
                     autoFocus
                   />
                 ) : (
-                  <span className="text-sm tracking-widest text-[#101828] duration-150 transition-colors">
+                  <span className="text-sm tracking-widest text-black duration-150 transition-colors">
                     {userinfoData?.customer?.email || ''}
                   </span>
                 )}
@@ -385,7 +385,7 @@ const ProfileInfo = ({
                   <>
                     <Button
                       onClick={handleSave}
-                      className="w-[32px] h-[32px] bg-[#101828] rounded-[8px] flex items-center justify-center hover:opacity-80 transition-opacity border-none ml-2 cursor-pointer"
+                      className="w-[32px] h-[32px] bg-black rounded-[8px] flex items-center justify-center hover:opacity-80 transition-opacity border-none ml-2 cursor-pointer"
                     >
                       <CheckIcon className="text-white w-[14px] h-[14px]" />
                     </Button>
@@ -427,11 +427,11 @@ const ProfileInfo = ({
                     type="text"
                     value={editValue}
                     onChange={(e) => setEditValue(e.target.value)}
-                    className="w-full text-sm tracking-widest text-[#101828] bg-[#FFF8F1] border border-[#BB742F] rounded px-2 py-2 outline-none"
+                    className="w-full text-sm tracking-widest text-black bg-[#FFF8F1] border border-[#BB742F] rounded px-2 py-2 outline-none"
                     autoFocus
                   />
                 ) : (
-                  <span className="text-sm tracking-widest text-[#101828] duration-150 transition-colors">
+                  <span className="text-sm tracking-widest text-black duration-150 transition-colors">
                     {userinfoData?.customer?.phone_number || ''}
                   </span>
                 )}
@@ -441,7 +441,7 @@ const ProfileInfo = ({
                   <>
                     <Button
                       onClick={handleSave}
-                      className="w-[32px] h-[32px] bg-[#101828] rounded-[8px] flex items-center justify-center hover:opacity-80 transition-opacity border-none ml-2 cursor-pointer"
+                      className="w-[32px] h-[32px] bg-black rounded-[8px] flex items-center justify-center hover:opacity-80 transition-opacity border-none ml-2 cursor-pointer"
                     >
                       <CheckIcon className="text-white w-[14px] h-[14px]" />
                     </Button>
@@ -483,11 +483,11 @@ const ProfileInfo = ({
                     type="text"
                     value={editValue}
                     onChange={(e) => setEditValue(e.target.value)}
-                    className="w-full text-sm tracking-widest text-[#101828] bg-[#FFF8F1] border border-[#BB742F] rounded px-2 py-2 outline-none"
+                    className="w-full text-sm tracking-widest text-black bg-[#FFF8F1] border border-[#BB742F] rounded px-2 py-2 outline-none"
                     autoFocus
                   />
                 ) : (
-                  <span className="text-sm tracking-widest text-[#101828] duration-150 transition-colors">
+                  <span className="text-sm tracking-widest text-black duration-150 transition-colors">
                     {formatDate(userinfoData?.customer?.date_of_birth || '')}
                   </span>
                 )}
@@ -497,7 +497,7 @@ const ProfileInfo = ({
                   <>
                     <Button
                       onClick={handleSave}
-                      className="w-[32px] h-[32px] bg-[#101828] rounded-[8px] flex items-center justify-center hover:opacity-80 transition-opacity border-none ml-2 cursor-pointer"
+                      className="w-[32px] h-[32px] bg-black rounded-[8px] flex items-center justify-center hover:opacity-80 transition-opacity border-none ml-2 cursor-pointer"
                     >
                       <CheckIcon className="text-white w-[14px] h-[14px]" />
                     </Button>
@@ -538,7 +538,7 @@ const ProfileInfo = ({
         >
           <div className="flex w-full flex-col gap-1">
             <div className="flex  px-6 py-3 gap-3 border-solid border-0 border-b border-[#F1F5F9]">
-              <span className=" font-medium	 text-2xl tracking-widest text-[#101828]">
+              <span className=" font-medium	 text-2xl tracking-widest text-black">
                 Preferences
               </span>
             </div>

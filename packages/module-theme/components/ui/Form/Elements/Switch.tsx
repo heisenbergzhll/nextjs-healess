@@ -53,7 +53,7 @@ const Switch = ({ label, checked, onChange, ...props }: ISwitch) => {
       />
       {label && (
         <span
-          className="text-sm text-[#101828] cursor-pointer"
+          className="text-sm text-black cursor-pointer"
           onClick={() => onChange(!checked)}
         >
           {label}

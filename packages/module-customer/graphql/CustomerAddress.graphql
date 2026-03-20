@@ -4,6 +4,7 @@ query CustomerQuery {
     addresses {
       id
       default_billing
+      default_shipping
       city
       company
       firstname
@@ -11,6 +12,10 @@ query CustomerQuery {
       telephone
       postcode
       country_code
+      extension_attributes {
+        attribute_code
+        value
+      }
       region {
         region_id
         region

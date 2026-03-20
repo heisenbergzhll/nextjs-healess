@@ -3,8 +3,8 @@ export const BASE_URL = 'http://localhost:3000';
 export const MAGENTO_URL = process.env.MAGENTO_ENDPOINT;
 export const MAGENTO_REST_API_URL = MAGENTO_URL + 'rest/V1/';
 
-export const PLACEHOLDER_IMG = '/assets/img/products/placeholder.jpg';
-export const BANNERPLACEHOLDER_IMG = '/assets/img/products/placeholder.jpg';
+export const PLACEHOLDER_IMG = '/assets/img/products/product-placeholder.svg';
+export const BANNERPLACEHOLDER_IMG = '/assets/img/products/product-placeholder.svg';
 export const Pattern = '/assets/img/bgpattern.jpg';
 export const CONTACT_US = '/assets/img/contact.webp';
 export const top_selling = 1;
@@ -37,9 +37,10 @@ export const authorizationErr = 'The current customer is not authorized.';
 export const RECAPTCHA = 'RECAPTCHA';
 export const REGISTER_IN_PROGRESS = 'IN_PROGRESS';
 
-export const BRAND_HEX_CODE = '#155e59';
+export const BRAND_HEX_CODE = '#BB742F';
 export const WHITE_HEX_CODE = '#fff';
 export const SEARCH_FIELD = 'searchField';
+
 export const PAYMENT_METHODS_CONST = {
   CHECK_MO: 'checkmo',
   STRIPE: 'stripe_payments',

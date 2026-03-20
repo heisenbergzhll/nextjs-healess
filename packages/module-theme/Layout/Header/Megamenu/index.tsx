@@ -78,9 +78,9 @@ export default function MegaMenu({ menuItems, activeMenus }: MegaMenuProps) {
             <span className="whitespace-nowrap">All Categories</span>
           </button>
           <div className="w-0.5 h-5 bg-[#E2E8F0]"></div> */}
-          <div className="flex gap-x-4 items-center text-[#45556C] font-medium ">
+          <div className="flex gap-x-4 items-center text-[#45556C] font-medium">
             <span
-              className="whitespace-nowrap hover:text-black line-clamp-1"
+              className="whitespace-nowrap hover:text-black line-clamp-1 py-4"
               onMouseEnter={handlePopoverClose}
             >
               <Link href={`/catalog/category/`}>
@@ -88,7 +88,7 @@ export default function MegaMenu({ menuItems, activeMenus }: MegaMenuProps) {
               </Link>
             </span>
             <span
-              className="whitespace-nowrap hover:text-black  line-clamp-1"
+              className="whitespace-nowrap hover:text-black  line-clamp-1 py-4"
               onMouseEnter={handlePopoverClose}
             >
               <Link href={`/catalog/category/`}>

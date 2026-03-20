@@ -122,12 +122,12 @@ function CurrencySwitcher({
           {({ open }) => (
             <div className="relative">
               <ErrorBoundary>
-                <ListboxButton className="relative flex items-center justify-center text-2xl font-light bg-transparent border-0 cursor-pointer">
+                <ListboxButton className="-lg:w-full -lg:py-2   relative flex items-center justify-center text-2xl font-light bg-transparent border-0 cursor-pointer">
                   {loading ? (
                     <div className="rounded-full h-9 w-9 animate-pulse bg-gray-50" />
                   ) : (
-                    <span className="flex items-center truncate">
-                      <span className={`font-light leading-8 ${className}`}>
+                    <div className="-lg:w-full -lg:justify-between flex items-center truncate">
+                      <span className={`font-normal text-sm leading-8 ${className}`}>
                         {itemOption?.symbol ?? itemOption?.code}
                       </span>
                       <motion.div
@@ -141,7 +141,7 @@ function CurrencySwitcher({
                       >
                         <KeyboardArrowDownIcon className="py-0 lg:text-black" />
                       </motion.div>
-                    </span>
+                    </div>
                   )}
                 </ListboxButton>
               </ErrorBoundary>
@@ -155,9 +155,9 @@ function CurrencySwitcher({
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
               >
-                <div className="absolute z-50 mb-2 mt-1  list-none flex flex-col focus:outline-none sm:text-sm">
+                <div className="absolute -lg:left-4 z-50 mb-2 mt-1  list-none flex flex-col focus:outline-none sm:text-sm">
                   <div
-                    className="absolute -top-1.5 left-[22%] -translate-x-1/2 z-20"
+                    className="-lg:hidden absolute -top-1.5 left-[22%] -translate-x-1/2 z-20"
                     style={{
                       width: 0,
                       height: 0,
@@ -168,7 +168,7 @@ function CurrencySwitcher({
                     aria-hidden
                   />
                   <div
-                    className="absolute -top-2 left-[22%] -translate-x-1/2 z-10"
+                    className="-lg:hidden absolute -top-2 left-[22%] -translate-x-1/2 z-10"
                     style={{
                       width: 0,
                       height: 0,
@@ -178,7 +178,7 @@ function CurrencySwitcher({
                     }}
                     aria-hidden
                   />
-                  <ListboxOptions className="py-2 pl-0  overflow-auto text-base list-none -translate-x-4 bg-white rounded-md shadow-xl max-h-60 w-36 ring-1 ring-black/5 focus:outline-none sm:text-sm -lg:-translate-y-64 z-3">
+                  <ListboxOptions className="py-2 pl-0  overflow-auto text-base list-none -translate-x-4 bg-white rounded-md shadow-xl max-h-60 w-36 -lg:w-[307px] ring-1 ring-black/5 focus:outline-none sm:text-sm z-3">
                     {currencyList?.map(
                       (
                         value: {
@@ -214,7 +214,6 @@ function CurrencySwitcher({
                     )}
                   </ListboxOptions>
                 </div>
-
               </Transition>
             </div>
           )}

@@ -116,7 +116,7 @@ const HeaderIcons = ({ profileUrl, isAccountLoggedIn }: HeaderTypes) => {
           type="button"
           onClick={toggleCart(true)}
           aria-label={`Cart contains ${itemCount} items open to view them`}
-          className="items-center gap-2 rounded-full border-none bg-slate-900 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand"
+          className="flex items-center gap-2 rounded-full border-none bg-slate-900 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand"
         >
           <span className="flex h-5 w-5 items-center justify-center">
             <IconBag />

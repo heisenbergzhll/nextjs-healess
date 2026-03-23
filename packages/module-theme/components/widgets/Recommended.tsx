@@ -164,7 +164,7 @@ function Recommended({
                 <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
                   {products.map((item) => (
                     <article
-                      key={item?.id}
+                      key={item?.sku}
                       className="relative w-full  min-h-full max-w-full mx-auto duration-300 bg-white cursor-pointer group"
                     >
                       <div className="w-full !overflow-hidden max-w-full">

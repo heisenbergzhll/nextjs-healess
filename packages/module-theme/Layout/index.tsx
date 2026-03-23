@@ -145,10 +145,7 @@ const Layout = ({
   return (
     <Fragment>
       <Head>
-        <link
-          rel="shortcut icon"
-          href={'/assets/icons/favicon.ico'}
-        />
+        <link rel="shortcut icon" href={'/assets/icons/favicon.ico'} />
         {!storeLoading && (
           <meta
             name="msapplication-TileImage"

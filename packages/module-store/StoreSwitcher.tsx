@@ -80,17 +80,17 @@ export default function StoreSwitcher({
             {({ open }) => (
               <div className="relative mt-1">
                 <ErrorBoundary>
-                  <ListboxButton className=" relative -mx-0.5 -mt-1 flex cursor-pointer items-center justify-center border-0 bg-transparent px-0 text-[27px] font-light">
-                    <div className="block truncate cursor-pointer">
+                  <ListboxButton className="-lg:w-full -lg:py-2 relative -mx-0.5 -mt-1 flex cursor-pointer items-center justify-center border-0 bg-transparent px-0 text-[27px] font-light">
+                    <div className="-lg:w-full block truncate cursor-pointer">
                       {STORE_LIST
                         ?.filter((store: any) => store?.locale === locale)
                         .map((store: any, index: number) => (
                           <div
-                            className="flex items-center justify-between"
+                            className="-lg:w-full flex items-center justify-between"
                             key={store?.store_code + index}
                           >
                             <span className="flex items-center px-1.5 text-xl duration-300 hover:border-brand">
-                              <span className="relative w-10 h-6 py-0 text-2xl truncate border-2 border-solid  lg:border-transparent">
+                              <span className="relative w-8 h-4 py-0 text-2xl truncate border-2 border-solid  lg:border-transparent">
                                 <Thumbnail
                                   decoding="auto"
                                   fill
@@ -99,16 +99,15 @@ export default function StoreSwitcher({
                                   alt={store?.locale}
                                 />
                               </span>
-                              <span className="px-2 text-sm font-normal text-black -lg:hidden">
+                              <span className="px-2 text-sm font-normal text-black">
                                 {`${store?.store_name}`}
                               </span>
                             </span>
                             <motion.div
                               className="relative py-0 max-h-4 "
-                              initial={{ rotate: 0, marginTop: -13 }}
+                              initial={{ rotate: 0 }}
                               animate={{
                                 rotate: open ? 180 : 0,
-                                marginTop: open ? 10 : -8,
                               }}
                               transition={{ duration: 0.4 }}
                             >
@@ -131,7 +130,7 @@ export default function StoreSwitcher({
                 >
                   <div className="absolute z-50 mb-2 mt-1 translate-x-1.5 list-none flex flex-col focus:outline-none sm:text-sm">
                     <div
-                      className="absolute -top-1.5 left-1/2 -translate-x-1/2 z-20"
+                      className="-lg:hidden absolute -top-1.5 left-1/2 -translate-x-1/2 z-20"
                       style={{
                         width: 0,
                         height: 0,
@@ -142,7 +141,7 @@ export default function StoreSwitcher({
                       aria-hidden
                     />
                     <div
-                      className="absolute -top-2 left-1/2 -translate-x-1/2 z-10"
+                      className="-lg:hidden absolute -top-2 left-1/2 -translate-x-1/2 z-10"
                       style={{
                         width: 0,
                         height: 0,
@@ -177,7 +176,7 @@ export default function StoreSwitcher({
                                   />
                                 </span>
                                 <span className={`flex font-light items-center hover:font-normal w-full min-w-[215px]}`}>
-                                  <span className={`-lg:hidden ${storeCodeItem === store?.store_code ? 'font-normal' : 'font-light'}`}>
+                                  <span className={`${storeCodeItem === store?.store_code ? 'font-normal' : 'font-light'}`}>
                                     {`${store?.store_name} (${store?.locale.toUpperCase()})`}
                                   </span>
                                   {storeCodeItem === store?.store_code && (

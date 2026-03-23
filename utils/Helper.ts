@@ -29,7 +29,7 @@ export const getFormattedPrice = (
   currency?: string,
   isNegative = false
 ): string => {
-  const currencySelected = getLocalStorage('current_currency', true);
+  const currencySelected: any = getLocalStorage('current_currency', true);
 
   const selectedRate = (1 / (currencySelected?.rate ?? 1)).toFixed(4);
   const targetCurrency =
@@ -178,6 +178,16 @@ export const getFormattedDate = (
   if (format === 'dd/mm/yyyy') {
     return dateStr + '/' + month + '/' + year;
   }
+
+  // 格式：5 March 2026
+  if (format === 'd Month yyyy') {
+    const monthNames = [
+      'January', 'February', 'March', 'April', 'May', 'June',
+      'July', 'August', 'September', 'October', 'November', 'December'
+    ];
+    return date.getDate() + ' ' + monthNames[date.getMonth()] + ' ' + year;
+  }
+
   return month + '/' + dateStr + '/' + year.substring(2);
 };
 export const filteredLabel = (value: string, array: any) => {
@@ -404,7 +414,7 @@ export function classNames(...classes: any) {
 export const getInitials = (name: string) => {
   const initials = name
     .split(' ')
-    .map((word) => word[0].toUpperCase())
+    .map((word) => word[0]?.toUpperCase())
     .join('');
 
   return initials;

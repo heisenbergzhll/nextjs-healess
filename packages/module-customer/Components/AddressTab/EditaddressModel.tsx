@@ -1,5 +1,6 @@
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
+import { ButtonMui } from '@packages/module-theme/components/ui/ButtonMui';
 import { RightIcon } from '@voguish/module-theme/components/elements/Icon';
 import ErrorBoundary from '@voguish/module-theme/components/ErrorBoundary';
 import Modal from '@voguish/module-theme/components/Modal';
@@ -12,7 +13,6 @@ import InputField from '@voguish/module-theme/components/ui/Form/Elements/Input'
 import { useTranslation } from 'next-i18next';
 import { useEffect } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
-import { ButtonMui } from '@packages/module-theme/components/ui/ButtonMui';
 /**
  * Set DataType for address Input field
  */
@@ -28,6 +28,7 @@ interface AddressInput {
   street?: string[];
   telephone: string;
   default_billing?: boolean;
+  default_shipping?: boolean;
 }
 
 /**
@@ -48,6 +49,7 @@ interface EditTypeModal {
     street?: [];
     telephone?: string;
     default_billing?: boolean;
+    default_shipping?: boolean;
     id?: number;
   };
   isLoadingUpdate?: boolean;
@@ -74,7 +76,7 @@ export const EditaddressModel = ({
     firstname: `${showEditModelData.firstname || ''}`,
     lastname: `${showEditModelData.lastname || ''}`,
     city: `${showEditModelData.city || ''}`,
-    company: `${showEditModelData.company}`,
+    company: `${showEditModelData.company || ''}`,
     country_code: `${showEditModelData.country_code || ''}`,
     postcode: `${showEditModelData.postcode || ''}`,
     region_id: `${showEditModelData.region?.region_id || ''}`,
@@ -82,6 +84,7 @@ export const EditaddressModel = ({
     street: showEditModelData?.street,
     telephone: `${showEditModelData?.telephone}`,
     default_billing: showEditModelData?.default_billing,
+    default_shipping: showEditModelData?.default_shipping,
   };
 
   /**
@@ -109,10 +112,16 @@ export const EditaddressModel = ({
   const countryCode = watch('country_code');
   const region_id = watch('region_id');
   useEffect(() => {
-    if (countryCode !== showEditModelData?.country_code || region_id == '') {
+    if (
+      (countryCode && countryCode !== showEditModelData?.country_code) ||
+      region_id == ''
+    ) {
       setValue('region_id', '0');
     }
   }, [countryCode, region_id, showEditModelData?.country_code, setValue]);
+  console.log('countryCode', countryCode);
+  console.log('region_id', region_id);
+
   const submitAddress = (formdata: FieldValues) => {
     let regionDetail;
     if (formdata?.region == '' || formdata?.region_id == 0) {
@@ -203,10 +212,10 @@ export const EditaddressModel = ({
               label={t('Company')}
               className="Customized placeholder:text-CheckoutPlaceHolder"
               type="text"
-              error={!!errors?.company?.message}
-              helperText={errors?.company?.message || ''}
+              // error={!!errors?.company?.message}
+              // helperText={errors?.company?.message || ''}
               {...register('company', {
-                required: t('* Enter Company Name'),
+                // required: t('* Enter Company Name'),
               })}
             />
           </Grid>
@@ -304,6 +313,13 @@ export const EditaddressModel = ({
                 }}
               />
             }
+          </Grid>
+          <Grid item xs={12} className="sm:mb-1 sm:mt-[-10px]">
+            <CheckBoxInputField
+              label={t('Set as default shipping address')}
+              defaultChecked={showEditModelData?.default_shipping}
+              {...register('default_shipping')}
+            />
           </Grid>
           <Grid item xs={12} className="sm:mb-1 sm:mt-[-10px]">
             <CheckBoxInputField

@@ -1,10 +1,10 @@
-import { Suspense } from 'react';
 import dynamic from 'next/dynamic';
+import { Suspense } from 'react';
 
-import { PageOptions } from '@voguish/module-theme/page';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { UserProfilePlaceHolder } from '@voguish/module-customer/Components/OverviewTab/PlaceHolder';
 import Containers from '@voguish/module-theme/components/ui/Container';
+import { PageOptions } from '@voguish/module-theme/page';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 const UserInfo = dynamic(
   () => import('@voguish/module-customer/Components/OverviewTab/UserInfo'),

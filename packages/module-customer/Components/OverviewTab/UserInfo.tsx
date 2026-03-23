@@ -37,7 +37,7 @@ const UserInfo = () => {
         <PlaceHolder />
       ) : (
         <Grid container>
-          <Grid size={12}>
+          <Grid item xs={12}>
             {overView && overView ? (
               <ErrorBoundary>
                 <Box component="div" sx={{ ...commonStyles }}>

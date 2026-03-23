@@ -205,6 +205,29 @@ query OrdersQuery($currentPage: Int, $pageSize: Int) {
             currency
           }
         }
+        items {
+          product_name
+          product_image
+          product_sku
+          quantity_ordered
+          product_base_price {
+            currency
+            value
+          }
+          product_price {
+            currency
+            value
+          }
+          product_sale_price {
+            currency
+            value
+          }
+          quantity_canceled
+          quantity_invoiced
+          quantity_refunded
+          quantity_returned
+          quantity_shipped
+        }
       }
     }
   }

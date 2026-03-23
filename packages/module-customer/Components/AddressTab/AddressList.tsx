@@ -301,7 +301,6 @@ const AddressList = () => {
               {props?.telephone}
             </Typography>
           </div>
-
           <div
             className={`${props?.default_shipping ? 'border-white' : ' border-[#F1F5F9] '} border-t  border-solid flex justify-between px-2 py-1 border-0  px-[24px] min-h-[50px] `}
           >

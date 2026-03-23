@@ -87,7 +87,7 @@ export default function FooterIcon() {
   console.log('socialPlatforms', socialPlatforms)
   return (
     <ErrorBoundary>
-      <div className="flex flex-wrap justify-center gap-2 sm:gap-3 md:gap-4 lg:gap-5 xl:gap-6">
+      <div className="flex flex-wrap gap-1">
         {socialPlatforms.map(({ key, label, url, overrideKey }) => {
           const resolvedKey = overrideKey || key;
           if (!url) return null;
@@ -113,7 +113,7 @@ export default function FooterIcon() {
                   text-white border-0
                   w-8 h-8 sm:w-10 sm:h-8 md:w-8 md:h-8 
                   flex items-center justify-center 
-                  min-w-0 min-h-0 p-2   transition-all
+                  min-w-0 min-h-0   transition-all
                 "
               >
                 <Icon fontSize="small" />

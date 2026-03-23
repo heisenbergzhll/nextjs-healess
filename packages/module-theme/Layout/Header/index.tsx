@@ -125,7 +125,7 @@ const Header = ({ isAccountLoggedIn }: { isAccountLoggedIn: boolean }) => {
             </nav>
           </div>
           <div className="w-full hidden lg:block bg-white border-solid border-0 border-b border-slate-200">
-            <nav className="px-[6.625rem] mx-auto sm:px-6 max-w-[90rem] lg:px-[6.625rem]  border-solid border-0 border-b border-slate-200">
+            <nav className="px-[6.625rem] mx-auto sm:px-6 max-w-[90rem] lg:px-[6.625rem]">
               <MegaMenu menuItems={sortedMenu} activeMenus={activeMenus} />
             </nav>
           </div>

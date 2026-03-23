@@ -6,15 +6,13 @@ import { NoWishlistItem } from '@voguish/module-customer/Components/WishlistTab/
 import { WishlistPlaceholder } from '@voguish/module-customer/Components/WishlistTab/WishlistPlaceholder';
 import { useCustomerMutation } from '@voguish/module-customer/hooks/useCustomerMutation';
 import { useCustomerQuery } from '@voguish/module-customer/hooks/useCustomerQuery';
-import { HTMLRenderer } from '@voguish/module-theme/components/HTMLRenderer';
 import { useState } from 'react';
 
-import { CircularProgress } from '@mui/material';
-import { AddCartWhish, TrashIcon, WhishlistDown as WishListDown } from '@packages/module-theme/components/elements/Icon';
+import { Button, CircularProgress, Rating, Skeleton } from '@mui/material';
 import { setCart } from '@store/cart';
 import { RootState } from '@store/index';
 import { getLocalStorage, SELECTED_STORE } from '@store/local-storage';
-import { BRAND_HEX_CODE } from '@utils/Constants';
+import { FEEDS_FRACTION } from '@utils/Constants';
 import { graphqlRequest } from '@utils/Fetcher';
 import Thumbnail from '@voguish/module-catalog/Components/Product/Item/Thumbnail';
 import GET_WISHLIST from '@voguish/module-customer/graphql/Wishlist.graphql';
@@ -30,6 +28,10 @@ import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
+import {
+  AddCartIcon,
+  DeleteIcon,
+} from '~packages/module-theme/components/elements/Icon';
 import Sidebar from '../Layout/Sidebar';
 /**
  * It function to return price with valid currency
@@ -37,11 +39,11 @@ import Sidebar from '../Layout/Sidebar';
  * @returns
  */
 const commonStyles = {
-  bgcolor: 'background.paper',
-  mt: 1,
-  mb: 2,
-  border: 1,
-  borderRadius: 1,
+  // bgcolor: 'background.paper',
+  // mt: 1,
+  // mb: 2,
+  // border: 1,
+  // borderRadius: 1,
   borderColor: 'themeAdditional.borderColor',
 };
 interface WishlistDataType {
@@ -76,7 +78,18 @@ interface WishlistItemDataType {
           currency: string;
         };
       };
+      maximum_price: {
+        regular_price: {
+          value: number;
+          currency: string;
+        };
+        final_price: {
+          value: number;
+          currency: string;
+        };
+      };
     };
+    rating_summary: number;
   };
   id: number;
   quantity: number;
@@ -121,7 +134,18 @@ const Wishlist = () => {
     addWishlistItemToCart({
       variables: { id: wishlistId, itemIds: [wishlist_product_id] },
     })
-      .then(async () => {
+      .then(async (res) => {
+        const responseStatus = res?.data?.addWishlistItemsToCart?.status;
+        if (!responseStatus) {
+          const message =
+            res?.data?.addWishlistItemsToCart
+              ?.add_wishlist_items_to_cart_user_errors?.[0]?.message;
+          showToast({
+            type: 'error',
+            message: message,
+          });
+          return;
+        }
         showToast({
           type: 'success',
           message: 'Add to cart successfully',
@@ -177,23 +201,35 @@ const Wishlist = () => {
   return (
     <Sidebar>
       <ErrorBoundary>
-        <Box sx={{ ml: { md: '8px', xl: '8px', lg: '8px', xs: 0 } }}>
+        <Box>
           <Grid
             container
-            sx={{ px: 2, py: 2, ...commonStyles }}
+            sx={{ ...commonStyles }}
             justifyContent="space-between"
             alignItems="center"
           >
-            <Grid item>
-              <Typography
-                variant="h4"
-                className="text-lg font-semibold uppercase"
-              >
-                {' '}
-                {t('Wishlist')}
-              </Typography>
+            <Grid item xs={12}>
+              <div className="mb-3">
+                <Typography
+                  variant="h4"
+                  component="div"
+                  className="font-medium text-[1.5rem] h-[2.25rem] leading-[2.25rem] mb-1"
+                >
+                  {t('My Wishlist')}
+                </Typography>
+                <Typography
+                  variant="body1"
+                  component="div"
+                  className="font-light text-[#62748E] text-sm h-[1.3125rem] leading-[1.3125rem] tracking-normal"
+                >
+                  {loading ? (
+                    <Skeleton variant="rounded" width="100%" height={30} />
+                  ) : (
+                    wishlistProducts.length + t(' items saved for later')
+                  )}
+                </Typography>
+              </div>
             </Grid>
-            <Grid item></Grid>
           </Grid>
           {loading ? (
             <WishlistPlaceholder />
@@ -202,30 +238,191 @@ const Wishlist = () => {
               container
               direction="row"
               justifyContent="flex-start"
-              spacing={2}
-              sx={{ my: 1 }}
+              spacing={4}
             >
               {isValidArray(wishlistProducts) ? (
                 wishlistProducts?.map(
                   (wishlist_item: WishlistItemDataType, index: number) => (
                     <ErrorBoundary key={index}>
-                      <Grid item lg={3} md={4} sm={4} xs={12}>
-                        <Box
-                          component="div"
-                          className="border border-solid rounded border-colorBorder"
-                        >
-                          <Box
+                      <Grid item lg={4} md={4} sm={4} xs={6}>
+                        <article className="relative w-full  min-h-full max-w-full mx-auto duration-300 bg-white cursor-pointer group">
+                          {/* <Box
                             component="div"
                             className="bg-color relative min-h-[15rem] cursor-pointer border-0 border-b-[1px] border-solid border-colorBorder"
                           >
                             <Thumbnail
-                              className="object-contain object-center h-full"
+                              className="object-contain object-center h-full "
                               thumbnail={wishlist_item?.product?.thumbnail?.url}
                               alt={wishlist_item?.product?.name}
                               fill
                             />
-                          </Box>
-                          <Box
+                          </Box> */}
+                          <Link
+                            className="block w-full overflow-hidden"
+                            href={`/catalog/product/${wishlist_item?.product?.url_key}`}
+                          >
+                            <div className="w-full !overflow-hidden max-w-full">
+                              <div className="w-full block !overflow-hidden !box-border border border-solid border-[#D2D2D2] rounded-2xl">
+                                <Thumbnail
+                                  alt={wishlist_item?.product?.name}
+                                  thumbnail={
+                                    wishlist_item?.product?.thumbnail?.url
+                                  }
+                                  fill
+                                  className="object-contain !static  hover:shadow-[0px_4px_24px_0px_rgba(0,_0,_0,_0.11)]   object-center  transition duration-500 cursor-pointer max-h-fit aspect-square md:object-scale-down group-hover:scale-110"
+                                />
+                              </div>
+                            </div>
+                            <div className="flex items-center gap-1 mt-3">
+                              <ErrorBoundary>
+                                <Rating
+                                  size="medium"
+                                  className="text-brand"
+                                  max={1}
+                                  defaultValue={
+                                    wishlist_item?.product?.rating_summary
+                                      ? wishlist_item?.product?.rating_summary /
+                                        100
+                                      : 0
+                                  }
+                                  precision={0.1}
+                                  readOnly
+                                />
+                              </ErrorBoundary>
+                              <p className="my-0 text-sm font-semibold leading-[1.58rem] tracking-[0.0425rem] text-neutral-900">
+                                {(
+                                  (wishlist_item?.product?.rating_summary ||
+                                    0) / FEEDS_FRACTION
+                                ).toFixed(1)}
+                              </p>
+                            </div>
+                            <div className="flex items-center my-2">
+                              <p className="my-0 text-sm font-normal text-black leading-[1.56rem] max-w-[100%] line-clamp-2  min-h-[3.5rem]">
+                                {wishlist_item?.product?.name}
+                              </p>
+                            </div>
+                            <footer className="flex items-start gap-4">
+                              <ErrorBoundary>
+                                <p className="my-0 text-base font-semibold leading-6 text-black">
+                                  {getFormattedPrice(
+                                    wishlist_item?.product?.price_range
+                                      ?.maximum_price?.final_price?.value,
+                                    wishlist_item?.product?.price_range
+                                      ?.maximum_price?.final_price?.currency
+                                  )}
+                                </p>
+                                <p className="my-0 text-sm  leading-6 text-[#90A1B9] line-through">
+                                  {getFormattedPrice(
+                                    wishlist_item?.product?.price_range
+                                      ?.maximum_price?.regular_price?.value,
+                                    wishlist_item?.product?.price_range
+                                      ?.maximum_price?.regular_price?.currency
+                                  )}
+                                </p>
+                              </ErrorBoundary>
+                            </footer>
+                          </Link>
+                          <div className="flex gap-3 cursor-pointer max-w-1/3 my-2">
+                            {wishlist_item?.__typename ===
+                            'ConfigurableWishlistItem' ? (
+                              <ErrorBoundary>
+                                <Link
+                                  href={
+                                    '/catalog/product/' +
+                                    wishlist_item?.product?.url_key
+                                  }
+                                >
+                                  <Button
+                                    variant="outlined"
+                                    startIcon={<AddCartIcon />}
+                                    className="rounded-2xl border-black text-black text-sm  bg-white max-h-[26px]"
+                                    sx={{
+                                      '&:hover': {
+                                        background: 'white',
+                                        borderColor: 'black',
+                                      },
+                                    }}
+                                  >
+                                    {t('Add to bag')}
+                                  </Button>
+                                </Link>
+                              </ErrorBoundary>
+                            ) : (
+                              <ErrorBoundary>
+                                {
+                                  <div
+                                    className="relative"
+                                    onClick={() =>
+                                      addItemHandler(id, wishlist_item?.id)
+                                    }
+                                  >
+                                    <Button
+                                      variant="outlined"
+                                      disabled={
+                                        isAddCardWishLoading &&
+                                        itemId === wishlist_item?.id
+                                      }
+                                      startIcon={
+                                        isAddCardWishLoading &&
+                                        itemId === wishlist_item?.id ? (
+                                          <CircularProgress
+                                            size={15}
+                                            style={{ color: '#90A1B9' }}
+                                          />
+                                        ) : (
+                                          <AddCartIcon />
+                                        )
+                                      }
+                                      className="rounded-2xl border-black text-black text-sm bg-white max-h-[26px]"
+                                      sx={{
+                                        '&:hover': {
+                                          background: 'white',
+                                          borderColor: 'black',
+                                        },
+                                      }}
+                                    >
+                                      {t('Add to bag')}
+                                    </Button>
+                                  </div>
+                                }
+                              </ErrorBoundary>
+                            )}
+                            <ErrorBoundary>
+                              <div
+                                className="relative"
+                                onClick={() =>
+                                  deleteWishItemHandler(id, wishlist_item?.id)
+                                }
+                              >
+                                <Button
+                                  variant="outlined"
+                                  disabled={
+                                    isDeletionWishLoading &&
+                                    deletionId === wishlist_item?.id
+                                  }
+                                  className="rounded-2xl border-[#FB2C36] text-[#FB2C36] text-sm bg-white max-h-[26px]"
+                                  sx={{
+                                    '&:hover': {
+                                      background: 'white',
+                                      borderColor: '#FB2C36',
+                                    },
+                                  }}
+                                >
+                                  {isDeletionWishLoading &&
+                                  deletionId === wishlist_item?.id ? (
+                                    <CircularProgress
+                                      size={15}
+                                      style={{ color: '#90A1B9' }}
+                                    />
+                                  ) : (
+                                    <DeleteIcon />
+                                  )}
+                                </Button>
+                              </div>
+                            </ErrorBoundary>
+                          </div>
+
+                          {/* <Box
                             component="div"
                             textAlign="start"
                             className="px-2 py-1 fd-cl rounded-b-md"
@@ -285,7 +482,7 @@ const Wishlist = () => {
                                 </div>
                                 <div className="flex gap-1 cursor-pointer max-w-1/3">
                                   {wishlist_item?.__typename ===
-                                    'ConfigurableWishlistItem' ? (
+                                  'ConfigurableWishlistItem' ? (
                                     <ErrorBoundary>
                                       <Link
                                         href={
@@ -353,8 +550,8 @@ const Wishlist = () => {
                                 </div>
                               </div>
                             </Box>
-                          </Box>
-                          <ErrorBoundary>
+                          </Box> */}
+                          {/* <ErrorBoundary>
                             <Grid className="w-full px-2 transition-all bg-white rounded-md border-top-none">
                               <Grid
                                 onMouseLeave={() => setCommentOpen(0)}
@@ -398,8 +595,8 @@ const Wishlist = () => {
                                 )}
                               </Grid>
                             </Grid>
-                          </ErrorBoundary>
-                        </Box>
+                          </ErrorBoundary> */}
+                        </article>
                       </Grid>
                     </ErrorBoundary>
                   )

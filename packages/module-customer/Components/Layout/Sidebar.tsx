@@ -114,6 +114,9 @@ const Sidebar = ({ children }: { children: ReactNode }) => {
                       borderColor: '#BB742F',
                       color: '#BB742F',
                       background: '#F8F8F8',
+                      svg: {
+                        color: '#BB742F',
+                      },
                     },
                   }}
                   item
@@ -123,7 +126,7 @@ const Sidebar = ({ children }: { children: ReactNode }) => {
                       className={`transition-colors duration-150 ${
                         router.pathname === items.route
                           ? 'text-[#BB742F]'
-                          : 'text-[#90A1B9] group-hover:text-[#BB742F]'
+                          : 'text-[#90A1B9] '
                       }`}
                     />
                     <Typography variant="body1">{items.name}</Typography>

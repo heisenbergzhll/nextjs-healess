@@ -20,7 +20,18 @@ query WishlistQuery($currentPage: Int, $pageSize: Int) {
                   value
                 }
               }
+              maximum_price {
+                regular_price {
+                  currency
+                  value
+                }
+                final_price {
+                  currency
+                  value
+                }
+              }
             }
+            rating_summary
             stock_status
             thumbnail {
               id: url

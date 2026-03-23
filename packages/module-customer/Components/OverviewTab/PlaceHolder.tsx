@@ -3,7 +3,6 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Skeleton from '@mui/material/Skeleton';
 import Stack from '@mui/material/Stack';
-import Containers from '@voguish/module-theme/components/ui/Container';
 export const PlaceHolder = () => {
   return (
     <Grid container spacing={2}>
@@ -43,7 +42,7 @@ export const PlaceHolder = () => {
 
 export const UserProfilePlaceHolder = () => {
   return (
-    <div className=" flex flex-col md:flex-row  animate-pulse">
+    <div className=" flex flex-col md:flex-row  animate-pulse max-w-[90rem]  lg:px-[6.625rem]">
       <aside className="w-full md:w-64 bg-white border-r border-gray-200 lg:p-4 md:p-4 p-0 lg:!pl-0 md:pl-0">
         <div className="grid grid-cols-1 gap-4 border-b border-gray-200 pb-2">
           {[...Array(8)].map((_, i) => (

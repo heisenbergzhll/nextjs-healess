@@ -75,10 +75,10 @@ const socialPlatforms = [
   { key: 'telegram_url', label: 'Telegram' },
   { key: 'reddit_url', label: 'Reddit' },
   { key: 'pinterest_url', label: 'Pinterest', url: "https://uk.pinterest.com/unineed/" },
+  { key: 'xiaohongshu', label: "RedBook", url: "https://www.xiaohongshu.com/user/profile/5e9fa3e1000000000100ba5e" },
   { key: 'bereal_url', label: 'BeReal' },
   { key: 'discord_url', label: 'Discord' },
   { key: 'clubhouse_url', label: 'Clubhouse' },
-  { key: 'xiaohongshu', label: "RedBook", url: "https://www.xiaohongshu.com/user/profile/5e9fa3e1000000000100ba5e" }
 ];
 
 export default function FooterIcon() {

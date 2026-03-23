@@ -96,7 +96,7 @@ const Sidebar = ({ children }: { children: ReactNode }) => {
                   component={Link}
                   href={items.route}
                   xs={12}
-                  className={index === 3 ? 'py-4' : ''}
+                  // className={index === 3 ? 'py-4' : ''}
                   sx={{
                     maxWidth: '100% !important',
                     borderRight: '3px solid #fff',

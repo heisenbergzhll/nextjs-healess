@@ -103,7 +103,7 @@ const ExploreProducts = ({
           </ErrorBoundary>
         </ErrorBoundary>
       ) : (
-        <div className="2xl:max-w-[90rem] mx-auto w-full px-4 lg:px-[6.625rem]">
+        <div className="max-w-[90rem] mx-auto w-full px-4 lg:px-[6.625rem]">
           {item && (
             <ErrorBoundary>
               <Info

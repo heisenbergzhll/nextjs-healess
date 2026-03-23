@@ -10,7 +10,7 @@ const FeatureProducts = ({ data, loading }: { data: any; loading: any }) => {
   return (
     <div className="pb-4">
       <ErrorBoundary>
-        <div className="2xl:max-w-[90rem] mx-auto w-full px-4 lg:px-[6.625rem]">
+        <div className="max-w-[90rem] mx-auto w-full px-4 lg:px-[6.625rem]">
           {loading ? (
             <InfoTextPlaceHolder extraClasses="mx-auto" />
           ) : (
@@ -27,7 +27,7 @@ const FeatureProducts = ({ data, loading }: { data: any; loading: any }) => {
             )
           )}
           {loading ? (
-            <div className="2xl:max-w-[90rem] mx-auto">
+            <div className="max-w-[90rem] mx-auto">
               <span className="pt-4">
                 <div className="hidden md:flex">
                   {new Array(5).fill(0).map((item, index) => (

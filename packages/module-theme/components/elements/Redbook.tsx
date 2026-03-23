@@ -1,9 +1,11 @@
 const RedBookIcon = ({ className = '' }: { className?: string }) => (
 
   <svg
-    className={className}
+    className={`h-6 w-6 shrink-0 ${className}`}
     xmlns="http://www.w3.org/2000/svg"
-    version="1.1" id="图层_1" x="0px" y="0px" viewBox="0 0 30.9 30.9" >
+    version="1.1" id="图层_1" x="0px" y="0px" 
+    fill="currentColor"
+    viewBox="0 0 30.9 30.9" >
     <g>
       <path d="M3.1,12.8h-2c0.1,2.7-0.5,4.8-0.5,4.8l1,2.1C3.1,19.1,3.1,12.8,3.1,12.8" />
       <path d="M9.8,12.8h-2c0,0,0,6,1.5,6.8l1-2.1C10.3,17.6,9.6,15.5,9.8,12.8" />

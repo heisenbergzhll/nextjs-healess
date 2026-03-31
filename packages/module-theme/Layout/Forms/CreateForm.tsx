@@ -16,6 +16,7 @@ import { setUser } from '@store/user';
 import { IS_SELLER } from '@utils/Constants';
 import CREATE_CUSTOMER from '@voguish/module-customer/graphql/mutation/CreateCustomer.graphql';
 import { useCustomerMutation } from '@voguish/module-customer/hooks/useCustomerMutation';
+import CREATE_SELLER_ACCOUNT from '@voguish/module-marketplace/graphql/mutation/CreateSellerAccount.graphql';
 import MERGE_CART from '@voguish/module-quote/graphql/mutation/MergeCart.graphql';
 import { useToast } from '@voguish/module-theme/components/toast/hooks';
 import { ButtonMui } from '@voguish/module-theme/components/ui/ButtonMui';
@@ -75,6 +76,7 @@ export default function CreateForm() {
   }, [mergeCart, token]);
 
   const [createCustomer] = useMutation(CREATE_CUSTOMER);
+  const [createSellerAccount] = useMutation(CREATE_SELLER_ACCOUNT);
 
   useEffect(() => {
     if (session?.user?.token) {
@@ -110,12 +112,18 @@ export default function CreateForm() {
     if (!marketplaceIsActive) {
       delete input.is_seller;
     }
+
+    const isSeller = input.is_seller === true;
+    const mutation = isSeller ? createSellerAccount : createCustomer;
+
     try {
-      createCustomer({ variables: { input } })
+      mutation({ variables: { input } })
         .then(() => {
           showToast({
             type: 'success',
-            message: t('Account created successfully'),
+            message: isSeller
+              ? t('Seller account created successfully')
+              : t('Account created successfully'),
           });
           router.push('/customer/account/login');
         })

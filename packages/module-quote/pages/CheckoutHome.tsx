@@ -4,14 +4,12 @@ import Typography from '@mui/material/Typography';
 import { SELECTED_STORE } from '@store/local-storage';
 import { graphqlRequest } from '@utils/Fetcher';
 import { isValidArray, isValidObject, parseAddress } from '@utils/Helper';
-import { useRouteTransition } from '@voguish/module-compare/Hooks/useRouteTransition';
 import {
   default as CustomerAddressQuery,
   default as GET_CUSTOMER_ADDRESS,
 } from '@voguish/module-customer/graphql/CustomerAddress.graphql';
 import { useCustomerQuery } from '@voguish/module-customer/hooks/useCustomerQuery';
 import { useToken } from '@voguish/module-customer/hooks/useToken';
-import { CheckoutSkeleton } from '@voguish/module-marketplace/Components/Placeholder';
 import ErrorBoundary from '@voguish/module-theme/components/ErrorBoundary';
 import Containers from '@voguish/module-theme/components/ui/Container';
 import { getCookie } from 'cookies-next';
@@ -25,6 +23,8 @@ import { RootState } from 'store';
 import { EmptyCart } from '../Components/Cart/EmptyCart';
 import { CheckoutLayout } from '../Components/Checkout';
 import { CheckoutStep } from '../types';
+import { CheckoutSkeleton } from '@packages/module-marketplace/Components/Placeholder';
+import { useRouteTransition } from '@packages/module-compare/Hooks/useRouteTransition';
 const OrderSummary = dynamic(
   () => import('@voguish/module-quote/Components/Checkout/OrderSummary')
 );
@@ -50,9 +50,6 @@ const ShippingAddress = dynamic(
 const ShippingMethods = dynamic(
   () => import('@voguish/module-quote/Components/Checkout/ShippingMethods')
 );
-// const ReviewOrder = dynamic(
-//   () => import('@voguish/module-quote/Components/Checkout/ReviewOrder')
-// );
 interface PageInterface {
   props?: any;
   req?: any;
@@ -87,11 +84,6 @@ const CheckoutHome = () => {
     return <CheckoutSkeleton />;
   }
 
-  // for develop payment
-  // useEffect(() => {
-  //   setActiveStep(3)
-  // }, [])
-
   if (!isValidObject(quote) || !isValidArray(quote?.items)) {
     return <EmptyCart />;
   }
@@ -115,58 +107,85 @@ const CheckoutHome = () => {
 
   let steps: CheckoutStep[] = quote
     ? [
-      {
-        index: 'DETAILS',
-        label: t('Personal Details'),
-        content: (
-          <ErrorBoundary>
-            <Email
-              isAccountLoggedIn={!!token}
-              handleNext={handleNext}
-              email={quote?.email}
-              cartId={quote?.id}
-              handlePrev={handlePrev}
-            />
-          </ErrorBoundary>
-        ),
-      },
-      {
-        label: t('Billing Address'),
-        index: 'BILLING-ADDRESS',
-        content: (
-          <ErrorBoundary>
-            <BillingAddress
-              isAccountLoggedIn={!token}
-              cartId={quote.id}
-              addresses={addresses}
-              selectedShippingAddress={parseAddress(
-                quote.shipping_addresses?.[0]
-              )}
-              selectedBillingAddress={parseAddress(quote.billing_address)}
-              handleNext={handleNext}
-              handlePrev={handlePrev}
-            />
-          </ErrorBoundary>
-        ),
-      },
-      {
-        label: t('Payment'),
-        index: 'PAYMENT',
-        content: (
-          <ErrorBoundary>
-            <Payment
-              token={token || ''}
-              isAccountLoggedIn={!token}
-              availablePaymentMethods={quote?.available_payment_methods}
-              cartId={quote.id}
-              handleNext={handleNext}
-              selectedPaymentMethod={quote?.selected_payment_method}
-              handlePrev={handlePrev}
-            />
-          </ErrorBoundary>
-        ),
-      },
-    ]
+        {
+          index: 'DETAILS',
+          label: t('Personal Details'),
+          content: (
+            <ErrorBoundary>
+              <Email
+                isAccountLoggedIn={!!token}
+                handleNext={handleNext}
+                email={quote?.email}
+                cartId={quote?.id}
+                handlePrev={handlePrev}
+              />
+            </ErrorBoundary>
+          ),
+        },
+        {
+          label: t('Billing Address'),
+          index: 'BILLING-ADDRESS',
+          content: (
+            <ErrorBoundary>
+              <BillingAddress
+                isAccountLoggedIn={!token}
+                cartId={quote.id}
+                addresses={addresses}
+                selectedShippingAddress={parseAddress(
+                  quote.shipping_addresses?.[0]
+                )}
+                selectedBillingAddress={parseAddress(quote.billing_address)}
+                handleNext={handleNext}
+                handlePrev={handlePrev}
+              />
+            </ErrorBoundary>
+          ),
+        },
+        {
+          label: t('Payment'),
+          index: 'PAYMENT',
+          content: (
+            <ErrorBoundary>
+              <Payment
+                isAccountLoggedIn={!token}
+                availablePaymentMethods={quote?.available_payment_methods}
+                cartId={quote.id}
+                handleNext={handleNext}
+                selectedPaymentMethod={quote?.selected_payment_method}
+                selectedShippingMethod={
+                  quote.shipping_addresses?.[0]?.selected_shipping_method
+                }
+                selectedShippingAddress={quote.shipping_addresses?.[0]}
+                selectedBillingAddress={quote.billing_address}
+                isVirtual={quote?.is_virtual}
+                handlePrev={handlePrev}
+              />
+            </ErrorBoundary>
+          ),
+        },
+          // {
+      //   label: t('Review Order'),
+      //   index: 'REVIEW-ORDER',
+      //   content: (
+      //     <ErrorBoundary>
+      //       <ReviewOrder
+      //         cartId={quote.id}
+      //         token={token || ''}
+      //         isVirtual={quote?.is_virtual}
+      //         handleNext={handleNext}
+      //         handlePrev={handlePrev}
+      //         isAccountLoggedIn={!token}
+      //         selectedBillingAddress={quote.billing_address}
+      //         selectedShippingAddress={quote.shipping_addresses?.[0]}
+      //         selectedPaymentMethod={quote?.selected_payment_method}
+      //         selectedShippingMethod={
+      //           quote.shipping_addresses?.[0]?.selected_shipping_method
+      //         }
+      //       />
+      //     </ErrorBoundary>
+      //   ),
+      // },
+      ]
     : [];
 
   if (quote && !quote.is_virtual) {
@@ -318,17 +337,17 @@ export async function getServerSideProps({ req }: PageInterface) {
   const token = session?.user?.token || null;
   const data = token
     ? await graphqlRequest({
-      query: CustomerAddressQuery,
-      options: {
-        context: {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            store: storeCode,
+        query: CustomerAddressQuery,
+        options: {
+          context: {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              store: storeCode,
+            },
           },
+          fetchPolicy: 'no-cache',
         },
-        fetchPolicy: 'no-cache',
-      },
-    })
+      })
     : null;
   return {
     props: {
@@ -336,4 +355,3 @@ export async function getServerSideProps({ req }: PageInterface) {
     },
   };
 }
-

@@ -82,7 +82,8 @@ query HomePageData {
         url_key
         sku
         name
-
+        rating_summary
+        review_count
         thumbnail {
           url
           label
@@ -104,7 +105,8 @@ query HomePageData {
         url_key
         sku
         name
-
+        rating_summary
+        review_count
         thumbnail {
           url
           label
@@ -121,7 +123,8 @@ query HomePageData {
       topRatedProductList {
         url_key
         sku
-
+        rating_summary
+        review_count
         name
         thumbnail {
           url
@@ -139,22 +142,24 @@ query HomePageData {
       topSellingProductList {
         url_key
         sku
-
+        rating_summary
+        review_count
         name
         thumbnail {
           url
           label
         }
-        # price_range {
-        #   maximum_price {
-        #     final_price {
-        #       currency
-        #       value
-        #     }
-        #   }
-        # }
+        price_range {
+          maximum_price {
+            final_price {
+              currency
+              value
+            }
+          }
+        }
       }
     }
+
     cornerOffers {
       id
       title
@@ -180,7 +185,8 @@ query HomePageData {
       productList {
         url_key
         sku
-
+        rating_summary
+        review_count
         name
         thumbnail {
           url

@@ -8,7 +8,7 @@ import {
   useMutation,
 } from '@apollo/client';
 import { useCreateEmptyCart } from '@packages/module-quote/hooks';
-import { Logout } from '@store/index'; // import your logout function
+import { Logout } from 'store'; // import your logout function
 import { errorCat } from '@utils/Constants';
 import { DocumentNode } from 'graphql';
 import { useToken } from './useToken';

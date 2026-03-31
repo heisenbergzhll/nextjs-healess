@@ -1,5 +1,4 @@
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import {
@@ -33,14 +32,16 @@ const iconStyle = {
   marginBottom: '2px',
 };
 const PasswordForm = () => {
-  const [changeCustomerPassword] = useCustomerMutation(UPDATE_PASSWORD);
+  const [changeCustomerPassword, { loading: submitting }] = useCustomerMutation(UPDATE_PASSWORD);
   const { showToast } = useToast();
-  const { t } = useTranslation('common');
+   const { t } = useTranslation('common');
 
   const {
     register,
     handleSubmit,
     watch,
+    reset,
+    setError,
     formState: { errors },
   } = useForm();
 
@@ -49,33 +50,55 @@ const PasswordForm = () => {
    */
   const watchPassword = watch();
 
-  const setPassword = (data: FieldValues) => {
-    if (data.cPassword !== data.newPassword) {
-      showToast({
+   const setPassword = (data: FieldValues) => {  
+    if (data._cPassword !== data.newPassword) {
+      setError('_cPassword', {
         message: t('New Password & Confirm is not same'),
-        type: 'error',
       });
-    } else {
-      /**
-       * Delete the confirm password key:value
-       */
-      delete data.cPassword;
-      /**
-       * Run the Mutation without conform password
-       */
-      changeCustomerPassword({
-        variables: data,
-      })
-        .then(() => {
+      return;
+    }
+    
+    /**
+     * Delete the confirm password key:value
+     */
+    const { _cPassword, ...mutationData } = data;  
+    /**
+     * Run the Mutation without confirm password
+     */
+    changeCustomerPassword({
+      variables: mutationData,  
+    })
+      .then((response) => {
+        if (response.data?.changeCustomerPassword) {
           showToast({
             type: 'success',
             message: t('Password updated successfully'),
           });
-        })
-        .catch((err) => {
-          showToast({ message: err.message, type: 'error' });
-        });
-    }
+          reset({
+            currentPassword: '',
+            newPassword: '',
+            _cPassword: '',
+          });
+        } else {
+          setError('currentPassword', {
+            message: t('The current password is invalid!'),
+          });
+        }
+      })
+      .catch((err) => {
+        const errorMessage = err?.message || err?.graphQLErrors?.[0]?.message || '';
+        
+        if (errorMessage.includes('Invalid login or password')) {
+          setError('currentPassword', {
+            message: t('The current password is invalid!'),
+          });
+        } else {
+          showToast({
+            type: 'error',
+            message: errorMessage,
+          });
+        }
+      });
   };
 
   return (
@@ -104,6 +127,8 @@ const PasswordForm = () => {
                   className="rounded-[unset] bg-brand"
                   variant="contained"
                   type="submit"
+                  isLoading={submitting}
+                  isDisabled={submitting}
                   sx={{
                     maxWidth: { xs: '50%', md: '35%', lg: '151px' },
                     display: 'inline',
@@ -157,14 +182,14 @@ const PasswordForm = () => {
                   },
                 })}
               />
-              <label htmlFor="cPassword">{t('Re-enter Password')}</label>
+              <label htmlFor="_cPassword">{t('Re-enter Password')}</label>
               <InputField
                 placeHolder={t('Re-enter Password')}
                 type="password"
                 className="mt-0 mb-1.5"
-                error={!!errors?.cPassword?.message}
-                helperText={errors?.cPassword?.message || ''}
-                {...register('cPassword', {
+                error={!!errors?._cPassword?.message}
+                helperText={errors?._cPassword?.message || ''}
+                {...register('_cPassword', {
                   required: t('* Re-enter Password is required'),
                   pattern: {
                     value:

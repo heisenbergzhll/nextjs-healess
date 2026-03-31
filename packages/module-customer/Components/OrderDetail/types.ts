@@ -8,6 +8,7 @@ export interface DownloadFilesOrder {
 }
 export interface orderItemType {
   quantity_shipped: number;
+  quantity_invoiced?: number;
   product_name: string;
   downloadable_links?: DownloadFilesOrder[];
   product_sku: string;

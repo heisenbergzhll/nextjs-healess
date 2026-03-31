@@ -16,7 +16,10 @@ const CreateIcon = dynamic(() => import('@mui/icons-material/Create'));
 
 const UserInfo = () => {
   const [overView, setOverview] = useState<boolean>(true);
-  const { data, loading /*, error */ } = useCustomerQuery(GET_CUSTOMER);
+  const { data, loading /*, error */ } = useCustomerQuery(GET_CUSTOMER,{
+    fetchPolicy: "network-only",
+    nextFetchPolicy: "cache-first"
+  });
 
   /**
    * Code for set the input value in edit form

@@ -18,6 +18,9 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Price from '../Item/Price';
 import SellerCard from './SellerCard';
+import { useQuery } from '@apollo/client';
+import RATINGS_QUERY from '@voguish/module-catalog/graphql/ProductRatings.graphql';
+import { ProductReviewRatingsMetadata } from '@voguish/module-catalog/types';
 
 const Rating = dynamic(() => import('@mui/material/Rating'), {
   loading: () => (
@@ -55,6 +58,10 @@ const AddToCart = dynamic(() => import('./AddToCart'), {
     </div>
   ),
 });
+const ProductReviewForm = dynamic(
+  () => import('@voguish/module-theme/components/widgets/ProductReview/ProductReviewForm').then(mod => mod.ProductReviewForm),
+  { ssr: false }
+);
 export function Details(props: DetailProp) {
   const { product, quickView = false } = props;
   const router = useRouter();
@@ -88,6 +95,9 @@ export function Details(props: DetailProp) {
 
   const { t } = useTranslation('common');
   const [open, setOpen] = useState(false);
+
+  const { data } = useQuery<ProductReviewRatingsMetadata>(RATINGS_QUERY);
+  const ratingsFields = data?.productReviewRatingsMetadata?.items || [];
 
   const openForm = () => {
     if (status === AUTHORIZED) {
@@ -175,7 +185,7 @@ export function Details(props: DetailProp) {
                 className="px-1 text-sm text-blue-600 cursor-pointer"
                 onClick={openForm}
               >
-                <Link href="#reviews">{t('Write a review')}</Link>
+                {t('Write a review')}
               </p>
             </Grid>
           </Grid>
@@ -254,6 +264,13 @@ export function Details(props: DetailProp) {
           </ErrorBoundary>
         )}
       </div>
+      <ProductReviewForm
+        ratingsFields={ratingsFields}
+        sku={product?.sku}
+        productName={product?.name}
+        openForm={openForm}
+        open={open}
+      />
     </>
   );
 }

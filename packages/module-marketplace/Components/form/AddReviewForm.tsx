@@ -50,32 +50,32 @@ const AddReviewForm = ({ submitReview, open, setOpen }: any) => {
 
   const userEmail = useSelector((state: RootState) => state?.user?.email);
 
-  const [addReview, { error }] = useMutation(ADD_SELLER_REVIEW);
+  const [addReview] = useMutation(ADD_SELLER_REVIEW);
   const { showToast } = useToast();
 
   const submitReviewHandler = async (data: FieldValues) => {
     if (token) {
       data['buyer_email'] = userEmail;
 
-      addReview({
-        context: {
-          headers: {
-            Authorization: token ? `Bearer ${token}` : '',
+      try {
+        await addReview({
+          context: {
+            headers: {
+              Authorization: token ? `Bearer ${token}` : '',
+            },
           },
-        },
-        variables: {
-          feedback: data,
-          sellerId: submitReview,
-        },
-      })
-        .then(() => {
-          showToast({ message: 'Review Added Successfully !' });
-          reset();
-          setOpen(false);
-        })
-        .catch(() => {
-          showToast({ message: `${error?.message}`, type: 'error' });
+          variables: {
+            feedback: data,
+            sellerId: submitReview,
+          },
         });
+        showToast({ message: 'Review Added Successfully !' });
+        reset();
+        setOpen(false);
+      } catch (err: any) {
+        showToast({ message: `${err?.message}`, type: 'error' });
+        setOpen(false);
+      }
     } else {
       router?.push('customer/account/login');
     }

@@ -1,8 +1,0 @@
-mutation getAdyenPaymentDetails($payload: String!, $cartId: String!) {
-  adyenPaymentDetails(payload: $payload, cart_id: $cartId) {
-    isFinal
-    resultCode
-    additionalData
-    action
-  }
-}

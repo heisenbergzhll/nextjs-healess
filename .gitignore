@@ -36,10 +36,12 @@ yarn-error.log*
 *.tsbuildinfo
 
 # Package JSON
+/package-lock.json
 /yarn.lock
 # agent 
 .qodo
 .vscode
+.agent
 
 
 # Ignore node_modules everywhere
@@ -66,4 +68,3 @@ node_modules/
 .pnp.js
 # ide 
 .kiro
-QWEN.md

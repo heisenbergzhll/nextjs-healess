@@ -8,6 +8,8 @@ import {
 import ErrorBoundary from '@voguish/module-theme/components/ErrorBoundary';
 import AppliedFilters from './AppliedFilters';
 import FilterRenderer from './FilterRenderer';
+import { useEffect, useState } from 'react';
+import { getLocalStorage, STORE_CONFIG } from '@store/local-storage';
 
 export const FiltersRenderer = ({
   appliedFilters = [],
@@ -23,6 +25,18 @@ export const FiltersRenderer = ({
     ProductAttributeFilterInput
   ) => void;
 }) => {
+  const [showSellerFilter, setShowSellerFilter] = useState(true);
+
+  useEffect(() => {
+    const storeConfig = getLocalStorage(STORE_CONFIG, true);
+    if (
+      storeConfig &&
+      storeConfig.marketplace_layered_navigation_enable === '0'
+    ) {
+      setShowSellerFilter(false);
+    }
+  }, []);
+
   return (
     <ErrorBoundary>
       {' '}
@@ -33,17 +47,24 @@ export const FiltersRenderer = ({
           sx={{ marginRight: { xl: 1.2, lg: 1.2, ml: 1, sm: 0, xs: 0 } }}
         >
           {isValidArray(filters) &&
-            getUniqueCategories(filters)?.map((filter, index) => (
-              <ErrorBoundary key={filter.attribute_code}>
-                <FilterRenderer
-                  selectedCategory={selectedCategory}
-                  appliedFilters={appliedFilters}
-                  manageFilterAction={manageFilterAction}
-                  expandedView={index === 0}
-                  filter={filter}
-                />
-              </ErrorBoundary>
-            ))}
+            getUniqueCategories(filters)
+              ?.filter((filter) => {
+                if (filter.attribute_code === 'seller_id' && !showSellerFilter) {
+                  return false;
+                }
+                return true;
+              })
+              ?.map((filter, index) => (
+                <ErrorBoundary key={filter.attribute_code}>
+                  <FilterRenderer
+                    selectedCategory={selectedCategory}
+                    appliedFilters={appliedFilters}
+                    manageFilterAction={manageFilterAction}
+                    expandedView={index === 0}
+                    filter={filter}
+                  />
+                </ErrorBoundary>
+              ))}
         </Stack>
       </Stack>
     </ErrorBoundary>

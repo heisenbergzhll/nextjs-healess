@@ -13,6 +13,7 @@ export interface BannerImage {
   bannerType: string;
   dominantColor: string;
   urlKey: string;
+  infoPosition?: 'top-left' | 'top-center' | 'top-right' | 'center-left' | 'center' | 'center-right' | 'bottom-left' | 'bottom-center' | 'bottom-right';
   bannerData: {
     bannerNameType: string;
     bannerType:

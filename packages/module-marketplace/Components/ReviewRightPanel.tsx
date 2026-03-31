@@ -87,34 +87,40 @@ const OverallRating = ({
   ];
 
   // Use map to populate the appropriate arrays
+  let sumRating = 0;
+  let countRating = 0;
 
   if (ratingData && isValidArray(ratingData?.getSellerReview.items)) {
-    ratingData.getSellerReview.items.map((review: ISellerReviewsItems) => {
-      let totalRating =
+    ratingData.getSellerReview.items.forEach((review: ISellerReviewsItems) => {
+      let reviewTotalPercent =
         parseInt(review.feed_value) +
         parseInt(review.feed_value) +
         parseInt(review.feed_value);
-      totalRating = totalRating > 0 ? Math.round((totalRating / 300) * 100) : 0;
+      reviewTotalPercent = reviewTotalPercent > 0 ? Math.round((reviewTotalPercent / 300) * 100) : 0;
 
       const ratingKey: number | null =
-        totalRating === 100
+        reviewTotalPercent === 100
           ? 5
-          : totalRating >= 80
+          : reviewTotalPercent >= 80
             ? 4
-            : totalRating >= 60
+            : reviewTotalPercent >= 60
               ? 3
-              : totalRating >= 40
+              : reviewTotalPercent >= 40
                 ? 2
-                : totalRating >= 20
+                : reviewTotalPercent >= 20
                   ? 1
                   : null;
 
       if (ratingKey !== null) {
         const index = 5 - ratingKey;
         filteredReviews[index][ratingKey]++;
+        sumRating += ratingKey;
+        countRating++;
       }
     });
   }
+
+  const currentTotalRating = countRating > 0 ? (sumRating / countRating).toFixed(1) : '0.0';
   const { t } = useTranslation('common');
   return (
     <ErrorBoundary>
@@ -145,7 +151,7 @@ const OverallRating = ({
             <CircularProgress
               size={120}
               variant="determinate"
-              value={(-parseInt(totalRating) / 5) * 100}
+              value={(parseFloat(currentTotalRating) / 5) * 100}
             />
             <Box
               sx={{
@@ -171,7 +177,7 @@ const OverallRating = ({
             variant="body1"
             sx={{ borderBottom: 1, borderColor: 'divider' }}
           >
-            {totalRating} {t('out of 5')}
+            {currentTotalRating} {t('out of 5')}
           </Typography>
           <Typography pt="0.25rem" pb="0.5rem" variant="body2">
             {t('Based on')} {ratingData?.getSellerReview.total_count}{' '}

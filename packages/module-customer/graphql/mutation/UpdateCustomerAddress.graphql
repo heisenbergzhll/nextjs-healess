@@ -3,9 +3,5 @@ mutation UpdateCustomerAddress($id: Int!, $input: CustomerAddressInput) {
     id
     city
     postcode
-    extension_attributes {
-      attribute_code
-      value
-    }
   }
 }

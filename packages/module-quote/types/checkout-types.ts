@@ -57,7 +57,10 @@ export interface CheckoutStepBillAddress extends CheckoutStepProps {
 export interface CheckoutStepPayment extends CheckoutStepProps {
   availablePaymentMethods: AvailablePaymentMethods[];
   selectedPaymentMethod: SelectedPaymentMethod;
-  token: string;
+  selectedShippingMethod?: SelectedShippingMethod;
+  selectedShippingAddress?: CartAddressInterface;
+  selectedBillingAddress?: CartAddressInterface;
+  isVirtual?: boolean;
 }
 export interface CheckoutStepReview extends CheckoutStepProps {
   selectedShippingAddress: CartAddressInterface;
@@ -149,51 +152,3 @@ export interface SetBillingAddressesOnCartOutput {
     cart: CartInterface;
   };
 }
-
-export interface CreateNihaopayTokenInput {
-  terminal: number;
-  return_url: string;
-  cart_id: string;
-}
-
-export interface CreatePaypalTokenInput {
-  cart_id: string;
-  code: string;
-  express_button: boolean;
-  cancel_url: string;
-  return_url: string;
-}
-
-export interface SetPayPalPaymentMethodOnCartInput {
-  cart_id: string;
-  code: string;
-  payer_id: string;
-  token: string;
-}
-
-export interface PlaceOrderFromAdyenInput {
-  cart_id: string;
-  code: string;
-  cc_type: string;
-  return_url: string;
-  guestEmail?: string;
-  stateData: string;
-}
-
-export interface AdyenOrder {
-  order_number: string;
-  cart_id: string;
-  adyen_payment_status: AydenPayResultDataType;
-}
-
-export type AydenPayResultDataType = {
-  isFinal: boolean;
-  resultCode: string;
-  additionalData: any;
-  action: any;
-};
-export interface AdyenPaymentState {
-  adyenPaymentDetails: AydenPayResultDataType,
-  error: string | null,
-}
-

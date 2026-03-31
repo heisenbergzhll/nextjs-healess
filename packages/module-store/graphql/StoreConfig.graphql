@@ -23,6 +23,7 @@ query StoreConfig {
     logo_height
     logo_width
     marketplace_is_active
+    marketplace_layered_navigation_enable
     minimum_password_length
     product_url_suffix
     show_cms_breadcrumbs
@@ -33,5 +34,11 @@ query StoreConfig {
     title_separator
     title_suffix
     welcome
+    twiter_url
+    customer_token_lifetime
+    facebook_url
+    instagram_url
+    linkedin_url
+    youtube_url
   }
 }

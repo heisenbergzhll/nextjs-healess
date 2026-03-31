@@ -2,22 +2,14 @@
 @tailwind utilities;
 @tailwind components;
 
-
-
 html,
 body {
-  @apply font-Lexend !important;
+  @apply font-Poppins !important;
   scroll-behavior: smooth;
   font-size: 16px !important;
   -webkit-tap-highlight-color: transparent;
   @apply antialiased !important;
   /* background-color: black; */
-}
-html {
-  overflow:auto !important;       /* 始终显示纵向滚动条位置 */
-  scrollbar-gutter: stable; /* 预留滚动条空间，防止布局抖动 */
-  padding:0!important;
-  font-family: Lexend, sans-serif;
 }
 * {
   box-sizing: border-box;
@@ -291,7 +283,7 @@ a {
   @apply border-checkoutBorder !important;
 }
 .checkoutLayout.MuiStepContent-root {
-  /* @apply lg:border-black lg:border-2 !important; */
+  @apply lg:border-black lg:border-2 !important;
 }
 
 .checkoutLayout .Mui-disabled {
@@ -473,8 +465,4 @@ a {
   animation: shimmer 1.2s linear infinite;
   border: none;
   object-position: -99999px 99999px;
-}
-
-.amsearch-highlight{
-  font-weight: 500;
 }

@@ -12,6 +12,7 @@ import {
   getCategoryFilterQuery,
   getUniqueArray,
   isValidArray,
+  getFormattedPriceFilterLabel,
 } from '@utils/Helper';
 import PRODUCT_AGGRESSION from '@voguish/module-catalog/graphql/ProductAggregation.query.graphql';
 import {
@@ -72,7 +73,12 @@ const FilterRenderer = ({
     let filterValue: FilterRangeTypeInput | FilterEqualTypeInput = {
       eq: value,
     };
-    if (filterName === 'category_uid') {
+    
+    // For price filters, parse the range format
+    if (filterName === 'price' && value.includes('_')) {
+      const [from, to] = value.split('_');
+      filterValue = { from, to };
+    } else if (filterName === 'category_uid') {
       filterValue = { eq: value };
     }
     manageFilterAction({ [event.target.name]: filterValue });
@@ -200,7 +206,9 @@ const FilterRenderer = ({
                                   >
                                     <span
                                       dangerouslySetInnerHTML={{
-                                        __html: option.label,
+                                        __html: filter.attribute_code === 'price' 
+                                          ? getFormattedPriceFilterLabel(option.label, option.value)
+                                          : option.label,
                                       }}
                                     />
                                   </label>
@@ -261,7 +269,9 @@ const FilterRenderer = ({
                                     >
                                       <span
                                         dangerouslySetInnerHTML={{
-                                          __html: option.label,
+                                          __html: filter.attribute_code === 'price'
+                                            ? getFormattedPriceFilterLabel(option.label, option.value)
+                                            : option.label,
                                         }}
                                       />
                                     </label>

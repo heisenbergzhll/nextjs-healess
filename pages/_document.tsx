@@ -29,6 +29,11 @@ export default function MyDocument({
         <meta name="emotion-insertion-point" content="" />
         <meta name="theme-color" content="#115E59" />
         <link rel="preconnect" href="https://devmagento.vachak.com" />
+        
+        {/* Preload Google Pay API for faster loading */}
+        <link rel="preconnect" href="https://pay.google.com" />
+        <script src="https://pay.google.com/gp/p/js/pay.js" async />
+        
         {emotionStyleTags}
       </Head>
       <body aria-label="voguish">

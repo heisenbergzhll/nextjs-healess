@@ -27,7 +27,7 @@ const ReviewOrder = ({
    * Place order
    */
   const placeOrder = async () => {
-    // await placeOrderHandler(cartId);
+    await placeOrderHandler(cartId);
   };
   const { t } = useTranslation('common');
 
@@ -56,10 +56,9 @@ const ReviewOrder = ({
               <AddressCard address={selectedBillingAddress} />
             </span>
           )}
-
           <span>
             {!isVirtual && (
-              <>
+              <ErrorBoundary>
                 <Typography
                   sx={{ fontSize: 16, fontWeight: 500, mb: 0.5 }}
                   variant="subtitle1"
@@ -76,15 +75,16 @@ const ReviewOrder = ({
                       sx={{ fontSize: 16, fontWeight: 500 }}
                       color="text.main"
                     >
-                      {`${selectedShippingMethod?.carrier_title
-                        }-${getFormattedPrice(
-                          selectedShippingMethod?.amount.value,
-                          selectedShippingMethod?.amount.currency
-                        )} `}
+                      {`${
+                        selectedShippingMethod?.carrier_title
+                      }-${getFormattedPrice(
+                        selectedShippingMethod?.amount.value,
+                        selectedShippingMethod?.amount.currency
+                      )} `}
                     </Typography>
                   </CardContent>
                 </Grid>
-              </>
+              </ErrorBoundary>
             )}
             <Typography
               sx={{ fontSize: 16, fontWeight: 500, mt: 2, mb: 0.5 }}
@@ -114,7 +114,7 @@ const ReviewOrder = ({
         >
           <ArrowBack className="text-lg rounded-full rtl:rotate-180 sm:text-xl" />
           <span>{t('Go to Payment')}</span>
-        </Button >
+        </Button>
 
         <ButtonMui
           isLoading={isInProcess || false}
@@ -124,8 +124,8 @@ const ReviewOrder = ({
         >
           {t('Place Order')}
         </ButtonMui>
-      </Grid >
-    </ErrorBoundary >
+      </Grid>
+    </ErrorBoundary>
   );
 };
 export default ReviewOrder;

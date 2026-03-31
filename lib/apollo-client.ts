@@ -14,19 +14,16 @@ export type ClientContext = {
   headers?: Record<string, string>;
 };
 const uri = `${process.env.MAGENTO_ENDPOINT}graphql`;
-console.log('process.env.MAGENTO_ENDPOINT', process.env.MAGENTO_ENDPOINT)
-console.log('uri', uri)
 export const httpLink = createHttpLink({
   uri: uri,
 });
 
-const storeLink = setContext((operation, { headers = {} }) => {
-  // Merge per-request headers (e.g. Store from getServerSideProps) so they are sent to GraphQL
-  const requestHeaders = (operation as { context?: { headers?: Record<string, string> } }).context?.headers ?? {};
+const storeLink = setContext((_, { headers }) => {
+  // get the store from local storage if it exists
+  // return the headers to the context so httpLink can read them
   return {
     headers: {
       ...headers,
-      ...requestHeaders,
     },
   };
 });

@@ -1,4 +1,3 @@
-import { useMutation } from '@apollo/client';
 import Button from '@mui/material/Button';
 import FormGroup from '@mui/material/FormGroup';
 import Grid from '@mui/material/Grid';
@@ -15,6 +14,7 @@ import { useToast } from '../../toast/hooks';
 import { ButtonMui } from '../../ui/ButtonMui';
 import InputField from '../../ui/Form/Elements/Input';
 import { ReviewRating } from '../../ui/ReviewRating';
+import { useCustomerMutation } from '@packages/module-customer/hooks/useCustomerMutation';
 
 export interface PropReviewFormData {
   ratingsFields?: [] | object | any;
@@ -33,14 +33,18 @@ export const ProductReviewForm = (props: PropReviewFormData) => {
     formState: { errors },
   } = useForm();
   const [ratingValue, setRatingValue] = useState<number | null>(0);
+  const [ratingError, setRatingError] = useState<string>('');
   const { showToast } = useToast();
-  const [addReview, { loading }] = useMutation(CreateProductReview);
+  const [addReview, { loading }] = useCustomerMutation(CreateProductReview);
   /**
    * Form Submit Handler
-   *
-   * @param {Object} e event
    */
   const submitHandler = (data: [] | object | any) => {
+    // Validate rating
+    if (!ratingValue || ratingValue === 0) {
+      setRatingError(t('Please provide a rating'));
+      return;
+    }
     const ratingsFields: RatingFieldProp = props?.ratingsFields;
     let formData: any = {};
     for (const item in data) {
@@ -64,7 +68,6 @@ export const ProductReviewForm = (props: PropReviewFormData) => {
         formData[item] = data[item];
       }
     }
-    formData.ratings[0].value_id = formData?.ratings?.[0]?.value_id || 'MTY=';
 
     addReview({
       variables: {
@@ -82,6 +85,8 @@ export const ProductReviewForm = (props: PropReviewFormData) => {
       })
       .finally(() => {
         reset();
+        setRatingValue(0);
+        setRatingError('');
         setTimeout(() => props.openForm(), 1000);
       });
   };
@@ -122,8 +127,18 @@ export const ProductReviewForm = (props: PropReviewFormData) => {
                 />
                 <ReviewRating
                   Ratingvalue={ratingValue ?? 0}
-                  setRatingvalue={setRatingValue}
+                  setRatingvalue={(value) => {
+                    setRatingValue(value);
+                    if (value && value > 0) {
+                      setRatingError('');
+                    }
+                  }}
                 />
+                {ratingError && (
+                  <span className="text-red-600 text-sm mt-1">
+                    {ratingError}
+                  </span>
+                )}
               </div>
               <InputField
                 label={t('Name')}

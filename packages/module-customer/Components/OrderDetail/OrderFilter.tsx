@@ -365,7 +365,7 @@ function OrderView({ orderId }: OrderDatatype) {
                         </tr>
                       </thead>
                       <tbody>
-                        {orderDetail?.shipments?.[0]?.items?.map(
+                        {orderDetail?.invoices?.[0]?.items?.map(
                           (orderItem: orderItemType, index: number) => (
                             <tr className="bg-white border-b" key={index}>
                               <th
@@ -375,7 +375,7 @@ function OrderView({ orderId }: OrderDatatype) {
                                 {orderItem?.product_name}
                               </th>
                               <td className="px-6 py-4">
-                                {orderItem?.quantity_shipped}
+                                {orderItem?.quantity_invoiced}
                               </td>
                             </tr>
                           )

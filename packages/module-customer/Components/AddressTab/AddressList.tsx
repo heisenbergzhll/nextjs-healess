@@ -371,6 +371,11 @@ const AddressList = () => {
             <Button
               variant="contained"
               startIcon={<AddIcon className="text-white" />}
+              sx={{
+                '&:hover': {
+                  backgroundColor: 'black',
+                },
+              }}
               className="rounded-2xl text-white text-base font-medium bg-black max-h-[40px]"
               onClick={() => setAddmodal(true)}
             >

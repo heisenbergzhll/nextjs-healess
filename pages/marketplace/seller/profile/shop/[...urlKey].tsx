@@ -104,8 +104,8 @@ const SellerPage: NextPageWithLayout<SellerPageProps> = (prop) => {
                 : '0'
             }
             productCount={
-              sellerData?.product_count !== undefined
-                ? String(sellerData.product_count)
+              products?.total_count !== undefined
+                ? String(products?.total_count)
                 : '0'
             }
             rating={

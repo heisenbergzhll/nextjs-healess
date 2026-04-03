@@ -5,6 +5,7 @@ import Typography from '@mui/material/Typography';
 import { isValidArray } from '@utils/Helper';
 
 import RATINGS_QUERY from '@voguish/module-catalog/graphql/ProductRatings.graphql';
+import REVIEWS_QUERY from '@voguish/module-catalog/graphql/ProductReviews.graphql';
 import {
   ProductItemInterface,
   ProductReviewRatingsMetadata,
@@ -16,17 +17,23 @@ import ReviewIndexPlaceHolder from './ReviewPlaceholder';
 import ReviewProgress from './ReviewProgress';
 import ReviewsList from './ReviewsList';
 export const Review = ({ product }: { product: ProductItemInterface }) => {
-  const { data, loading } =
-    useQuery<ProductReviewRatingsMetadata>(RATINGS_QUERY);
-  const ratingsFields = data?.productReviewRatingsMetadata?.items || [];
+  const { sku, name, url_key } = product;
 
-  const {
-    rating_summary,
-    review_count,
-    reviews: { items: reviewItems },
-    sku,
-    name,
-  } = product;
+  const { data: ratingsData, loading: ratingsLoading } =
+    useQuery<ProductReviewRatingsMetadata>(RATINGS_QUERY);
+  const ratingsFields = ratingsData?.productReviewRatingsMetadata?.items || [];
+
+  const { data: reviewsData, loading: reviewsLoading } = useQuery(REVIEWS_QUERY, {
+    variables: { filters: { url_key: { eq: url_key } } },
+    fetchPolicy: 'cache-and-network',
+  });
+
+  const productData = reviewsData?.products?.items?.[0] || product;
+  const rating_summary = productData.rating_summary || 0;
+  const review_count = productData.review_count || 0;
+  const reviewItems = productData.reviews?.items || [];
+
+  const loading = ratingsLoading || reviewsLoading;
 
   // Initialize an object with empty arrays for the desired keys
   const filteredReviews: ReviewBreakdown = {
@@ -38,9 +45,9 @@ export const Review = ({ product }: { product: ProductItemInterface }) => {
   };
 
   if (reviewItems && isValidArray(reviewItems)) {
-    reviewItems.forEach(({ ratings_breakdown }) => {
+    reviewItems.forEach(({ ratings_breakdown }: any) => {
       if (isValidArray(ratings_breakdown)) {
-        ratings_breakdown.forEach(({ value }) => {
+        ratings_breakdown.forEach(({ value }: any) => {
           filteredReviews[`__${value}`]++;
         });
       }

@@ -9,8 +9,8 @@ import {
   QuantityPriceType,
 } from '@voguish/module-customer/Components/OrderDetail/types';
 import {
-  AvailablePaymentMethods, CartAddressInput,
-  CartAddressInterface
+  CartAddressInput,
+  CartAddressInterface,
 } from '@voguish/module-quote/types';
 import STORE_CONFIG_DATA_QUERY from '@voguish/module-store/graphql/StoreConfigData.graphql';
 import { BreadcrumbProps, PageOptions } from '@voguish/module-theme/page';
@@ -29,7 +29,7 @@ export const getFormattedPrice = (
   currency?: string,
   isNegative = false
 ): string => {
-  const currencySelected: any = getLocalStorage('current_currency', true);
+  const currencySelected = getLocalStorage('current_currency', true);
 
   const selectedRate = (1 / (currencySelected?.rate ?? 1)).toFixed(4);
   const targetCurrency =
@@ -178,16 +178,6 @@ export const getFormattedDate = (
   if (format === 'dd/mm/yyyy') {
     return dateStr + '/' + month + '/' + year;
   }
-
-  // 格式：5 March 2026
-  if (format === 'd Month yyyy') {
-    const monthNames = [
-      'January', 'February', 'March', 'April', 'May', 'June',
-      'July', 'August', 'September', 'October', 'November', 'December'
-    ];
-    return date.getDate() + ' ' + monthNames[date.getMonth()] + ' ' + year;
-  }
-
   return month + '/' + dateStr + '/' + year.substring(2);
 };
 export const filteredLabel = (value: string, array: any) => {
@@ -620,12 +610,25 @@ export const getSearchVariables = (search: string, path: string) => {
       } else if (item === 'page') {
         productsQueryInput.currentPage = Number(sliced?.at(i + 1));
       } else if (item === 'price') {
-        const priceRange = sliced[i + 1]?.split('_');
-        const filterValue = { from: priceRange?.at(0), to: priceRange?.at(1) };
-        productsQueryInput.filters = {
-          ...productsQueryInput.filters,
-          price: filterValue,
-        };
+        const priceValue = sliced[i + 1];
+        if (priceValue) {
+          const priceRange = priceValue.split('_');
+          const from = priceRange?.at(0);
+          const to = priceRange?.at(1);
+
+          if (
+            from &&
+            to &&
+            !isNaN(parseFloat(from)) &&
+            !isNaN(parseFloat(to))
+          ) {
+            const filterValue = { from, to };
+            productsQueryInput.filters = {
+              ...productsQueryInput.filters,
+              price: filterValue,
+            };
+          }
+        }
       } else {
         const excludeKeys = sliced.filter(
           (_, index: number) => index % 2 === 0
@@ -652,16 +655,21 @@ export const getPriceRangeFilter = (
       if (path?.includes('price') && !defaultValue) {
         const input = path?.split('/')?.filter((i) => i && i);
         const index = input?.findIndex((i) => i === 'price');
-        return input[index + 1]?.split('_')?.map((i: string) => Number(i));
+        const priceValue = input[index + 1];
+        // Convert the price range to current currency for display
+        const convertedRange = convertPriceFilterRange(priceValue, false);
+        return convertedRange.split('_')?.map((i: string) => Number(i));
       }
-      return filter?.options
-        ?.at(0)
-        ?.value?.split('_')
-        ?.map((i: string) => Number(i));
+      const defaultRange = filter?.options?.at(0)?.value;
+      if (defaultRange) {
+        const convertedRange = convertPriceFilterRange(defaultRange, false);
+        return convertedRange.split('_')?.map((i: string) => Number(i));
+      }
     }
     return [0, 0];
   } catch (error) {
     console.error('Error :', error);
+    return [0, 0];
   }
 };
 
@@ -747,88 +755,106 @@ export const isShallowEqual = (a: any, b: any): boolean => {
 
   return true;
 };
-export const convertStringToHTML = (html: string) => {
-  const parser = new DOMParser();
-  const doc = parser.parseFromString(html, 'text/html');
-  document?.body?.appendChild(doc.body);
-  const form = document.getElementById('pay_form') as HTMLFormElement | null;
-  form?.submit();
-  return doc.body;
+
+/**
+ * Convert price filter range based on current currency
+ * @param {string} value - Filter value like "0_10" or "10_20"
+ * @param {boolean} toBaseCurrency - If true, convert to base currency; if false, convert to current currency
+ * @returns string - Converted price range
+ */
+export const convertPriceFilterRange = (
+  value: string,
+  toBaseCurrency = false
+): string => {
+  // Validate input
+  if (!value || typeof value !== 'string') {
+    return value || '0_0';
+  }
+
+  if (typeof window === 'undefined') {
+    return value;
+  }
+
+  try {
+    const currencySelected = getLocalStorage('current_currency', true);
+    const rate = currencySelected?.rate ?? 1;
+
+    // If no currency conversion needed or rate is 1, return original value
+    if (!currencySelected || rate === 1 || rate <= 0) {
+      return value;
+    }
+
+    const [minPrice, maxPrice] = value.split('_').map((v) => parseFloat(v));
+
+    if (isNaN(minPrice) || isNaN(maxPrice) || minPrice < 0 || maxPrice < 0) {
+      return value;
+    }
+
+    let convertedMin: number;
+    let convertedMax: number;
+
+    if (toBaseCurrency) {
+      // Convert from current currency back to base currency
+      convertedMin = minPrice / rate;
+      convertedMax = maxPrice / rate;
+    } else {
+      // Convert from base currency to current currency
+      convertedMin = minPrice * rate;
+      convertedMax = maxPrice * rate;
+    }
+
+    // Round to nearest integer for cleaner display
+    const roundedMin = Math.max(0, Math.round(convertedMin));
+    const roundedMax = Math.max(0, Math.round(convertedMax));
+
+    return `${roundedMin}_${roundedMax}`;
+  } catch (error) {
+    console.error('Error converting price filter range:', error);
+    return value;
+  }
 };
 
-export const getUserAgent = () => {
-  const terminal = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ? 0 : 1;
-  return terminal;
-}
+/**
+ * Get formatted price filter label with currency conversion
+ * @param {string} label - Original label like "0-10" or "10-20"
+ * @param {string} value - Filter value like "0_10"
+ * @returns string - Formatted label with converted prices
+ */
+export const getFormattedPriceFilterLabel = (
+  label: string,
+  value: string
+): string => {
+  // Validate input
+  if (!value || typeof value !== 'string') {
+    return label;
+  }
 
-export const sortPaymentOptions = (availablePaymentMethods: AvailablePaymentMethods[]) => {
-  const titleMap: Record<string, string> = {
-    adyen_cc: 'Credit / Debit Card',
-    nihaopay_payments_wechatpay: 'WeChat Pay',
-    nihaopay_payments_unionpay: 'China Union Pay',
-    paypal_express: 'PayPal',
-  };
+  if (typeof window === 'undefined') {
+    return label;
+  }
 
-  const order = [
-    'adyen_cc',
-    'paypal_express',
-    'clearpay',
-    'nihaopay_payments_alipay',
-    'nihaopay_payments_wechatpay',
-    'nihaopay_payments_unionpay',
-    'checkmo',
-  ];
+  try {
+    const currencySelected = getLocalStorage('current_currency', true);
+    const rate = currencySelected?.rate ?? 1;
 
-  const excluded = new Set([
-    'adyen_oneclick',
-    'adyen_hpp',
-    'checkmo',
-    'clearpay',
-  ]);
+    // If no currency conversion needed, return original label
+    if (!currencySelected || rate === 1 || rate <= 0) {
+      return label;
+    }
 
-  const orderIndex = new Map(order.map((code, index) => [code, index]));
-  const getIndex = (code: string) => orderIndex.get(code) ?? order.length;
+    const [minPrice, maxPrice] = value.split('_').map((v) => parseFloat(v));
 
-  return availablePaymentMethods
-    .filter((payment) => !excluded.has(payment.code))
-    .sort((a, b) => getIndex(a.code) - getIndex(b.code))
-    .map((payment) => ({
-      label: titleMap[payment.code] ?? payment.title,
-      value: payment.code,
-    }));
-}
+    if (isNaN(minPrice) || isNaN(maxPrice) || minPrice < 0 || maxPrice < 0) {
+      return label;
+    }
 
+    // Convert prices to current currency
+    const convertedMin = Math.max(0, Math.round(minPrice * rate));
+    const convertedMax = Math.max(0, Math.round(maxPrice * rate));
 
-export const getPaypalCurrency = (locale: string): string => {
-  const normalized = (locale || '').toLowerCase().split('-')[0];
-
-  const currencyMap: Record<string, string> = {
-    cn: 'GBP',
-    en: 'GBP',
-    us: 'USD',
-    mex: 'GBP',
-  };
-  return currencyMap[normalized] ?? 'GBP';
-};
-
-export const getAdyenLocal = (locale: string): string => {
-  const normalized = (locale || '').toLowerCase().split('-')[0];
-  const localeMap: Record<string, string> = {
-    cn: 'zh-CN',
-    en: 'en_US',
-    us: 'en_US',
-    mex: 'es_ES',
-  };
-  return localeMap[normalized] ?? 'en_GB';
-};
-
-export const getAdyenCountryCode = (locale: string): string => {
-  const normalized = (locale || '').toLowerCase().split('-')[0];
-  const countryCodeMap: Record<string, string> = {
-    cn: 'CN',
-    en: 'GB',
-    us: 'US',
-    mex: 'MX',
-  };
-  return countryCodeMap[normalized] ?? 'GB';
+    return `${convertedMin}-${convertedMax}`;
+  } catch (error) {
+    console.error('Error formatting price filter label:', error);
+    return label;
+  }
 };

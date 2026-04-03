@@ -37,7 +37,7 @@ const MoreInfo = ({ productSku }: { productSku: string }) => {
             label: string;
             value: string;
           }) =>
-            item?.visible_on_front && (
+            item?.visible_on_front && item?.code !== 'price' && item?.label?.toLowerCase() !== 'price' && (
               <hgroup
                 key={item?.code}
                 className="items-center w-full gap-3 columns-5"

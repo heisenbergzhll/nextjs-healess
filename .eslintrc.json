@@ -4,34 +4,12 @@
   "plugins": ["@typescript-eslint"],
   "rules": {
     "no-unused-vars": "warn",
-    "quotes": ["error", "single"],
-      "@typescript-eslint/no-unused-vars": [
+    "@typescript-eslint/no-unused-vars": [
       "warn",
       { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }
     ],
-    "no-console": "warn",
+    "no-console": "off",
     "@typescript-eslint/no-explicit-any": "off",
-    "@typescript-eslint/no-require-imports": "off",
-    "no-restricted-syntax": [
-      "error",
-      {
-        "selector": "CallExpression[callee.object.name='console'][callee.property.name!=/^(log|warn|error|info|trace)$/]",
-        "message": "Unexpected property on console object was called"
-      }
-    ]
-  },
-  "settings": {
-    "react": {
-      "version": "detect"
-    }
-  },
-  "overrides": [
-    {
-      "files": ["next.config.js"],
-      "rules": {
-        "@typescript-eslint/no-require-imports": "off",
-        "import/no-commonjs": "off"
-      }
-    }
-  ]
+    "@typescript-eslint/no-require-imports": "off"
+  }
 }

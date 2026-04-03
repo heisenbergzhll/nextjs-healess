@@ -1,6 +1,0 @@
-  mutation createNihaopayToken($terminal: Int!, $return_url: String, $cart_id: String!) {
-    createNihaopayToken(terminal: $terminal, return_url: $return_url, cart_id: $cart_id) {
-      redirectUrl
-      order_number
-    }
-  }

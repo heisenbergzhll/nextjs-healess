@@ -1,6 +1,7 @@
 import { useQuery } from '@apollo/client';
 import { client, httpLink, setStoreCode } from '@lib/apollo-client';
 import Divider from '@mui/material/Divider';
+import { RootState } from '@store';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
 import { getLocalStorage } from '@store/local-storage';
 import { setUser } from '@store/user';
@@ -18,7 +19,6 @@ import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { Fragment, ReactNode, useCallback, useEffect, useState } from 'react';
-import { RootState } from 'store';
 import { ClientPortal } from '../components/ClientPortal';
 import { SpeculationRules } from '../components/SpeculationRuler';
 import Toast from '../components/toast';
@@ -145,7 +145,12 @@ const Layout = ({
   return (
     <Fragment>
       <Head>
-        <link rel="shortcut icon" href={'/assets/icons/favicon.ico'} />
+        {!storeLoading && (
+          <link
+            rel="shortcut icon"
+            href={baseUrl ? `${baseUrl}media/favicon/${favIcon}` : ''}
+          />
+        )}
         {!storeLoading && (
           <meta
             name="msapplication-TileImage"
@@ -172,15 +177,15 @@ const Layout = ({
           property="og:url"
           content={process?.env?.MAGENTO_ENDPOINT || ''}
         />
-        <meta property="og:site_name" content="Unineed" />
+        <meta property="og:site_name" content="Voguish" />
 
         <title>
-          {t(`${decodeHtml(title || storeConfig?.default_title || 'Unineed')}`)}
+          {t(`${decodeHtml(title || storeConfig?.default_title || 'Voguish')}`)}
         </title>
         <meta
           name="title"
           content={t(
-            decodeHtml(title || storeConfig?.default_title || 'Unineed')
+            decodeHtml(title || storeConfig?.default_title || 'Voguish')
           )}
         />
         <meta
@@ -194,7 +199,7 @@ const Layout = ({
           name="description"
           content={t(
             decodeHtml(
-              description || storeConfig?.default_description || 'Unineed'
+              description || storeConfig?.default_description || 'Voguish'
             )
           )}
         />
@@ -205,8 +210,8 @@ const Layout = ({
       ) : (
         <InfoProvider>
           <main
-            aria-labelledby={t(decodeHtml(title || 'Unineed'))}
-            className="grid content-between mt-[8.8rem] min-h-screen mx-auto overflow-x-hidden antialiased scroll-mt-5 scroll-smooth"
+            aria-labelledby={t(decodeHtml(title || 'Voguish'))}
+            className="grid content-between mt-[4rem] min-h-screen mx-auto overflow-x-hidden antialiased scroll-mt-5 scroll-smooth"
           >
             <div>
               <Header isAccountLoggedIn={isAccountLoggedIn} />

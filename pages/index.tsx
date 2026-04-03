@@ -1,4 +1,4 @@
-import { LRUCache } from '@utils/ LRUCache';
+import { LRUCache } from '@utils/LRUCache';
 import { graphqlRequest } from '@utils/Fetcher';
 import { getLocalStore, isValidObject } from '@utils/Helper';
 import STORE_LIST from '@voguish/module-catalog/graphql/StoreList.query.graphql';
@@ -7,13 +7,14 @@ import { PageOptions } from '@voguish/module-theme/page';
 import HomePage from '@voguish/module-theme/pages/Home';
 import { HomePageData } from '@voguish/module-theme/types/home-page';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { getSession } from 'next-auth/react';
+import { GetServerSidePropsContext } from 'next';
 
-const homePageCache = new LRUCache<any>(50, 5);
-
+const homePageCache = new LRUCache<any>(50, 1);
 
 const Home = ({ pageData }: { pageData: HomePageData }) => {
   return (
-    <div className="mx-auto w-full">
+    <div className="mx-auto w-full 4xl:max-w-[160.5rem]">
       <HomePage pageData={pageData} />
     </div>
   );
@@ -21,17 +22,20 @@ const Home = ({ pageData }: { pageData: HomePageData }) => {
 
 export default Home;
 
-export async function getServerSideProps({ locale }: { locale: string }) {
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const locale = context.locale as string;
   const pageProps: PageOptions = {
-    title: 'Home Page - Unineed',
-    description: 'Welcome to Unineed',
+    title: 'Home Page - Voguish',
+    description: 'Welcome to Voguish Theme',
     showBreadcrumb: false,
   };
 
   try {
-    const cacheKey = `homepage_${locale}`;
+    const session = await getSession(context);
+    const token = session?.user?.token || (session as any)?.accessToken || null;
+    // Add token to cache key to prevent sharing authenticated data across users
+    const cacheKey = token ? `homepage_${locale}_${token}` : `homepage_${locale}`;
     const cachedData = homePageCache.get(cacheKey);
-    console.log('cachedData', cachedData)
 
     if (cachedData) {
       return {
@@ -48,7 +52,6 @@ export async function getServerSideProps({ locale }: { locale: string }) {
       fetchPolicy: 'network-only',
       nextFetchPolicy: 'cache-first',
     });
-    console.log('fetch storeListResponse---', storeListResponse)
     const stores = storeListResponse?.availableStores || [];
     const selectedStore = getLocalStore(stores, locale);
     if (!selectedStore) {
@@ -62,11 +65,11 @@ export async function getServerSideProps({ locale }: { locale: string }) {
       options: {
         context: {
           headers: {
-            Store: selectedStore,
+            store: selectedStore,
+            ...(token ? { Authorization: `Bearer ${token}` } : {}),
           },
         },
-        fetchPolicy: 'network-only',
-        nextFetchPolicy: 'cache-first',
+        fetchPolicy: 'no-cache',
       },
     });
 

@@ -2,6 +2,7 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import UPDATE_CUSTOMER from '@voguish/module-customer/graphql/mutation/UpdateCustomer.graphql';
+import GET_CUSTOMER from '@voguish/module-customer/graphql/Customer.graphql';
 import { useCustomerMutation } from '@voguish/module-customer/hooks/useCustomerMutation';
 import { useToast } from '@voguish/module-theme/components/toast/hooks';
 import InputField from '@voguish/module-theme/components/ui/Form/Elements/Input';
@@ -9,6 +10,7 @@ import { useTranslation } from 'next-i18next';
 import dynamic from 'next/dynamic';
 import { FieldValues, useForm } from 'react-hook-form';
 import { ButtonMui } from '@packages/module-theme/components/ui/ButtonMui';
+import { useState } from 'react';
 const ArrowBackIcon = dynamic(() => import('@mui/icons-material/ArrowBack'));
 
 const commonStyles = {
@@ -38,12 +40,19 @@ interface ProfileInputType {
 const EditForm = ({ handleClick, userinfoData }: EditFormType) => {
   const [updateCustomer, { loading }] = useCustomerMutation(UPDATE_CUSTOMER);
   const { t } = useTranslation('common');
+  const [originalEmail] = useState(userinfoData?.customer?.email);
 
   const {
     register,
     handleSubmit,
+    watch,
+    setError,
     formState: { errors },
   } = useForm<ProfileInputType>({ defaultValues: userinfoData?.customer });
+  
+  const currentEmail = watch('email');
+  const isEmailChanged = currentEmail !== originalEmail;
+  
   const { showToast } = useToast();
 
   const profileUpdate = (data: FieldValues) => {
@@ -59,16 +68,35 @@ const EditForm = ({ handleClick, userinfoData }: EditFormType) => {
       variables: {
         input: validFormdata,
       },
+      refetchQueries: [{ query: GET_CUSTOMER }],
+      awaitRefetchQueries: true,
     })
-      .then(() => {
-        showToast({
-          type: 'success',
-          message: t('profile updated successfully'),
-        });
-        handleClick(false);
+      .then((response) => {
+        if (response.data?.updateCustomer) {
+          showToast({
+            type: 'success',
+            message: t('Profile updated successfully!'),
+          });
+          handleClick(false);
+        } else {
+          setError('password', {
+            message: t('The current password is invalid!'),
+          });
+        }
       })
       .catch((err) => {
-        showToast({ message: err.message, type: 'error' });
+        const errorMessage = err?.message || err?.graphQLErrors?.[0]?.message || '';
+        
+        if (errorMessage.includes('Invalid login or password')) {
+          setError('password', {
+            message: t('The current password is invalid!'),
+          });
+        } else {
+          showToast({
+            type: 'error',
+            message: errorMessage || t('An error occurred'),
+          });
+        }
       });
   };
 
@@ -167,12 +195,12 @@ const EditForm = ({ handleClick, userinfoData }: EditFormType) => {
               error={!!errors?.password?.message}
               helperText={errors?.password?.message || ''}
               {...register('password', {
-                required: t('* Password is required'),
-                pattern: {
+                required: isEmailChanged ? t('* Password is required') : false,
+                pattern: isEmailChanged ? {
                   value:
                     /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,12}$/,
                   message: t('Please enter a valid Password'),
-                },
+                } : undefined,
               })}
             />
           </Grid>

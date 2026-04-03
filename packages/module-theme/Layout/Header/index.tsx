@@ -9,15 +9,8 @@ import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import { Burger } from './HamburgerMenu';
 import { useInfo } from './Provider/InfoProvider';
-
 const NextNProgress = dynamic(() => import('nextjs-progressbar'));
 const SideBar = dynamic(() => import('./SideBar'));
-const Search = dynamic(() => import('./Search'));
-
-const StoreSwitcher = dynamic(
-  () => import('@voguish/module-store/StoreSwitcher')
-);
-
 const HeaderIcons = dynamic(() => import('./HeaderIcons'), {
   loading: () => (
     <div className="flex items-center w-full gap-x-2">
@@ -73,62 +66,50 @@ const Header = ({ isAccountLoggedIn }: { isAccountLoggedIn: boolean }) => {
         className="fixed top-0 z-[999] w-full bg-white"
       >
         {/* Mobile menu */}
-        <header className="w-full bg-white">
-          <div className="w-full bg-white border-solid border-0 border-b border-slate-200">
-            <nav
-              aria-label="Top"
-              className="px-4 lg:px-[6.625rem] mx-auto  max-w-[90rem]"
-            >
-              <div className="flex items-center justify-between w-full h-20 gap-4 mx-auto -3xs:gap-1.5">
-                <span className="sr-only lg:hidden">open sidebar</span>
-                <div ref={node} className="lg:hidden mr-2">
-                  <div className="relative flex items-center cursor-pointer max-w-fit max-h-fit">
-                    <Burger open={open} setOpen={setOpen} />
-                  </div>
-                  <SideBar
-                    openSidebar={open}
-                    setOpenSidebar={setOpen}
-                    sortedMenu={sortedMenu}
-                  />
+        <header className="w-full bg-white shadow-lg">
+          <nav
+            aria-label="Top"
+            className="px-4 mx-auto sm:px-6 max-w-[125rem] lg:px-8"
+          >
+            <div className="flex items-center justify-between w-full h-16 gap-4 mx-auto -3xs:gap-1.5">
+              <span className="sr-only lg:hidden">open sidebar</span>
+              <div ref={node} className="lg:hidden">
+                <div className="relative flex items-center cursor-pointer max-w-fit max-h-fit">
+                  <Burger open={open} setOpen={setOpen} />
                 </div>
-                <div aria-label="unineed">
+                <SideBar
+                  openSidebar={open}
+                  setOpenSidebar={setOpen}
+                  sortedMenu={sortedMenu}
+                />
+              </div>
+              <div aria-label="voguish">
+                {baseUrl && (
                   <Link href="/" aria-label="Go to search" passHref>
                     <Image
                       decoding="auto"
                       priority={true}
-                      src="/assets/img/logo.svg"
-                      alt={storeData?.logo_alt || 'unineed'}
-                      height={21}
-                      width={186}
+                      src={baseUrl ? `${baseUrl}media/logo/${logoUrl}` : ''}
+                      alt={storeData?.logo_alt || 'voguish'}
+                      height={28}
+                      width={88}
                     />
                   </Link>
-                </div>
-                <div className="-lg:hidden">
-                  <StoreSwitcher />
-                </div>
-                <div className="-lg:hidden flex-1 min-w-0">
-                  <Search />
-                </div>
-                <div
-                  aria-label="header-icons"
-                  className="flex items-center rtl:mr-auto ltr:ml-auto"
-                >
-                  <HeaderIcons
-                    isAccountLoggedIn={isAccountLoggedIn}
-                    profileUrl={profileUrl}
-                  />
-                </div>
+                )}
               </div>
-              <div className="lg:hidden pb-4">
-                <Search />
-              </div>
-            </nav>
-          </div>
-          <div className="w-full hidden lg:block bg-white border-solid border-0 border-b border-slate-200">
-            <nav className="px-[6.625rem] mx-auto sm:px-6 max-w-[90rem] lg:px-[6.625rem]">
+              {/* Flyout menus */}
               <MegaMenu menuItems={sortedMenu} activeMenus={activeMenus} />
-            </nav>
-          </div>
+              <div
+                aria-label="header-icons"
+                className="flex items-center rtl:mr-auto ltr:ml-auto"
+              >
+                <HeaderIcons
+                  isAccountLoggedIn={isAccountLoggedIn}
+                  profileUrl={profileUrl}
+                />
+              </div>
+            </div>
+          </nav>
         </header>
       </div>
     </ErrorBoundary>

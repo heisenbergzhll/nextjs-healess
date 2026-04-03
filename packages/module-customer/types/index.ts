@@ -36,6 +36,7 @@ export interface Customer {
   token: string;
   orders: CustomerOrders;
   wishlist: Wishlist[];
+  is_seller?: boolean;
 }
 //----------------------------------//
 export interface CustomerOrders {

@@ -1,5 +1,6 @@
 query StoreConfigData {
   storeConfig {
     marketplace_is_active
+    marketplace_layered_navigation_enable
   }
 }

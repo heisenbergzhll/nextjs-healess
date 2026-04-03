@@ -95,29 +95,45 @@ export const CartItem = (props: CartItems) => {
     ]);
   };
 
-  (useEffect(() => {
+  useEffect(() => {
     if (!isInProcess) {
-      if (incrementLoading) {
-        setIncrementLoader(false);
-      }
-      if (decrementLoading) {
-        setDecrementLoader(false);
-      }
+      setIncrementLoader(false);
+      setDecrementLoader(false);
     }
-  }),
-    [isInProcess]);
+  }, [isInProcess]);
   // Sync local qty to react-hook-form on load
 
-  const actionChooseQty = (type = 'increment') => {
+  const actionChooseQty = async (type = 'increment') => {
     const value = getValues('qty');
-
     const oldValue = parseInt(value || '1');
+    let newValue = oldValue;
 
     if (type === 'decrement' && oldValue > 1) {
-      setValue('qty', oldValue - 1);
+      newValue = oldValue - 1;
     }
     if (type === 'increment' && oldValue < 5) {
-      setValue('qty', oldValue + 1);
+      newValue = oldValue + 1;
+    }
+
+    if (newValue !== oldValue) {
+      setValue('qty', newValue);
+      if (type === 'increment') {
+        setIncrementLoader(true);
+      } else {
+        setDecrementLoader(true);
+      }
+      try {
+        await updateCartItemsHandler([
+          {
+            cart_item_id: Number(decode(cartItem?.cartItemId)),
+            quantity: newValue,
+          },
+        ]);
+      } catch (err) {
+        setValue('qty', oldValue);
+        setIncrementLoader(false);
+        setDecrementLoader(false);
+      }
     }
   };
 
@@ -270,7 +286,6 @@ export const CartItem = (props: CartItems) => {
                     } hover:contrast-75`}
                     onClick={() => {
                       actionChooseQty('decrement');
-                      setDecrementLoader(true);
                     }}
                     disabled={
                       !(cartItem?.quantity <= 5 && cartItem?.quantity > 1)
@@ -318,7 +333,6 @@ export const CartItem = (props: CartItems) => {
                     } hover:contrast-75`}
                     onClick={() => {
                       actionChooseQty('increment');
-                      setIncrementLoader(true);
                     }}
                     disabled={!(cartItem?.quantity < 5)}
                   >
@@ -356,7 +370,6 @@ export const CartItem = (props: CartItems) => {
                   } hover:contrast-75  ${isInProcess && ' cursor-progress '}`}
                   onClick={() => {
                     actionChooseQty('decrement');
-                    setDecrementLoader(true);
                   }}
                   disabled={
                     isInProcess ||
@@ -402,7 +415,6 @@ export const CartItem = (props: CartItems) => {
                   className={`flex items-center justify-center w-8 h-8 text-black border-0 rounded shadow-none cursor-pointer bg-brand hover:bg-brand hover:contrast-75 ${isInProcess && ' cursor-progress '}`}
                   onClick={() => {
                     actionChooseQty('increment');
-                    setIncrementLoader(true);
                   }}
                   disabled={isInProcess || !(cartItem?.quantity < 5)}
                 >

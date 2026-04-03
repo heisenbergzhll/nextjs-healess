@@ -38,6 +38,7 @@ const Product = ({
   urlKey: string;
 }) => {
   const router = useRouter();
+
   return (
     <Suspense
       fallback={

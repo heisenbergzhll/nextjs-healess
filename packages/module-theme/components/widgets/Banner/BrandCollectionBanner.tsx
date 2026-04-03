@@ -55,18 +55,24 @@ const BrandCollectionBanner = ({
                 />
                 <div
                   style={{ backgroundColor: item?.dominantColor }}
-                  className="absolute bottom-0 flex justify-between py-4 items-center mx-auto min-w-full rtl:pl-3.5 ltr:pr-3.5 text-white break-all backdrop-blur-md"
+                  className="absolute bottom-0 flex justify-between py-4 items-center mx-auto w-full rtl:pl-3.5 ltr:pr-3.5 text-white break-all backdrop-blur-md"
                 >
                   <div
-                    className="bg-slate-800 py-2 rtl:pr-2.5 ltr:pl-2.5 rtl:pl-8 ltr:pr-8"
+                    className="bg-slate-800 py-2 rtl:pr-2.5 ltr:pl-2.5 rtl:pl-8 ltr:pr-8  max-w-[50%] shrink-0 overflow-hidden"
                     style={clipPathStyle}
                   >
                     {' '}
-                    <h2 className="text-sm my-0 line-clamp-2 xl:text-[1.125rem] italic font-semibold leading-5 text-white">
+                    <h2
+                      className="text-sm my-0 overflow-hidden line-clamp-1 text-ellipsis xl:text-[1.125rem] italic font-semibold leading-5 text-white"
+                      title={String(item?.bannerTitle || '')}
+                    >
                       {item?.bannerTitle}
                     </h2>
                   </div>
-                  <p className="text-brand my-0 font-semibold text-4xl lg:text-[1.7rem] xl:text-[2.5125rem] 2xl:text-[2.8125rem] leading-[2.0625rem]">
+                  <p
+                    className="text-brand my-0 overflow-hidden text-ellipsis line-clamp-1 font-semibold text-4xl lg:text-[1.7rem] xl:text-[2.5125rem] 2xl:text-[2.8125rem] leading-[2.0625rem]"
+                    title={String(item?.bannerSubtitle || '')}
+                  >
                     {item?.bannerSubtitle}
                   </p>
                 </div>

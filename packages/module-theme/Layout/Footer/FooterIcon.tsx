@@ -1,10 +1,10 @@
-import { WhatsApp } from '@mui/icons-material';
-import Button from '@mui/material/Button';
-import { getKeyFromStorage, STORE_CONFIG } from '@store/local-storage';
-import XIcon from '@voguish/module-theme/components/elements/Icon';
-import ErrorBoundary from '@voguish/module-theme/components/ErrorBoundary';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
+import Button from '@mui/material/Button';
+import ErrorBoundary from '@voguish/module-theme/components/ErrorBoundary';
+import { getKeyFromStorage, STORE_CONFIG } from '@store/local-storage';
+import XIcon from '@voguish/module-theme/components/elements/Icon';
+import { WhatsApp } from '@mui/icons-material';
 
 const iconComponents: Record<string, any> = {
   facebook_url: dynamic(() => import('@mui/icons-material/Facebook'), {
@@ -56,26 +56,21 @@ const iconComponents: Record<string, any> = {
     () => import('@packages/module-theme/components/elements/ClubHouse'),
     { ssr: false }
   ),
-  xiaohongshu: dynamic(
-    () => import('@packages/module-theme/components/elements/Redbook'),
-    { ssr: false }
-  ),
 };
 
 const socialPlatforms = [
-  { key: 'facebook_url', label: 'Facebook', url: "https://www.facebook.com/Unineedcom/" },
-  { key: 'instagram_url', label: 'Instagram', url: "https://www.instagram.com/unineeduk/" },
+  { key: 'facebook_url', label: 'Facebook' },
+  { key: 'instagram_url', label: 'Instagram' },
   { key: 'twiter_url', label: 'X', overrideKey: 'twitter_url' },
   { key: 'linkedin_url', label: 'LinkedIn' },
-  { key: 'youtube_url', label: 'YouTube', url: "https://www.youtube.com/channel/UCKUGUs1BR3dE7chEBpPK_xg" },
+  { key: 'youtube_url', label: 'YouTube' },
   { key: 'whatsapp_url', label: 'WhatsApp' },
-  { key: 'tiktok_url', label: 'TikTok', url: "https://www.tiktok.com/@unineed" },
+  { key: 'tiktok_url', label: 'TikTok' },
   { key: 'threads_url', label: 'Threads' },
   { key: 'snapchat_url', label: 'Snapchat' },
   { key: 'telegram_url', label: 'Telegram' },
   { key: 'reddit_url', label: 'Reddit' },
-  { key: 'pinterest_url', label: 'Pinterest', url: "https://uk.pinterest.com/unineed/" },
-  { key: 'xiaohongshu', label: "RedBook", url: "https://www.xiaohongshu.com/user/profile/5e9fa3e1000000000100ba5e" },
+  { key: 'pinterest_url', label: 'Pinterest' },
   { key: 'bereal_url', label: 'BeReal' },
   { key: 'discord_url', label: 'Discord' },
   { key: 'clubhouse_url', label: 'Clubhouse' },
@@ -84,18 +79,16 @@ const socialPlatforms = [
 export default function FooterIcon() {
   const getUrl = (key: string) => getKeyFromStorage(STORE_CONFIG, key);
 
-  console.log('socialPlatforms', socialPlatforms)
   return (
     <ErrorBoundary>
-      <div className="flex flex-wrap gap-1">
-        {socialPlatforms.map(({ key, label, url, overrideKey }) => {
+      <div className="flex flex-wrap justify-center gap-2 sm:gap-3 md:gap-4 lg:gap-5 xl:gap-6">
+        {socialPlatforms.map(({ key, label, overrideKey }) => {
           const resolvedKey = overrideKey || key;
+          const url = getUrl(key);
           if (!url) return null;
 
           const Icon =
             resolvedKey === 'twitter_url' ? XIcon : iconComponents[resolvedKey];
-
-          console.log("Icon", Icon)
           if (!Icon) return null;
 
           return (
@@ -110,10 +103,10 @@ export default function FooterIcon() {
                 title={label}
                 variant="outlined"
                 className="
-                  text-white border-0
+                  text-white border border-white 
                   w-8 h-8 sm:w-10 sm:h-8 md:w-8 md:h-8 
                   flex items-center justify-center 
-                  min-w-0 min-h-0   transition-all
+                  min-w-0 min-h-0 p-2   transition-all
                 "
               >
                 <Icon fontSize="small" />

@@ -253,20 +253,22 @@ const ProductList = ({
           />
         </ErrorBoundary>
         <div className="grid grid-cols-12 gap-4">
-          <div className="col-span-3 rounded-md -lg:hidden">
-            <ErrorBoundary>
-              {aggreLoad ? (
-                <FilterSidebarSkeleton />
-              ) : (
-                <FiltersRenderer
-                  selectedCategory={selectedCategory}
-                  appliedFilters={appliedFilters}
-                  manageFilterAction={manageFilterAction}
-                  filters={aggregations}
-                />
-              )}
-            </ErrorBoundary>{' '}
-          </div>
+          {aggregations && Object.keys(aggregations).length > 0 && (
+            <div className="col-span-3 rounded-md -lg:hidden">
+              <ErrorBoundary>
+                {aggreLoad ? (
+                  <FilterSidebarSkeleton />
+                ) : (
+                  <FiltersRenderer
+                    selectedCategory={selectedCategory}
+                    appliedFilters={appliedFilters}
+                    manageFilterAction={manageFilterAction}
+                    filters={aggregations}
+                  />
+                )}
+              </ErrorBoundary>
+            </div>
+          )}
           <div className="grid col-span-12 lg:col-span-9">
             {!isValidArray(items) ? (
               <ErrorBoundary>
@@ -283,12 +285,12 @@ const ProductList = ({
                           </div>
                         ))
                       : items.map((product, index) => (
-                          <FadeInView key={product.url_key ?? index}>
+                          <FadeInView key={`${product?.uid}_${index}`}>
                             <ErrorBoundary>
                               <ProductItem
                                 view={view}
                                 product={product}
-                                key={product.uid}
+                                key={`${product?.uid}_${index}`}
                               />
                             </ErrorBoundary>
                           </FadeInView>
@@ -304,12 +306,12 @@ const ProductList = ({
                           </div>
                         ))
                       : items.map((product, index) => (
-                          <FadeInView key={product.url_key}>
+                          <FadeInView key={`${product?.uid}_${index}`}>
                             <ErrorBoundary>
                               <ProductItem
                                 view={view}
                                 product={product}
-                                key={product.uid}
+                                key={`${product?.uid}_${index}`}
                               />
                             </ErrorBoundary>
                           </FadeInView>
@@ -325,12 +327,12 @@ const ProductList = ({
                           </div>
                         ))
                       : items.map((product, index) => (
-                          <FadeInView key={product.url_key}>
+                          <FadeInView key={`${product?.uid}_${index}`}>
                             <ErrorBoundary>
                               <ProductItem
                                 view={view}
                                 product={product}
-                                key={product.uid}
+                                key={`${product?.uid}_${index}`}
                               />
                             </ErrorBoundary>
                           </FadeInView>

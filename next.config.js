@@ -1,5 +1,4 @@
 /** @type {import('next').NextConfig} */
-// @ts-ignore
 const { i18n } = require('./next-i18next.config');
 const path = require('path');
 
@@ -10,14 +9,7 @@ const nextConfig = {
   },
   images: {
     unoptimized: true,
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'www.haitaoweb.com',
-        port: '',
-        pathname: '/**',
-      }
-    ]
+    domains: process.env.IMAGE_DOMAINS?.split(','),
   },
   env: {
     MAGENTO_ENDPOINT: process.env.MAGENTO_ENDPOINT,
@@ -48,6 +40,15 @@ const nextConfig = {
             key: 'Cache-Control',
             value:
               'public, max-age=0, s-maxage=3600, stale-while-revalidate=86400',
+          },
+        ],
+      },
+      {
+        source: '/',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, s-maxage=60, stale-while-revalidate=59',
           },
         ],
       },
@@ -90,8 +91,6 @@ const nextConfig = {
     config.resolve.alias = {
       ...config.resolve.alias,
       '~': path.resolve(__dirname),
-      react: path.resolve(__dirname, 'node_modules/react'),
-      'react-dom': path.resolve(__dirname, 'node_modules/react-dom'),
     };
 
     config.module.rules.push({

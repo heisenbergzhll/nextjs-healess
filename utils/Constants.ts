@@ -3,8 +3,8 @@ export const BASE_URL = 'http://localhost:3000';
 export const MAGENTO_URL = process.env.MAGENTO_ENDPOINT;
 export const MAGENTO_REST_API_URL = MAGENTO_URL + 'rest/V1/';
 
-export const PLACEHOLDER_IMG = '/assets/img/products/product-placeholder.svg';
-export const BANNERPLACEHOLDER_IMG = '/assets/img/products/product-placeholder.svg';
+export const PLACEHOLDER_IMG = '/assets/img/products/placeholder.jpg';
+export const BANNERPLACEHOLDER_IMG = '/assets/img/products/placeholder.jpg';
 export const Pattern = '/assets/img/bgpattern.jpg';
 export const CONTACT_US = '/assets/img/contact.webp';
 export const top_selling = 1;
@@ -37,10 +37,9 @@ export const authorizationErr = 'The current customer is not authorized.';
 export const RECAPTCHA = 'RECAPTCHA';
 export const REGISTER_IN_PROGRESS = 'IN_PROGRESS';
 
-export const BRAND_HEX_CODE = '#BB742F';
+export const BRAND_HEX_CODE = '#155e59';
 export const WHITE_HEX_CODE = '#fff';
 export const SEARCH_FIELD = 'searchField';
-
 export const PAYMENT_METHODS_CONST = {
   CHECK_MO: 'checkmo',
   STRIPE: 'stripe_payments',
@@ -147,34 +146,3 @@ export const fadeInUp = {
 };
 
 export const IS_SELLER = 'yes';
-export const PAYPAL_CLIENT_ID = 'ATDZ9_ECFh-fudesZo4kz3fGTSO1pzuWCS4IjZMq4JKdRK7hQR3Rxyafx39H2fP363WtmlQNYXjUiAae';
-
-export const STORE_LIST = [{
-  store_code: "default",
-  thumbnail: "",
-  locale: "en",
-  store_name: "United Kingdom",
-  link: "https://www.unineed.com/"
-},
-{
-  store_code: "uus_2",
-  thumbnail: "",
-  locale: "us",
-  store_name: "Default Store View",
-  link: "https://us.unineed.com/"
-},
-{
-  store_code: "cn_default",
-  thumbnail: "",
-  locale: "cn",
-  store_name: "China",
-  link: "https://cn.unineed.com/"
-},
-{
-  store_code: "mx_website_store_view",
-  thumbnail: "",
-  locale: "mx",
-  store_name: "Mexico",
-  link: "https://mx.unineed.com/"
-}
-];

@@ -37,6 +37,7 @@ export interface IInputField {
     | Partial<OutlinedInputProps>
     | Partial<InputProps>;
   FormHelperTextProps?: Partial<FormHelperTextProps> | undefined;
+  autoFocus?: boolean;
 }
 
 const InputField = forwardRef(
@@ -61,6 +62,7 @@ const InputField = forwardRef(
       inputProps,
       InputProps,
       FormHelperTextProps,
+      autoFocus,
     }: IInputField,
     ref
   ) => {
@@ -98,7 +100,7 @@ const InputField = forwardRef(
             defaultValue={defaultValue}
             fullWidth
             margin="normal"
-            autoFocus={true}
+            autoFocus={autoFocus ?? true}
             FormHelperTextProps={{
               className: '!text-xs !absolute !text-red-600 -bottom-1',
               ...FormHelperTextProps,

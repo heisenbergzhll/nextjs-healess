@@ -33,5 +33,11 @@ query StoreConfig {
     title_separator
     title_suffix
     welcome
+    twiter_url
+    customer_token_lifetime
+    facebook_url
+    instagram_url
+    linkedin_url
+    youtube_url
   }
 }

@@ -58,6 +58,10 @@ export interface CheckoutStepPayment extends CheckoutStepProps {
   availablePaymentMethods: AvailablePaymentMethods[];
   selectedPaymentMethod: SelectedPaymentMethod;
   token: string;
+  selectedShippingMethod?: SelectedShippingMethod;
+  selectedShippingAddress?: CartAddressInterface;
+  selectedBillingAddress?: CartAddressInterface;
+  isVirtual?: boolean;
 }
 export interface CheckoutStepReview extends CheckoutStepProps {
   selectedShippingAddress: CartAddressInterface;

@@ -74,7 +74,7 @@ export default function LoginForm() {
       router.push(
         (query?.callbackUrl?.toString() !== '/customer/account/create' &&
           query?.callbackUrl?.toString()) ||
-        '/'
+          '/'
       );
       showToast({
         message: `${storeData.welcome}`,
@@ -105,6 +105,7 @@ export default function LoginForm() {
               {t('Email')}
             </Typography>
             <InputField
+              autoFocus
               placeHolder={t('Email')}
               type="text"
               error={!!errors?.email?.message}
@@ -124,6 +125,7 @@ export default function LoginForm() {
             </Typography>
 
             <InputField
+              autoFocus={false}
               placeHolder={t('Password')}
               type="password"
               error={!!errors?.password?.message}

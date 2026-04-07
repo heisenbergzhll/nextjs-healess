@@ -1,7 +1,9 @@
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Stack';
 import { PLACEHOLDER_IMG } from '@utils/Constants';
+import Customer from '@voguish/module-customer/graphql/Customer.graphql';
 import { useCustomerMutation } from '@voguish/module-customer/hooks/useCustomerMutation';
+import { useCustomerQuery } from '@voguish/module-customer/hooks/useCustomerQuery';
 import Become_Seller from '@voguish/module-marketplace/graphql/mutation/BecomeASeller.graphql';
 import ErrorBoundary from '@voguish/module-theme/components/ErrorBoundary';
 import { HTMLRenderer } from '@voguish/module-theme/components/HTMLRenderer';
@@ -23,9 +25,22 @@ const SellerPageBanner = (props: any) => {
   const content = bannerData?.banner?.[0]?.['content'];
   const bannerImage = bannerData?.banner?.[0]?.['image'];
   const { status } = useSession();
+
+  const { data: customerData, refetch: refetchCustomer } = useCustomerQuery(
+    Customer,
+    {
+      skip: status !== 'authenticated',
+      fetchPolicy: 'network-only',
+    }
+  );
+
   const becomeASeller = () => {
     if (status === 'authenticated') {
-      setIsOpen(true);
+      if (customerData?.customer?.is_seller) {
+        router.push('/customer/account');
+      } else {
+        setIsOpen(true);
+      }
     } else {
       router.push('/customer/account/create');
     }
@@ -57,6 +72,7 @@ const SellerPageBanner = (props: any) => {
             type: 'success',
           });
           handleClose();
+          refetchCustomer();
         }
       })
       .catch((error) => {

@@ -37,21 +37,24 @@ const MoreInfo = ({ productSku }: { productSku: string }) => {
             label: string;
             value: string;
           }) =>
-            item?.visible_on_front && (
-              <hgroup
-                key={item?.code}
-                className="items-center w-full gap-3 columns-5"
-              >
-                {loading ? (
-                  <div className="w-full h-1 rounded-md animate-pulse bg-neutral-200" />
-                ) : (
-                  <h3 className="my-0 text-lg font-medium">{item.label}</h3>
-                )}
-                <p className="col-span-4 my-0 text-base font-normal">
-                  <HTMLRenderer htmlText={item.value} />
-                </p>
-              </hgroup>
-            )
+            item?.visible_on_front &&
+            item?.code !== 'price' &&
+            item?.label?.toLowerCase() !==
+              'price'(
+                <hgroup
+                  key={item?.code}
+                  className="items-center w-full gap-3 columns-5"
+                >
+                  {loading ? (
+                    <div className="w-full h-1 rounded-md animate-pulse bg-neutral-200" />
+                  ) : (
+                    <h3 className="my-0 text-lg font-medium">{item.label}</h3>
+                  )}
+                  <p className="col-span-4 my-0 text-base font-normal">
+                    <HTMLRenderer htmlText={item.value} />
+                  </p>
+                </hgroup>
+              )
         )
       ) : (
         <Typography

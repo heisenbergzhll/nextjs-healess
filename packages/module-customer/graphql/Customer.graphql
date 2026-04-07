@@ -8,5 +8,6 @@ query CustomerQuery {
     date_of_birth
     customer_token_lifetime
     is_subscribed
+    is_seller
   }
 }

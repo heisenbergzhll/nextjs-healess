@@ -37,10 +37,11 @@ yarn-error.log*
 
 # Package JSON
 /yarn.lock
+/package-lock.json
 # agent 
 .qodo
 .vscode
-
+.agent
 
 # Ignore node_modules everywhere
 node_modules/

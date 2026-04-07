@@ -84,3 +84,4 @@ add_header 'Access-Control-Allow-Origin' 'https://your-theme-url.com';
 add_header 'Access-Control-Allow-Headers' 'Accept, Content-Type,Authorization,Store';
 
 To allow all origins you can just pass _ for eg: Header set Access-Control-Allow-Origin "_" OR add_header
+

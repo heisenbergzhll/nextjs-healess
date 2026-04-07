@@ -10,6 +10,7 @@ import RadioGroup from '@mui/material/RadioGroup';
 import CheckedIcon from '@packages/module-theme/components/elements/CheckedIcon';
 import {
   getCategoryFilterQuery,
+  getFormattedPriceFilterLabel,
   getUniqueArray,
   isValidArray,
 } from '@utils/Helper';
@@ -72,7 +73,11 @@ const FilterRenderer = ({
     let filterValue: FilterRangeTypeInput | FilterEqualTypeInput = {
       eq: value,
     };
-    if (filterName === 'category_uid') {
+    // For price filters, parse the range format
+    if (filterName === 'price' && value.includes('_')) {
+      const [from, to] = value.split('_');
+      filterValue = { from, to };
+    } else if (filterName === 'category_uid') {
       filterValue = { eq: value };
     }
     manageFilterAction({ [event.target.name]: filterValue });
@@ -200,7 +205,13 @@ const FilterRenderer = ({
                                   >
                                     <span
                                       dangerouslySetInnerHTML={{
-                                        __html: option.label,
+                                        __html:
+                                          filter.attribute_code === 'price'
+                                            ? getFormattedPriceFilterLabel(
+                                                option.label,
+                                                option.value
+                                              )
+                                            : option.label,
                                       }}
                                     />
                                   </label>
@@ -261,7 +272,13 @@ const FilterRenderer = ({
                                     >
                                       <span
                                         dangerouslySetInnerHTML={{
-                                          __html: option.label,
+                                          __html:
+                                            filter.attribute_code === 'price'
+                                              ? getFormattedPriceFilterLabel(
+                                                  option.label,
+                                                  option.value
+                                                )
+                                              : option.label,
                                         }}
                                       />
                                     </label>

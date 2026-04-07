@@ -12,7 +12,8 @@ import {
   STORE_CONFIG,
   getKeyFromStorage,
   getLocalStorage,
-  setLocalStorage
+  removeFromLocalStorage,
+  setLocalStorage,
 } from '@store/local-storage';
 import { setCartOpen } from '@store/store';
 import { graphqlMutate, graphqlRequest } from '@utils/Fetcher';
@@ -46,6 +47,7 @@ import SetShippingPaymentOnCart from '@voguish/module-quote/graphql/mutation/Set
 import UpdateCartItems from '@voguish/module-quote/graphql/mutation/UpdateCartItems.graphql';
 import { useToast } from '@voguish/module-theme/components/toast/hooks';
 import { getCookie } from 'cookies-next';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
@@ -66,7 +68,6 @@ import {
   SetShippingMethodsOnCartInput,
   SetShippingMethodsOnCartOutput,
 } from '../types';
-;
 
 /**
  * Creating Guest Empty Cart.
@@ -726,57 +727,82 @@ export const useUpdateCartItems = () => {
   ) => {
     if (typeof cartItems.cartItemId === 'string')
       cartItems.cartItemId = parseInt(cartItems.cartItemId);
-    try {
-      updateCartItems({
-        variables: { cartItems: cartItems, cartId: cartId },
-      })
-        .then((res) => {
-          const data = res?.data?.updateCartItems.cart;
-          if (isValidObject(data) && data && data.id) {
-            dispatch(
-              setCart({
-                ...data,
-                isGuest: token ? false : true,
-              })
-            );
-            showToast({
-              message: t('Item updated successfully!'),
-              type: 'success',
-            });
-          }
+    return new Promise((resolve, reject) => {
+      try {
+        updateCartItems({
+          variables: { cartItems: cartItems, cartId: cartId },
         })
-        .catch((error: any) => {
-          // GraphQL errors come in here
-          const gqlErrs = Array.isArray(error.graphQLErrors)
-            ? error.graphQLErrors
-            : [];
-
-          for (const gqlError of gqlErrs) {
-            const category = gqlError.extensions?.category ?? null;
-            if (errorCat.includes(category)) {
-              Logout();
-              return;
+          .then((res) => {
+            if (res?.data === undefined && res.errors) {
+              throw res;
+            } else if (res?.errors && res?.errors?.length > 0) {
+              throw res;
             }
-          }
-          showToast({
-            message:
+
+            const data = res?.data?.updateCartItems?.cart;
+            if (isValidObject(data) && data && data.id) {
+              dispatch(
+                setCart({
+                  ...data,
+                  isGuest: token ? false : true,
+                })
+              );
+              showToast({
+                message: t('Item updated successfully!'),
+                type: 'success',
+              });
+              resolve(data);
+            } else {
+              resolve(null);
+            }
+          })
+          .catch((error: any) => {
+            // GraphQL errors come in here
+            const gqlErrs = Array.isArray(error.graphQLErrors)
+              ? error.graphQLErrors
+              : [];
+
+            for (const gqlError of gqlErrs) {
+              const category = gqlError.extensions?.category ?? null;
+              if (errorCat.includes(category)) {
+                Logout();
+                return;
+              }
+            }
+            let errorMessage =
               error?.graphQLErrors?.[0]?.message ||
+              (Array.isArray(error?.errors) ? error?.errors?.[0]?.message : error?.errors?.message) ||
               error?.networkError?.message ||
               error?.message ||
-              (typeof error === 'string' ? error : 'UNEXPECTED ERROR OCCURRED'),
-            type: 'error',
+              (typeof error === 'string' ? error : 'UNEXPECTED ERROR OCCURRED');
+
+            if (typeof errorMessage === 'string' && errorMessage.toLowerCase().includes('the requested qty is not available')) {
+              errorMessage = t('Qty not available');
+            }
+            showToast({
+              message: errorMessage,
+              type: 'error',
+            });
+            reject(error);
           });
-        });
-    } catch (err: any) {
-      showToast({
-        message:
+      } catch (err: any) {
+        let errorMessage =
           err?.graphQLErrors?.[0]?.message ||
+          (Array.isArray(err?.errors) ? err?.errors?.[0]?.message : err?.errors?.message) ||
           err?.networkError?.message ||
           err?.message ||
-          (typeof err === 'string' ? err : 'UNEXPECTED ERROR OCCURRED'),
-        type: 'error',
-      });
-    }
+          (typeof err === 'string' ? err : 'UNEXPECTED ERROR OCCURRED');
+
+        if (typeof errorMessage === 'string' && errorMessage.toLowerCase().includes('the requested qty is not available')) {
+          errorMessage = t('Qty not available');
+        }
+        showToast({
+          message: errorMessage,
+          type: 'error',
+        });
+        reject(err);
+      }
+    });
   };
 
   return { updateCartItemsHandler, isInProcess };
@@ -1129,14 +1155,17 @@ export const useSetPaymentMethodOnCart = (handleNext?: () => void) => {
   const dispatch = useAppDispatch();
   const token = useToken() || null;
   const [isInProcess, setIsInProcess] = useState(false);
-  const [setPaymentMethodHandler, { data, loading, error }] = useCustomerMutation<SetPaymentMethodOnCartOutput>(SetShippingPaymentOnCart);
-
+  const [setPaymentMethodHandler, { data, loading, error }] =
+    useCustomerMutation<SetPaymentMethodOnCartOutput>(SetShippingPaymentOnCart);
   useEffect(() => {
     setIsInProcess(loading);
     const cartData = data?.setPaymentMethodOnCart?.cart || null;
     if (isValidObject(cartData) && cartData && cartData.id) {
       dispatch(setCart({ ...cartData, isGuest: token ? false : true }));
-      // showToast({ message: 'Payment method updated successfully!!' });
+      showToast({ message: t('Payment method updated successfully!') });
+      if (typeof handleNext === 'function') {
+        handleNext();
+      }
     }
     if (error) {
       showToast({
@@ -1240,32 +1269,51 @@ export const usePlaceOrder = () => {
   const { t } = useTranslation('common');
 
   const [isInProcess, setIsInProcess] = useState(false);
-  const dispatch = useAppDispatch();
+  const router = useRouter();
   const [placeOrder] = useCustomerMutation(PlaceOrder);
+  const token = useToken();
+  const dispatch = useAppDispatch();
 
-  const placeOrderHandler = async (cartId: string): Promise<string | null> => {
+  const placeOrderHandler = (
+    cartId: string,
+    callback?: (any?: any) => void
+  ) => {
     setIsInProcess(true);
-    try {
-      const response = await placeOrder({
-        variables: {
-          cartId,
-        },
-      });
 
-      const orderNumber = response?.data?.placeOrder?.order?.order_number ?? null;
-
-      if (orderNumber) {
+    placeOrder({
+      variables: {
+        cartId,
+      },
+    })
+      .then((res: any) => {
+        const orderNumber = res?.data.placeOrder.order.order_number;
         dispatch(setOrderId(orderNumber));
-        showToast({ message: 'Order Placed successfully!!' });
-      }
-
-      return orderNumber;
-    } catch (error: any) {
-      showToast({ message: error.message, type: 'error' });
-      return null;
-    } finally {
-      setIsInProcess(false);
-    }
+        if (typeof callback === 'function') {
+          callback(() => {
+            router.push(`/checkout/${orderNumber}`);
+            removeFromLocalStorage('UserAddressUse');
+          });
+        } else {
+          router.push(`/checkout/${orderNumber}`);
+          removeFromLocalStorage('UserAddressUse');
+        }
+        setIsInProcess(false);
+        showToast({ message: t('Order Placed successfully!') });
+      })
+      .catch((err: any) => {
+        if (typeof callback === 'function') {
+          callback();
+        }
+        setIsInProcess(false);
+        showToast({
+          message:
+            err?.graphQLErrors?.[0]?.message ||
+            err?.networkError?.message ||
+            err?.message ||
+            (typeof err === 'string' ? err : 'UNEXPECTED ERROR OCCURRED'),
+          type: 'error',
+        });
+      });
   };
   return { placeOrderHandler, isInProcess };
 };
@@ -1388,53 +1436,3 @@ const createCustomerCart = async (
     }
   }
 };
-
-/**
- * Create empty guest cart for logout scenario
- * This function creates a new guest cart and updates the Redux store
- */
-export const createEmptyGuestCartOnLogout = async () => {
-  try {
-    const locale = getLocalStorage('current_store');
-
-    const data = await graphqlMutate({
-      mutation: CreateEmptyCartQuery,
-      options: {
-        Store: locale,
-      },
-    });
-
-    if (data && data.createEmptyCart) {
-      // Fetch the cart data and update the store
-      const cartData = await graphqlRequest({
-        query: CART_QUERY,
-        variables: { cartId: data.createEmptyCart },
-        options: {
-          context: {
-            headers: {
-              Store: locale ?? process.env.DEFAULT_STORE_CODE,
-            },
-          },
-        },
-      });
-
-      if (isValidObject(cartData) && cartData.cart && cartData.cart.id) {
-        // Import store dynamically to avoid circular dependency
-        const { store } = await import('store');
-        const { setCart } = await import('@store/cart');
-
-        store.dispatch(setCart({ ...cartData.cart, isGuest: true }));
-
-        // Also update local storage
-        const newCartData = {
-          id: data.createEmptyCart,
-          isGuest: true,
-        };
-        setLocalStorage(GUEST_CART, JSON.stringify(newCartData));
-      }
-    }
-  } catch (error) {
-    console.error('Failed to create empty cart on logout:', error);
-  }
-};
-

@@ -13,15 +13,16 @@ export interface BannerImage {
   bannerType: string;
   dominantColor: string;
   urlKey: string;
+  infoPosition?: 'top-left' | 'top-center' | 'top-right' | 'center-left' | 'center' | 'center-right' | 'bottom-left' | 'bottom-center' | 'bottom-right';
   bannerData: {
     bannerNameType: string;
     bannerType:
-      | 'main_banner'
-      | 'new_collection_banner'
-      | 'product_collection_banner'
-      | 'promotion_banner'
-      | 'brand_collection_banner'
-      | 'shopping_collection_banner';
+    | 'main_banner'
+    | 'new_collection_banner'
+    | 'product_collection_banner'
+    | 'promotion_banner'
+    | 'brand_collection_banner'
+    | 'shopping_collection_banner';
     dominantColor: string;
     id: number;
     name: string;

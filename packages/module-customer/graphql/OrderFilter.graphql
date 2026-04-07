@@ -9,6 +9,10 @@ query OrdersQuery($filter: CustomerOrdersFilterInput) {
         order_date
         invoices {
           number
+          items {
+            product_name
+            quantity_invoiced
+          }
         }
         status
         items {

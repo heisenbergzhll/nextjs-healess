@@ -1,0 +1,16 @@
+#import "./fragments/_product_reviews.graphql"
+
+query ProductReviewsQuery($filters: ProductAttributeFilterInput) {
+  products(filter: $filters) {
+    items {
+      sku
+      name
+      url_key
+      rating_summary
+      review_count
+      reviews {
+        ...reviews
+      }
+    }
+  }
+}

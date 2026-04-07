@@ -16,6 +16,7 @@ const StoreList = () => {
     variables: {
       filter: { is_seller: { eq: '1' } },
     },
+    fetchPolicy: 'network-only',
   });
   const { t } = useTranslation('common');
 
